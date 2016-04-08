@@ -2,18 +2,61 @@ package de.zabuza.sparkle.selectors;
 
 import de.zabuza.sparkle.freewar.EWorld;
 
+/**
+ * Utility class that provides paths.
+ * 
+ * @author Zabuza
+ *
+ */
 public final class Paths {
+	/**
+	 * Sub-domain of the action world.
+	 */
 	public final static String ACTION_WORLD = "afsrv";
+	/**
+	 * Top-domain of the german worlds.
+	 */
 	public final static String DE_DOMAIN = "freewar.de";
+	/**
+	 * Constant used for separating domains.
+	 */
 	public final static String DOMAIN_SEPARATOR = ".";
+	/**
+	 * Top-domain of the english worlds.
+	 */
 	public final static String EN_DOMAIN = "freewar.com";
+	/**
+	 * Sub-domain of the english worlds.
+	 */
 	public final static String EN_WORLD = "world";
+	/**
+	 * Path to the login page.
+	 */
 	public final static String LOGIN = "freewar";
+	/**
+	 * Web protocol used by the game.
+	 */
 	public final static String PROTOCOL = "http://";
+	/**
+	 * Sub-domain of the regular worlds.
+	 */
 	public final static String REGULAR_WORLD = "welt";
+	/**
+	 * Sub-domain of the role-play world.
+	 */
 	public final static String ROLEPLAY_WORLD = "rpsrv";
+	/**
+	 * Constant used for separating folders in URLs.
+	 */
 	public final static String URL_SEPARATOR = "/";
 
+	/**
+	 * Gets the full domain url corresponding to the given world.
+	 * 
+	 * @param world
+	 *            World to get full domain url for
+	 * @return The full domain url corresponding to the given world
+	 */
 	public static String getFullWorldDomain(final EWorld world) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(PROTOCOL);
@@ -71,6 +114,9 @@ public final class Paths {
 		return sb.toString();
 	}
 
+	/**
+	 * Utility class. No implementation.
+	 */
 	private Paths() {
 
 	}
