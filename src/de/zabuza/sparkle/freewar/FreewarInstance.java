@@ -26,23 +26,9 @@ public final class FreewarInstance implements IFreewarInstance {
 	 */
 	private final WebDriver m_Driver;
 	/**
-	 * If the instance should care of not being automatically logged out by
-	 * <tt>Freewar</tt> due to absence.
+	 * The frame manager of this instance.
 	 */
-	private boolean m_StayLoggedIn;
-	/**
-	 * The service used to take care of not being automatically logged out by
-	 * <tt>Freewar</tt> due to absence, if used.
-	 */
-	private StayLoggedInService m_StayLoggedInService;
-	/**
-	 * The movement object of this instance.
-	 */
-	private final IMovement m_Movement;
-	/**
-	 * The player object of this instance.
-	 */
-	private final IPlayer m_Player;
+	private final IFrameManager m_FrameManager;
 	/**
 	 * The inventory object of this instance.
 	 */
@@ -52,9 +38,23 @@ public final class FreewarInstance implements IFreewarInstance {
 	 */
 	private final ILocation m_Location;
 	/**
-	 * The frame manager of this instance.
+	 * The movement object of this instance.
 	 */
-	private final IFrameManager m_FrameManager;
+	private final IMovement m_Movement;
+	/**
+	 * The player object of this instance.
+	 */
+	private final IPlayer m_Player;
+	/**
+	 * If the instance should care of not being automatically logged out by
+	 * <tt>Freewar</tt> due to absence.
+	 */
+	private boolean m_StayLoggedIn;
+	/**
+	 * The service used to take care of not being automatically logged out by
+	 * <tt>Freewar</tt> due to absence, if used.
+	 */
+	private StayLoggedInService m_StayLoggedInService;
 
 	/**
 	 * Creates a new FreewarInstance that uses a given driver. It takes

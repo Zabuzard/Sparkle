@@ -38,17 +38,17 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	private EBrowser m_Browser;
 	/**
+	 * If the API should automatically delay events to disguise usage of a bot
+	 * for <tt>Freewar.de</tt>.
+	 */
+	private final boolean m_DelayEvents;
+	/**
 	 * Set of all registered instances created with
 	 * {@link #login(String, String, EWorld)}. Instances get added using
 	 * {@link #login(String, String, EWorld)} and removed by using
 	 * {@link #shutdownInstance(IFreewarInstance)}.
 	 */
 	private final Set<IFreewarInstance> m_Instances;
-	/**
-	 * If the API should automatically delay events to disguise usage of a bot
-	 * for <tt>Freewar.de</tt>.
-	 */
-	private final boolean m_DelayEvents;
 
 	/**
 	 * Creates a new API that uses the browser <tt>Firefox</tt> by default. It
@@ -93,11 +93,9 @@ public final class Sparkle implements IFreewarAPI {
 	 * java.lang.String, de.zabuza.sparkle.freewar.EWorld)
 	 */
 	@Override
-	public IFreewarInstance login(final String username, final String password,
-			final EWorld world) {
+	public IFreewarInstance login(final String username, final String password, final EWorld world) {
 		// Validate user credentials
-		if (username == null || username.isEmpty() || password == null
-				|| password.isEmpty()) {
+		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
 			return null;
 		}
 
@@ -110,10 +108,8 @@ public final class Sparkle implements IFreewarAPI {
 
 		// Wait for form elements and get them
 		WebElement loginSubmit = new LoginFormWait(driver).waitUntilCondition();
-		WebElement loginName = driver.findElement(By
-				.cssSelector(CSSSelectors.LOGIN_FORM_NAME));
-		WebElement loginPassword = driver.findElement(By
-				.cssSelector(CSSSelectors.LOGIN_FORM_PASSWORD));
+		WebElement loginName = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_NAME));
+		WebElement loginPassword = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_PASSWORD));
 
 		// Type in user credentials
 		loginName.sendKeys(username);
@@ -134,8 +130,7 @@ public final class Sparkle implements IFreewarAPI {
 		driver.switchTo().window(parentWindow);
 
 		// Wait until element
-		WebElement popupContinue = driver.findElement(By
-				.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
+		WebElement popupContinue = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
 		popupContinue.click();
 
 		IFreewarInstance instance = new FreewarInstance(driver);
@@ -160,8 +155,7 @@ public final class Sparkle implements IFreewarAPI {
 		new FramePresenceWait(driver, Names.FRAME_MENU).waitUntilCondition();
 		driver.switchTo().frame(Names.FRAME_MENU);
 		// Click logout in menu
-		WebElement logout = driver.findElement(By
-				.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
+		WebElement logout = driver.findElement(By.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
 		logout.click();
 
 		// Wait for click to be executed and switch to frameset
@@ -170,8 +164,8 @@ public final class Sparkle implements IFreewarAPI {
 
 		// Switch to map and click surely logout
 		driver.switchTo().frame(Names.FRAME_MAP);
-		WebElement surelyLogout = new CSSSelectorPresenceWait(driver,
-				CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR).waitUntilCondition();
+		WebElement surelyLogout = new CSSSelectorPresenceWait(driver, CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR)
+				.waitUntilCondition();
 		surelyLogout.click();
 
 		// Wait for logout to be fully executed and then shutdown
@@ -206,7 +200,8 @@ public final class Sparkle implements IFreewarAPI {
 	/**
 	 * Creates a {@link #WebDriver} that uses the given browser. If
 	 * {@link #m_DelayEvents} is set to <tt>true</tt>, the resulting driver will
-	 * automatically delay events to disguise usage of a bot for <tt>Freewar</tt>.
+	 * automatically delay events to disguise usage of a bot for
+	 * <tt>Freewar</tt>.
 	 * 
 	 * @param browser
 	 *            Browser to use for the driver

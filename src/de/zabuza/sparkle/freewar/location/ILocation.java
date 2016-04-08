@@ -13,7 +13,7 @@ public interface ILocation {
 	 * Constant for a non valid value.
 	 */
 	public final static int NO_VALUE = -1;
-	
+
 	/**
 	 * Tries to chase a given NPC using the chase option.
 	 * 

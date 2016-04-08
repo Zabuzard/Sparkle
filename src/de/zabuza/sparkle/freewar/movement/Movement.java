@@ -56,12 +56,10 @@ public final class Movement implements IMovement {
 
 		// Get position text, has the format:
 		// Position X: 508 Y: -57
-		String positionText = m_Driver.findElement(
-				By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
+		String positionText = m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
 
 		// Extract x and y coordinates from text
-		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(
-				positionText);
+		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
 		Point position = new Point();
 		if (matcher.find()) {
 			position.x = Integer.parseInt(matcher.group());
@@ -75,9 +73,8 @@ public final class Movement implements IMovement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.movement.IMovement#move(de.zabuza.sparkle.freewar
-	 * .movement.EDirection)
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#move(de.zabuza.sparkle.
+	 * freewar .movement.EDirection)
 	 */
 	@Override
 	public boolean move(final EDirection direction) {

@@ -77,8 +77,7 @@ public final class Location implements ILocation {
 	public boolean hasNPC(final String npcName) {
 		switchToMainFrame();
 
-		List<WebElement> npcElements = m_Driver.findElements(By
-				.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
+		List<WebElement> npcElements = m_Driver.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
 		for (WebElement npcElement : npcElements) {
 			if (npcElement.getText().equals(npcName)) {
 				return true;
@@ -102,8 +101,7 @@ public final class Location implements ILocation {
 		}
 
 		WebElement actionElement = new CSSSelectorPresenceWait(m_Driver,
-				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_REGULAR_ANCHOR)
-				.waitUntilCondition();
+				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_REGULAR_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
 		return true;
@@ -123,8 +121,7 @@ public final class Location implements ILocation {
 		}
 
 		WebElement actionElement = new CSSSelectorPresenceWait(m_Driver,
-				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_SINGLE_ANCHOR)
-				.waitUntilCondition();
+				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_SINGLE_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
 		return true;
@@ -155,8 +152,7 @@ public final class Location implements ILocation {
 	 *         could not be performed. Later can occur if for example the NPC
 	 *         was not present on this location.
 	 */
-	private boolean doNPCAction(final String npcName,
-			final String xPathNPCAction) {
+	private boolean doNPCAction(final String npcName, final String xPathNPCAction) {
 		if (!hasNPC(npcName)) {
 			return false;
 		}

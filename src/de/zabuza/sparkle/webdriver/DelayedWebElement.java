@@ -19,31 +19,9 @@ public final class DelayedWebElement implements WebElement {
 	private final WebElement m_Element;
 	private final IDelayedEventQueue m_Queue;
 
-	public DelayedWebElement(final WebElement element,
-			final IDelayedEventQueue queue) {
+	public DelayedWebElement(final WebElement element, final IDelayedEventQueue queue) {
 		m_Element = element;
 		m_Queue = queue;
-	}
-
-	@Override
-	public <X> X getScreenshotAs(final OutputType<X> target)
-			throws WebDriverException {
-		return m_Element.getScreenshotAs(target);
-	}
-
-	@Override
-	public void click() {
-		m_Queue.addEvent(new ClickEvent(m_Element));
-	}
-
-	@Override
-	public void submit() {
-		m_Queue.addEvent(new SubmitEvent(m_Element));
-	}
-
-	@Override
-	public void sendKeys(final CharSequence... keysToSend) {
-		m_Element.sendKeys(keysToSend);
 	}
 
 	@Override
@@ -52,28 +30,8 @@ public final class DelayedWebElement implements WebElement {
 	}
 
 	@Override
-	public String getTagName() {
-		return m_Element.getTagName();
-	}
-
-	@Override
-	public String getAttribute(final String name) {
-		return m_Element.getAttribute(name);
-	}
-
-	@Override
-	public boolean isSelected() {
-		return m_Element.isSelected();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return m_Element.isEnabled();
-	}
-
-	@Override
-	public String getText() {
-		return m_Element.getText();
+	public void click() {
+		m_Queue.addEvent(new ClickEvent(m_Element));
 	}
 
 	@Override
@@ -93,8 +51,13 @@ public final class DelayedWebElement implements WebElement {
 	}
 
 	@Override
-	public boolean isDisplayed() {
-		return m_Element.isDisplayed();
+	public String getAttribute(final String name) {
+		return m_Element.getAttribute(name);
+	}
+
+	@Override
+	public String getCssValue(final String propertyName) {
+		return m_Element.getCssValue(propertyName);
 	}
 
 	@Override
@@ -103,18 +66,53 @@ public final class DelayedWebElement implements WebElement {
 	}
 
 	@Override
-	public Dimension getSize() {
-		return m_Element.getSize();
-	}
-
-	@Override
 	public Rectangle getRect() {
 		return m_Element.getRect();
 	}
 
 	@Override
-	public String getCssValue(final String propertyName) {
-		return m_Element.getCssValue(propertyName);
+	public <X> X getScreenshotAs(final OutputType<X> target) throws WebDriverException {
+		return m_Element.getScreenshotAs(target);
+	}
+
+	@Override
+	public Dimension getSize() {
+		return m_Element.getSize();
+	}
+
+	@Override
+	public String getTagName() {
+		return m_Element.getTagName();
+	}
+
+	@Override
+	public String getText() {
+		return m_Element.getText();
+	}
+
+	@Override
+	public boolean isDisplayed() {
+		return m_Element.isDisplayed();
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return m_Element.isEnabled();
+	}
+
+	@Override
+	public boolean isSelected() {
+		return m_Element.isSelected();
+	}
+
+	@Override
+	public void sendKeys(final CharSequence... keysToSend) {
+		m_Element.sendKeys(keysToSend);
+	}
+
+	@Override
+	public void submit() {
+		m_Queue.addEvent(new SubmitEvent(m_Element));
 	}
 
 }

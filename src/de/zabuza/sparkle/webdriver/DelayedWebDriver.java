@@ -11,17 +11,13 @@ import org.openqa.selenium.WebElement;
 import de.zabuza.sparkle.webdriver.event.GetEvent;
 
 public final class DelayedWebDriver implements WebDriver {
-	private final WebDriver m_WebDriver;
 	private final DelayedEventExecutor m_DelayedEventExecutor;
+	private final WebDriver m_WebDriver;
 
 	public DelayedWebDriver(final WebDriver driver) {
 		m_WebDriver = driver;
 		m_DelayedEventExecutor = new DelayedEventExecutor();
 		m_DelayedEventExecutor.start();
-	}
-	
-	public boolean isEventQueueEmpty() {
-		return m_DelayedEventExecutor.isEmpty();
 	}
 
 	@Override
@@ -31,8 +27,7 @@ public final class DelayedWebDriver implements WebDriver {
 
 	@Override
 	public WebElement findElement(final By by) {
-		return new DelayedWebElement(m_WebDriver.findElement(by),
-				m_DelayedEventExecutor);
+		return new DelayedWebElement(m_WebDriver.findElement(by), m_DelayedEventExecutor);
 	}
 
 	@Override
@@ -40,8 +35,7 @@ public final class DelayedWebDriver implements WebDriver {
 		List<WebElement> elements = m_WebDriver.findElements(by);
 		List<WebElement> delayedElements = new LinkedList<WebElement>();
 		for (WebElement element : elements) {
-			delayedElements.add(new DelayedWebElement(element,
-					m_DelayedEventExecutor));
+			delayedElements.add(new DelayedWebElement(element, m_DelayedEventExecutor));
 		}
 
 		return delayedElements;
@@ -77,6 +71,10 @@ public final class DelayedWebDriver implements WebDriver {
 		return m_WebDriver.getWindowHandles();
 	}
 
+	public boolean isEventQueueEmpty() {
+		return m_DelayedEventExecutor.isEmpty();
+	}
+
 	@Override
 	public Options manage() {
 		return m_WebDriver.manage();
@@ -84,8 +82,7 @@ public final class DelayedWebDriver implements WebDriver {
 
 	@Override
 	public Navigation navigate() {
-		return new DelayedNavigation(m_WebDriver.navigate(),
-				m_DelayedEventExecutor);
+		return new DelayedNavigation(m_WebDriver.navigate(), m_DelayedEventExecutor);
 	}
 
 	@Override

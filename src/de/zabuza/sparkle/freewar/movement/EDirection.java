@@ -8,25 +8,25 @@ package de.zabuza.sparkle.freewar.movement;
  */
 public enum EDirection {
 	/**
-	 * North or up direction.
-	 */
-	NORTH,
-	/**
 	 * East or right direction.
 	 */
 	EAST,
 	/**
-	 * West or left direction.
+	 * North or up direction.
 	 */
-	WEST,
-	/**
-	 * South or down direction.
-	 */
-	SOUTH,
+	NORTH,
 	/**
 	 * Northeast or upright direction.
 	 */
 	NORTHEAST,
+	/**
+	 * Northwest or upleft direction.
+	 */
+	NORTHWEST,
+	/**
+	 * South or down direction.
+	 */
+	SOUTH,
 	/**
 	 * Southeast or downright direction.
 	 */
@@ -36,7 +36,7 @@ public enum EDirection {
 	 */
 	SOUTHWEST,
 	/**
-	 * Northwest or upleft direction.
+	 * West or left direction.
 	 */
-	NORTHWEST
+	WEST
 }

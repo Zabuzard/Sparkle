@@ -11,12 +11,11 @@ import de.zabuza.sparkle.webdriver.event.ToStringEvent;
 import de.zabuza.sparkle.webdriver.event.ToUrlEvent;
 
 public class DelayedNavigation implements Navigation {
-	
+
 	private final Navigation m_Navigation;
 	private final IDelayedEventQueue m_Queue;
 
-	public DelayedNavigation(final Navigation navigation,
-			final IDelayedEventQueue queue) {
+	public DelayedNavigation(final Navigation navigation, final IDelayedEventQueue queue) {
 		m_Navigation = navigation;
 		m_Queue = queue;
 	}
@@ -32,6 +31,11 @@ public class DelayedNavigation implements Navigation {
 	}
 
 	@Override
+	public void refresh() {
+		m_Queue.addEvent(new RefreshEvent(m_Navigation));
+	}
+
+	@Override
 	public void to(final String url) {
 		m_Queue.addEvent(new ToStringEvent(m_Navigation, url));
 	}
@@ -39,11 +43,6 @@ public class DelayedNavigation implements Navigation {
 	@Override
 	public void to(final URL url) {
 		m_Queue.addEvent(new ToUrlEvent(m_Navigation, url));
-	}
-
-	@Override
-	public void refresh() {
-		m_Queue.addEvent(new RefreshEvent(m_Navigation));
 	}
 
 }

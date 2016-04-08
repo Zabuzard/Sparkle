@@ -9,71 +9,71 @@ package de.zabuza.sparkle.freewar;
  */
 public enum EWorld {
 	/**
-	 * Regular world one.
+	 * Action world.
 	 */
-	ONE,
-	/**
-	 * Regular world two.
-	 */
-	TWO,
-	/**
-	 * Regular world three.
-	 */
-	THREE,
-	/**
-	 * Regular world four.
-	 */
-	FOUR,
-	/**
-	 * Regular world five.
-	 */
-	FIVE,
-	/**
-	 * Regular world six.
-	 */
-	SIX,
-	/**
-	 * Regular world seven.
-	 */
-	SEVEN,
+	ACTION,
 	/**
 	 * Regular world eight.
 	 */
 	EIGHT,
 	/**
-	 * Regular world nine.
-	 */
-	NINE,
-	/**
-	 * Regular world ten.
-	 */
-	TEN,
-	/**
 	 * Regular world eleven.
 	 */
 	ELEVEN,
 	/**
-	 * Regular world twelve.
+	 * Regular world five.
 	 */
-	TWELVE,
+	FIVE,
 	/**
-	 * Regular world thirteen.
+	 * Regular world four.
 	 */
-	THIRTEEN,
+	FOUR,
 	/**
 	 * Regular world fourteen.
 	 */
 	FOURTEEN,
 	/**
-	 * Action world.
+	 * Regular world nine.
 	 */
-	ACTION,
+	NINE,
+	/**
+	 * Regular world one.
+	 */
+	ONE,
+	/**
+	 * English world one.
+	 */
+	ONE_EN,
 	/**
 	 * Role-play world.
 	 */
 	ROLEPLAY,
 	/**
-	 * English world one.
+	 * Regular world seven.
 	 */
-	ONE_EN
+	SEVEN,
+	/**
+	 * Regular world six.
+	 */
+	SIX,
+	/**
+	 * Regular world ten.
+	 */
+	TEN,
+	/**
+	 * Regular world thirteen.
+	 */
+	THIRTEEN,
+	/**
+	 * Regular world three.
+	 */
+	THREE,
+	/**
+	 * Regular world twelve.
+	 */
+	TWELVE,
+	/**
+	 * Regular world two.
+	 */
+	TWO
 }

@@ -55,8 +55,7 @@ public final class StayLoggedInService extends Thread {
 				sleep(TIMEOUT_ALIVE);
 				m_Instance.refresh();
 			} catch (InterruptedException e) {
-				System.err
-						.println(ErrorMessages.STAY_LOGGED_IN_SERVICE_INTERRUPTED);
+				System.err.println(ErrorMessages.STAY_LOGGED_IN_SERVICE_INTERRUPTED);
 			}
 		}
 	}

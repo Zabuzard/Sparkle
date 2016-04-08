@@ -1,9 +1,8 @@
 package de.zabuza.sparkle.freewar.player;
 
 /**
- * Interface for the player of
- * {@link de.zabuza.sparkle.freewar.IFreewarInstance IFreewarInstance}s. Can be
- * used to access various properties of the player.
+ * Interface for the player of {@link de.zabuza.sparkle.freewar.IFreewarInstance
+ * IFreewarInstance}s. Can be used to access various properties of the player.
  * 
  * @author Zabuza
  * 

@@ -7,7 +7,7 @@ import de.zabuza.sparkle.wait.conditions.LoginPopupCondition;
 
 public final class LoginPopupWait extends AConditionalWait<Boolean> {
 	private final ExpectedCondition<Boolean> m_Condition;
-	
+
 	public LoginPopupWait(final WebDriver driver) {
 		super(driver);
 		m_Condition = new LoginPopupCondition();

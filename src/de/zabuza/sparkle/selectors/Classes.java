@@ -3,9 +3,9 @@ package de.zabuza.sparkle.selectors;
 import org.openqa.selenium.WebElement;
 
 public final class Classes {
-	
+
 	public static final String MAP_FIELD_NOCANGO = "nocango";
-	
+
 	public static boolean hasClass(final WebElement element, final String className) {
 		if (element == null || className == null || className.isEmpty()) {
 			return false;
@@ -22,8 +22,8 @@ public final class Classes {
 		}
 		return false;
 	}
-	
+
 	private Classes() {
-		
+
 	}
 }

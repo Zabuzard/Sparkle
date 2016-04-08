@@ -12,6 +12,17 @@ import de.zabuza.sparkle.webdriver.EBrowser;
  */
 public interface IFreewarAPI {
 	/**
+	 * Gets the browser to use at logging in to accounts with
+	 * {@link #login(String, String, EWorld)}. Once
+	 * {@link #login(String, String, EWorld)} was used it will stick to the
+	 * browser set at method call. By that multiple instances using different
+	 * browsers can be created.
+	 * 
+	 * @return The current set browser
+	 */
+	public EBrowser getBrowser();
+
+	/**
 	 * Login to an account in <tt>Freewar</tt>. The API is capable of holding
 	 * multiple {@link IFreewarInstance}s. If logging in different accounts of
 	 * the same world, make sure to use different browsers. Else
@@ -26,8 +37,7 @@ public interface IFreewarAPI {
 	 *            World the account is registered at
 	 * @return Instance of the account after login
 	 */
-	public IFreewarInstance login(final String username, final String password,
-			final EWorld world);
+	public IFreewarInstance login(final String username, final String password, final EWorld world);
 
 	/**
 	 * Logs out from an account in <tt>Freewar</tt>. After logout the given
@@ -37,12 +47,6 @@ public interface IFreewarAPI {
 	 *            Instance to logout
 	 */
 	public void logout(final IFreewarInstance instance);
-
-	/**
-	 * Shuts the API down, closing all remaining connections. This method does
-	 * not necessarily logout from remaining {@link IFreewarInstance}s.
-	 */
-	public void shutdown();
 
 	/**
 	 * Sets the browser to use at logging in to accounts with
@@ -57,13 +61,8 @@ public interface IFreewarAPI {
 	public void setBrowser(final EBrowser browser);
 
 	/**
-	 * Gets the browser to use at logging in to accounts with
-	 * {@link #login(String, String, EWorld)}. Once
-	 * {@link #login(String, String, EWorld)} was used it will stick to the
-	 * browser set at method call. By that multiple instances using different
-	 * browsers can be created.
-	 * 
-	 * @return The current set browser
+	 * Shuts the API down, closing all remaining connections. This method does
+	 * not necessarily logout from remaining {@link IFreewarInstance}s.
 	 */
-	public EBrowser getBrowser();
+	public void shutdown();
 }

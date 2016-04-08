@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class NamePresenceWait extends AConditionalWait<WebElement> {
 	private final ExpectedCondition<WebElement> m_Condition;
-	
+
 	public NamePresenceWait(final WebDriver driver, final String name) {
 		super(driver);
 		m_Condition = ExpectedConditions.presenceOfElementLocated(By.name(name));

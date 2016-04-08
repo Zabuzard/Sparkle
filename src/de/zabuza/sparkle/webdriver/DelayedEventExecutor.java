@@ -9,14 +9,14 @@ import de.zabuza.sparkle.webdriver.event.IDelayableEvent;
 
 public final class DelayedEventExecutor extends Thread implements IDelayedEventQueue {
 
-	private final static long STANDARD_DELAY = 100;
-	private final static long RND_DELAY_MIN = 0;
 	private final static long RND_DELAY_AVERAGE = 1_500;
 	private final static long RND_DELAY_MAX = 5_000;
+	private final static long RND_DELAY_MIN = 0;
+	private final static long STANDARD_DELAY = 100;
 
 	private final Queue<IDelayableEvent> m_EventQueue;
-	private boolean m_StopExecution;
 	private final Random m_Rnd;
+	private boolean m_StopExecution;
 
 	public DelayedEventExecutor() {
 		m_Rnd = new Random();
@@ -29,8 +29,9 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		m_EventQueue.add(event);
 	}
 
-	public void stopExecution() {
-		m_StopExecution = true;
+	@Override
+	public boolean isEmpty() {
+		return m_EventQueue.isEmpty();
 	}
 
 	@Override
@@ -45,10 +46,13 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 				}
 				sleep(STANDARD_DELAY);
 			} catch (InterruptedException e) {
-				System.err
-						.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
+				System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
 			}
 		}
+	}
+
+	public void stopExecution() {
+		m_StopExecution = true;
 	}
 
 	private long getRandomDelay() {
@@ -63,11 +67,6 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		long delay = (long) Math.floor(Math.min(deviation, RND_DELAY_MAX));
 
 		return delay;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return m_EventQueue.isEmpty();
 	}
 
 }

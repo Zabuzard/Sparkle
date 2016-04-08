@@ -8,19 +8,19 @@ package de.zabuza.sparkle.freewar.frames;
  */
 public enum EFrame {
 	/**
-	 * The main frame.
-	 */
-	MAIN,
-	/**
-	 * The menu frame.
-	 */
-	MENU,
-	/**
 	 * The item frame.
 	 */
 	ITEM,
 	/**
+	 * The main frame.
+	 */
+	MAIN,
+	/**
 	 * The map frame.
 	 */
-	MAP
+	MAP,
+	/**
+	 * The menu frame.
+	 */
+	MENU
 }

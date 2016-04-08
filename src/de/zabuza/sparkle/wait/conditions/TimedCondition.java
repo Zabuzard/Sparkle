@@ -4,10 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class TimedCondition implements ExpectedCondition<Boolean> {
-	private long m_TimeToWait;
 	private boolean m_ConditionActivated;
 	private long m_TimeStampStarted;
-	
+	private long m_TimeToWait;
+
 	public TimedCondition(final long timeToWait) {
 		m_TimeToWait = timeToWait;
 		m_ConditionActivated = false;

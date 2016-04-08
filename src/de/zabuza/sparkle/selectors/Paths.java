@@ -3,25 +3,21 @@ package de.zabuza.sparkle.selectors;
 import de.zabuza.sparkle.freewar.EWorld;
 
 public final class Paths {
-	public final static String PROTOCOL = "http://";
-	public final static String DE_DOMAIN = "freewar.de";
-	public final static String EN_DOMAIN = "freewar.com";
-	public final static String DOMAIN_SEPARATOR = ".";
-	public final static String URL_SEPARATOR = "/";
-	public final static String REGULAR_WORLD = "welt";
-	public final static String EN_WORLD = "world";
 	public final static String ACTION_WORLD = "afsrv";
-	public final static String ROLEPLAY_WORLD = "rpsrv";
+	public final static String DE_DOMAIN = "freewar.de";
+	public final static String DOMAIN_SEPARATOR = ".";
+	public final static String EN_DOMAIN = "freewar.com";
+	public final static String EN_WORLD = "world";
 	public final static String LOGIN = "freewar";
-	
-	private Paths() {
-		
-	}
-	
+	public final static String PROTOCOL = "http://";
+	public final static String REGULAR_WORLD = "welt";
+	public final static String ROLEPLAY_WORLD = "rpsrv";
+	public final static String URL_SEPARATOR = "/";
+
 	public static String getFullWorldDomain(final EWorld world) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(PROTOCOL);
-		
+
 		if (world == EWorld.ACTION) {
 			sb.append(ACTION_WORLD);
 		} else if (world == EWorld.ROLEPLAY) {
@@ -63,15 +59,19 @@ public final class Paths {
 			sb.append(worldNumber);
 		}
 		sb.append(DOMAIN_SEPARATOR);
-		
+
 		if (world != EWorld.ONE_EN) {
 			sb.append(DE_DOMAIN);
 		} else {
 			sb.append(EN_DOMAIN);
 		}
-		
+
 		sb.append(URL_SEPARATOR);
-		
+
 		return sb.toString();
+	}
+
+	private Paths() {
+
 	}
 }

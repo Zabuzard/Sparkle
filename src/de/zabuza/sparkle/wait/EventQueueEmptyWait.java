@@ -7,7 +7,7 @@ import de.zabuza.sparkle.wait.conditions.EventQueueEmptyCondition;
 
 public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	private final ExpectedCondition<Boolean> m_Condition;
-	
+
 	public EventQueueEmptyWait(final WebDriver driver) {
 		super(driver);
 		m_Condition = new EventQueueEmptyCondition();

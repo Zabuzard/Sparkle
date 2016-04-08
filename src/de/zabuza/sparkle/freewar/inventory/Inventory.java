@@ -79,8 +79,7 @@ public final class Inventory implements IInventory {
 		}
 		// Only close inventory if it can be closed. Closing is not possible if
 		// the player only has few items
-		List<WebElement> closeAnchors = m_Driver.findElements(By
-				.cssSelector(CSSSelectors.ITEM_INVENTORY_CLOSE_ANCHOR));
+		List<WebElement> closeAnchors = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_CLOSE_ANCHOR));
 		if (!closeAnchors.isEmpty()) {
 			WebElement closeAnchor = closeAnchors.iterator().next();
 			closeAnchor.click();
@@ -100,8 +99,7 @@ public final class Inventory implements IInventory {
 	public boolean hasItem(final String item) {
 		openInventory();
 
-		List<WebElement> itemElements = m_Driver.findElements(By
-				.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
+		List<WebElement> itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
 		for (WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;
@@ -119,9 +117,7 @@ public final class Inventory implements IInventory {
 	public boolean isInventoryOpened() {
 		switchToItemFrame();
 		// If inventory can not be opened assume it is already open
-		return m_Driver.findElements(
-				By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR))
-				.isEmpty();
+		return m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR)).isEmpty();
 	}
 
 	/*
@@ -134,8 +130,7 @@ public final class Inventory implements IInventory {
 		if (isInventoryOpened()) {
 			return;
 		}
-		WebElement openAnchor = m_Driver.findElement(By
-				.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
+		WebElement openAnchor = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
 		openAnchor.click();
 	}
 
