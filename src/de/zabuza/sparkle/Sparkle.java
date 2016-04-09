@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,6 +39,10 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	private EBrowser m_Browser;
 	/**
+	 * The capabilities to use for the created browsers.
+	 */
+	private Capabilities m_Capabilities;
+	/**
 	 * If the API should automatically delay events to disguise usage of a bot
 	 * for <tt>Freewar.de</tt>.
 	 */
@@ -60,6 +65,17 @@ public final class Sparkle implements IFreewarAPI {
 	}
 
 	/**
+	 * Creates a new API that uses a given browser by default. It automatically
+	 * delays events to disguise usage of a bot for <tt>Freewar</tt>.
+	 * 
+	 * @param browser
+	 *            Browser to use as default
+	 */
+	public Sparkle(final EBrowser browser) {
+		this(browser, true);
+	}
+
+	/**
 	 * Creates a new API that uses a given browser by default. It can be set if
 	 * the API should automatically delays events to disguise usage of a bot for
 	 * <tt>Freewar</tt>.
@@ -73,6 +89,7 @@ public final class Sparkle implements IFreewarAPI {
 	public Sparkle(final EBrowser browser, final boolean delayEvents) {
 		m_Browser = browser;
 		m_DelayEvents = delayEvents;
+		m_Capabilities = null;
 		m_Instances = new LinkedHashSet<IFreewarInstance>();
 	}
 
@@ -150,6 +167,7 @@ public final class Sparkle implements IFreewarAPI {
 		WebDriver driver = instance.getWebDriver();
 		// Wait for events to be processed before switching frames
 		new EventQueueEmptyWait(driver).waitUntilCondition();
+		driver.switchTo().defaultContent();
 
 		// Wait for menu frame and switch to it
 		new FramePresenceWait(driver, Names.FRAME_MENU).waitUntilCondition();
@@ -188,6 +206,17 @@ public final class Sparkle implements IFreewarAPI {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.IFreewarAPI#setCapabilities(org.openqa.selenium.
+	 * Capabilities)
+	 */
+	@Override
+	public void setCapabilities(final Capabilities capabilities) {
+		m_Capabilities = capabilities;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.zabuza.sparkle.IFreewarAPI#shutdown()
 	 */
 	@Override
@@ -198,10 +227,11 @@ public final class Sparkle implements IFreewarAPI {
 	}
 
 	/**
-	 * Creates a {@link #WebDriver} that uses the given browser. If
-	 * {@link #m_DelayEvents} is set to <tt>true</tt>, the resulting driver will
-	 * automatically delay events to disguise usage of a bot for
-	 * <tt>Freewar</tt>.
+	 * Creates a {@link #WebDriver} that uses the given browser. If a capability
+	 * object was set using {@link #setCapabilities(Capabilities)} then it will
+	 * also be passed to the created browser. If {@link #m_DelayEvents} is set
+	 * to <tt>true</tt>, the resulting driver will automatically delay events to
+	 * disguise usage of a bot for <tt>Freewar</tt>.
 	 * 
 	 * @param browser
 	 *            Browser to use for the driver
@@ -210,15 +240,35 @@ public final class Sparkle implements IFreewarAPI {
 	private WebDriver createWebDriver(final EBrowser browser) {
 		WebDriver driver;
 		if (browser == EBrowser.FIREFOX) {
-			driver = new FirefoxDriver();
+			if (m_Capabilities != null) {
+				driver = new FirefoxDriver(m_Capabilities);
+			} else {
+				driver = new FirefoxDriver();
+			}
 		} else if (browser == EBrowser.CHROME) {
-			driver = new ChromeDriver();
+			if (m_Capabilities != null) {
+				driver = new ChromeDriver(m_Capabilities);
+			} else {
+				driver = new ChromeDriver();
+			}
 		} else if (browser == EBrowser.SAFARI) {
-			driver = new SafariDriver();
+			if (m_Capabilities != null) {
+				driver = new SafariDriver(m_Capabilities);
+			} else {
+				driver = new SafariDriver();
+			}
 		} else if (browser == EBrowser.INTERNET_EXPLORER) {
-			driver = new InternetExplorerDriver();
+			if (m_Capabilities != null) {
+				driver = new InternetExplorerDriver(m_Capabilities);
+			} else {
+				driver = new InternetExplorerDriver();
+			}
 		} else {
-			driver = new FirefoxDriver();
+			if (m_Capabilities != null) {
+				driver = new FirefoxDriver(m_Capabilities);
+			} else {
+				driver = new FirefoxDriver();
+			}
 		}
 		if (m_DelayEvents) {
 			driver = new DelayedWebDriver(driver);

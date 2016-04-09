@@ -1,5 +1,7 @@
 package de.zabuza.sparkle;
 
+import org.openqa.selenium.Capabilities;
+
 import de.zabuza.sparkle.freewar.EWorld;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
 import de.zabuza.sparkle.webdriver.EBrowser;
@@ -59,6 +61,16 @@ public interface IFreewarAPI {
 	 *            Browser to use
 	 */
 	public void setBrowser(final EBrowser browser);
+
+	/**
+	 * Sets the capabilities to use for browsers. Using this one can set for
+	 * example browser profiles to use, or the path to the binary of the
+	 * browser.
+	 * 
+	 * @param capabilities
+	 *            The capabilities to set
+	 */
+	public void setCapabilities(final Capabilities capabilities);
 
 	/**
 	 * Shuts the API down, closing all remaining connections. This method does
