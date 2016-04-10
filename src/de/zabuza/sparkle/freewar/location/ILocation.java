@@ -1,5 +1,7 @@
 package de.zabuza.sparkle.freewar.location;
 
+import java.awt.Point;
+
 /**
  * Interface for locations of {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}s. Can be used to access the current location of a player.
@@ -37,6 +39,13 @@ public interface ILocation {
 	 *         experience points for this option.
 	 */
 	public boolean fastAttackNPC(final String npcName);
+
+	/**
+	 * Gets the position of the current location in coordinates.
+	 * 
+	 * @return The position of the current location in coordinates
+	 */
+	public Point getPosition();
 
 	/**
 	 * If there is a given NPC on the location.

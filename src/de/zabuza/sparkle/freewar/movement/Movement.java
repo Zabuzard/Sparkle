@@ -1,8 +1,6 @@
 package de.zabuza.sparkle.freewar.movement;
 
 import java.awt.Point;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,9 +8,9 @@ import org.openqa.selenium.WebElement;
 
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
+import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Classes;
-import de.zabuza.sparkle.selectors.Patterns;
 
 /**
  * Movement of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
@@ -31,43 +29,25 @@ public final class Movement implements IMovement {
 	 * Manager to use for switching frames.
 	 */
 	private final IFrameManager m_FrameManager;
+	/**
+	 * The location object used by this movement.
+	 */
+	private final ILocation m_Location;
 
 	/**
 	 * Creates a new movement object that uses the given driver.
 	 * 
 	 * @param driver
 	 *            Web driver this object should use
+	 * @param location
+	 *            Location object this object should use
 	 * @param frameManager
 	 *            Manager to use for switching frames
 	 */
-	public Movement(final WebDriver driver, final IFrameManager frameManager) {
+	public Movement(final WebDriver driver, final ILocation location, final IFrameManager frameManager) {
 		m_Driver = driver;
+		m_Location = location;
 		m_FrameManager = frameManager;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.zabuza.sparkle.freewar.movement.IMovement#getPosition()
-	 */
-	@Override
-	public Point getPosition() {
-		switchToMapFrame();
-
-		// Get position text, has the format:
-		// Position X: 508 Y: -57
-		String positionText = m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
-
-		// Extract x and y coordinates from text
-		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
-		Point position = new Point();
-		if (matcher.find()) {
-			position.x = Integer.parseInt(matcher.group());
-			if (matcher.find()) {
-				position.y = Integer.parseInt(matcher.group());
-			}
-		}
-		return position;
 	}
 
 	/*
@@ -78,9 +58,9 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public boolean move(final EDirection direction) {
-		// Also ensures the current frame is the map frame
-		Point positionBefore = getPosition();
+		Point positionBefore = m_Location.getPosition();
 
+		switchToMapFrame();
 		String selector;
 		if (direction == EDirection.NORTH) {
 			selector = CSSSelectors.MAP_MOVE_NORTH_ANCHOR;
@@ -111,7 +91,7 @@ public final class Movement implements IMovement {
 		// If position is reachable then click it
 		moveAnchor.click();
 
-		Point positionAfter = getPosition();
+		Point positionAfter = m_Location.getPosition();
 		// Player moved when positions alter
 
 		return !positionBefore.equals(positionAfter);

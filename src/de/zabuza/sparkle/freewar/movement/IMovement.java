@@ -1,7 +1,5 @@
 package de.zabuza.sparkle.freewar.movement;
 
-import java.awt.Point;
-
 /**
  * Interface for movements of {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}s. Can be used to move the player through the world.
@@ -10,13 +8,6 @@ import java.awt.Point;
  * 
  */
 public interface IMovement {
-	/**
-	 * Gets the position of the current location in coordinates.
-	 * 
-	 * @return The position of the current location in coordinates
-	 */
-	public Point getPosition();
-
 	/**
 	 * Tries to move the player into a given direction.
 	 * 

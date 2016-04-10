@@ -1,6 +1,9 @@
 package de.zabuza.sparkle.freewar.location;
 
+import java.awt.Point;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.selectors.CSSSelectors;
+import de.zabuza.sparkle.selectors.Patterns;
 import de.zabuza.sparkle.selectors.XPaths;
 import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
 
@@ -65,6 +69,31 @@ public final class Location implements ILocation {
 	@Override
 	public boolean fastAttackNPC(final String npcName) {
 		return doNPCAction(npcName, XPaths.MAIN_LOCATION_NPC_ACTION_FAST_ATTACK);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#getPosition()
+	 */
+	@Override
+	public Point getPosition() {
+		switchToMapFrame();
+
+		// Get position text, has the format:
+		// Position X: 508 Y: -57
+		String positionText = m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
+
+		// Extract x and y coordinates from text
+		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
+		Point position = new Point();
+		if (matcher.find()) {
+			position.x = Integer.parseInt(matcher.group());
+			if (matcher.find()) {
+				position.y = Integer.parseInt(matcher.group());
+			}
+		}
+		return position;
 	}
 
 	/*
@@ -179,5 +208,14 @@ public final class Location implements ILocation {
 	 */
 	private void switchToMainFrame() {
 		m_FrameManager.switchToFrame(EFrame.MAIN);
+	}
+
+	/**
+	 * Switches to the map frame of <tt>Freewar</tt> and waits until it is
+	 * loaded. It ensures that previous queued events are processed before
+	 * switching frames.
+	 */
+	private void switchToMapFrame() {
+		m_FrameManager.switchToFrame(EFrame.MAP);
 	}
 }
