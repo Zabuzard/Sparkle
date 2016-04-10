@@ -25,6 +25,7 @@ import de.zabuza.sparkle.wait.LoginFormWait;
 import de.zabuza.sparkle.wait.LoginPopupWait;
 import de.zabuza.sparkle.webdriver.DelayedWebDriver;
 import de.zabuza.sparkle.webdriver.EBrowser;
+import de.zabuza.sparkle.webdriver.IHasWebDriver;
 
 /**
  * API that allows playing the MMORPG <tt>Freewar</tt>.
@@ -164,30 +165,32 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void logout(final IFreewarInstance instance) {
-		WebDriver driver = instance.getWebDriver();
-		// Wait for events to be processed before switching frames
-		new EventQueueEmptyWait(driver).waitUntilCondition();
-		driver.switchTo().defaultContent();
+		if (instance instanceof IHasWebDriver) {
+			WebDriver driver = ((IHasWebDriver) instance).getWebDriver();
+			// Wait for events to be processed before switching frames
+			new EventQueueEmptyWait(driver).waitUntilCondition();
+			driver.switchTo().defaultContent();
 
-		// Wait for menu frame and switch to it
-		new FramePresenceWait(driver, Names.FRAME_MENU).waitUntilCondition();
-		driver.switchTo().frame(Names.FRAME_MENU);
-		// Click logout in menu
-		WebElement logout = driver.findElement(By.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
-		logout.click();
+			// Wait for menu frame and switch to it
+			new FramePresenceWait(driver, Names.FRAME_MENU).waitUntilCondition();
+			driver.switchTo().frame(Names.FRAME_MENU);
+			// Click logout in menu
+			WebElement logout = driver.findElement(By.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
+			logout.click();
 
-		// Wait for click to be executed and switch to frameset
-		new EventQueueEmptyWait(driver).waitUntilCondition();
-		driver.switchTo().defaultContent();
+			// Wait for click to be executed and switch to frameset
+			new EventQueueEmptyWait(driver).waitUntilCondition();
+			driver.switchTo().defaultContent();
 
-		// Switch to map and click surely logout
-		driver.switchTo().frame(Names.FRAME_MAP);
-		WebElement surelyLogout = new CSSSelectorPresenceWait(driver, CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR)
-				.waitUntilCondition();
-		surelyLogout.click();
+			// Switch to map and click surely logout
+			driver.switchTo().frame(Names.FRAME_MAP);
+			WebElement surelyLogout = new CSSSelectorPresenceWait(driver, CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR)
+					.waitUntilCondition();
+			surelyLogout.click();
 
-		// Wait for logout to be fully executed and then shutdown
-		new LoginFormWait(driver).waitUntilCondition();
+			// Wait for logout to be fully executed and then shutdown
+			new LoginFormWait(driver).waitUntilCondition();
+		}
 		shutdownInstance(instance);
 	}
 

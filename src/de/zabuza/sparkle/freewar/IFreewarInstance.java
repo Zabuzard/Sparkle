@@ -1,7 +1,5 @@
 package de.zabuza.sparkle.freewar;
 
-import org.openqa.selenium.WebDriver;
-
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.IMovement;
@@ -47,13 +45,6 @@ public interface IFreewarInstance {
 	 * @return The player object of this instance
 	 */
 	public IPlayer getPlayer();
-
-	/**
-	 * Gets the web driver used by this instance.
-	 * 
-	 * @return The web driver used by this instance
-	 */
-	public WebDriver getWebDriver();
 
 	/**
 	 * Returns if the instance cares of not being automatically logged out by

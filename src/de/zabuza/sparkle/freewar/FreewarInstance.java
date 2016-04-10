@@ -12,6 +12,7 @@ import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.freewar.movement.Movement;
 import de.zabuza.sparkle.freewar.player.IPlayer;
 import de.zabuza.sparkle.freewar.player.Player;
+import de.zabuza.sparkle.webdriver.IHasWebDriver;
 
 /**
  * Instance of an logged in account from the MMORPG <tt>Freewar</tt>. The
@@ -20,7 +21,7 @@ import de.zabuza.sparkle.freewar.player.Player;
  * @author Zabuza
  * 
  */
-public final class FreewarInstance implements IFreewarInstance {
+public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	/**
 	 * The web driver used by this instance.
 	 */
@@ -133,7 +134,7 @@ public final class FreewarInstance implements IFreewarInstance {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getWebDriver()
+	 * @see de.zabuza.sparkle.webdriver.IHasWebDriver#getWebDriver()
 	 */
 	@Override
 	public WebDriver getWebDriver() {
