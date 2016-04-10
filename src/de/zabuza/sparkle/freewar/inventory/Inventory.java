@@ -64,6 +64,17 @@ public final class Inventory implements IInventory {
 			return true;
 		}
 
+		// If item was not found then search for equipped items
+		xpath = XPaths.ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_PRE + item
+				+ XPaths.ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_POST;
+
+		itemElements = m_Driver.findElements(By.xpath(xpath));
+		if (!itemElements.isEmpty()) {
+			WebElement itemElement = itemElements.iterator().next();
+			itemElement.click();
+			return true;
+		}
+
 		return false;
 	}
 
@@ -100,6 +111,13 @@ public final class Inventory implements IInventory {
 		openInventory();
 
 		List<WebElement> itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
+		for (WebElement itemElement : itemElements) {
+			if (itemElement.getText().equals(item)) {
+				return true;
+			}
+		}
+		// If item was not found then search for equipped items
+		itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
 		for (WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;

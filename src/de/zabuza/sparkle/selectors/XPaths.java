@@ -18,6 +18,16 @@ public final class XPaths {
 	 * a given item.
 	 */
 	public static final String ITEM_INVENTORY_ITEM_ACTIVATE_ANCHOR_PRE = "//p[@class='listitemrow']//b[contains(text(), '";
+	/**
+	 * The post-part of a selector that corresponds to an anchor which activates
+	 * a given equipped item.
+	 */
+	public static final String ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_POST = "')]/following-sibling::a[contains(@href, 'action=activate')]";
+	/**
+	 * The pre-part of a selector that corresponds to an anchor which activates
+	 * a given equipped item.
+	 */
+	public static final String ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_PRE = "//p[@class='listitemrow']//span[@class='itemequipped' and contains(text(), '";
 
 	/**
 	 * The post-part of a selector that corresponds to an anchor which performs

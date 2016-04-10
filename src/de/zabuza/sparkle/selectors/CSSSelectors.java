@@ -16,6 +16,11 @@ public final class CSSSelectors {
 	 */
 	public static final String ITEM_INVENTORY_CLOSE_ANCHOR = "p.listcaption a[href$=closeinv]";
 	/**
+	 * Selector that corresponds to an element that holds the name of an
+	 * equipped item.
+	 */
+	public static final String ITEM_INVENTORY_ITEM_EQUIPPED_NAME = "p.listitemrow span.itemequipped";
+	/**
 	 * Selector that corresponds to an element that holds the name of an item.
 	 */
 	public static final String ITEM_INVENTORY_ITEM_NAME = "p.listitemrow b";
