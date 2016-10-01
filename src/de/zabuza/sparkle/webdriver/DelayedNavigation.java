@@ -13,7 +13,7 @@ import de.zabuza.sparkle.webdriver.event.ToUrlEvent;
 /**
  * Wrapper for navigation objects to delayedly executes events.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class DelayedNavigation implements Navigation {

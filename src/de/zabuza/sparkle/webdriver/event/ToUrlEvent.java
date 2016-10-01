@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * Delayable event that navigates to an URL, given as URL object. See also
  * {@link Navigation#to(URL)}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class ToUrlEvent implements IDelayableEvent {

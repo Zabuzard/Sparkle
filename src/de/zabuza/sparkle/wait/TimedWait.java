@@ -9,7 +9,7 @@ import de.zabuza.sparkle.wait.conditions.TimedCondition;
  * Class for waiting until a given period of time has passed. Start waiting
  * using the {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class TimedWait extends AConditionalWait<Boolean> {

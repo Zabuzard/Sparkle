@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Interface for objects that have a {@link WebDriver}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public interface IHasWebDriver {

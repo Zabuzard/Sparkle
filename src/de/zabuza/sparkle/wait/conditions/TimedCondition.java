@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
  * Condition that outputs whether a given time period has passed. The timer
  * automatically starts by the first time {@link #apply(WebDriver)} is called.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class TimedCondition implements ExpectedCondition<Boolean> {

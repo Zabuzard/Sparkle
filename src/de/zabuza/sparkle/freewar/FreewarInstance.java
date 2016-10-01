@@ -18,7 +18,7 @@ import de.zabuza.sparkle.webdriver.IHasWebDriver;
  * Instance of an logged in account from the MMORPG <tt>Freewar</tt>. The
  * instance can be used to control and play the game.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {

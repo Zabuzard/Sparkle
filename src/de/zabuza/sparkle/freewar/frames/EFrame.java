@@ -3,7 +3,7 @@ package de.zabuza.sparkle.freewar.frames;
 /**
  * Frames the MMORPG <tt>Freewar</tt> has.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public enum EFrame {

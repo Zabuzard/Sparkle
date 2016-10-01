@@ -4,7 +4,7 @@ package de.zabuza.sparkle.freewar.frames;
  * Interface for frame manager that manage the frames of
  * {@link de.zabuza.sparkle.freewar.IFreewarInstance IFreewarInstance}s.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface IFrameManager {

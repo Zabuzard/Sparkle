@@ -11,7 +11,7 @@ import de.zabuza.sparkle.wait.EventQueueEmptyWait;
  * Object that manages frames of a given
  * {@link de.zabuza.sparkle.freewar.IFreewarInstance IFreewarInstance}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class FrameManager implements IFrameManager {

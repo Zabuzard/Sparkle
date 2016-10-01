@@ -16,7 +16,7 @@ import de.zabuza.sparkle.selectors.Classes;
  * Movement of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}. Can be used to move the player through the world.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class Movement implements IMovement {

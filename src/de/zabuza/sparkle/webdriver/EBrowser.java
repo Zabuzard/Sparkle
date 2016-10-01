@@ -3,7 +3,7 @@ package de.zabuza.sparkle.webdriver;
 /**
  * Browser supported by {@link de.zabuza.sparkle.IFreewarAPI IFreewarAPI}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public enum EBrowser {

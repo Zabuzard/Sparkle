@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * {@link #waitUntilCondition()} the method returns as soon as the condition
  * given by {@link #getCondition()} resolves to <tt>true</tt>.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  * @param <V>
  *            Class the condition returns when resolving to <tt>true</tt>, as

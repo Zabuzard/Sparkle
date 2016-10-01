@@ -3,7 +3,7 @@ package de.zabuza.sparkle.locale;
 /**
  * Utility class that provides error messages for the API.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class ErrorMessages {

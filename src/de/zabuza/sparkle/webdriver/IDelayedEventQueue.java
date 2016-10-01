@@ -5,7 +5,7 @@ import de.zabuza.sparkle.webdriver.event.IDelayableEvent;
 /**
  * Interface for delayed event queues.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public interface IDelayedEventQueue {

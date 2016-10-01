@@ -8,7 +8,7 @@ import de.zabuza.sparkle.selectors.CSSSelectors;
  * Class for waiting until the login form is present. Start waiting using the
  * {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class LoginFormWait extends CSSSelectorPresenceWait {

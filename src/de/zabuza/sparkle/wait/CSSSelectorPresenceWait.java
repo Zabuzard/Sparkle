@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * Class for waiting until an element, given by a CSS selector, is present.
  * Start waiting using the {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class CSSSelectorPresenceWait extends AConditionalWait<WebElement> {

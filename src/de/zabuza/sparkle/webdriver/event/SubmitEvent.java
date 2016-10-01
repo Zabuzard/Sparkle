@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
  * Delayable event that performs a submit on a given web element. See also
  * {@link WebElement#submit()}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class SubmitEvent implements IDelayableEvent {

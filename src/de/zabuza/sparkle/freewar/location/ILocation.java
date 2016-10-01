@@ -7,7 +7,7 @@ import java.awt.Point;
  * IFreewarInstance}s. Can be used to access the current location of a player.
  * Provides access to NPCs on the location.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface ILocation {

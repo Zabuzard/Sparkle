@@ -30,7 +30,7 @@ import de.zabuza.sparkle.webdriver.IHasWebDriver;
 /**
  * API that allows playing the MMORPG <tt>Freewar</tt>.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class Sparkle implements IFreewarAPI {

@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * Class for waiting until an element, given its name, is present. Start waiting
  * using the {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class NamePresenceWait extends AConditionalWait<WebElement> {

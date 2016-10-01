@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Utility class that provides class selectors.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class Classes {

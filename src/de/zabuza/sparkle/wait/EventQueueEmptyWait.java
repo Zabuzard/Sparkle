@@ -9,7 +9,7 @@ import de.zabuza.sparkle.wait.conditions.EventQueueEmptyCondition;
  * Class for waiting until the event queue of a given web driver is empty. Start
  * waiting using the {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {

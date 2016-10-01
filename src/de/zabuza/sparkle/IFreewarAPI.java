@@ -9,7 +9,7 @@ import de.zabuza.sparkle.webdriver.EBrowser;
 /**
  * Interface for APIs that allow playing the MMORPG <tt>Freewar</tt>.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface IFreewarAPI {

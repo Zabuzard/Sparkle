@@ -3,7 +3,7 @@ package de.zabuza.sparkle.selectors;
 /**
  * Utility class that provides name selectors.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class Names {

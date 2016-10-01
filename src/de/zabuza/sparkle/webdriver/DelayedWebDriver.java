@@ -13,7 +13,7 @@ import de.zabuza.sparkle.webdriver.event.GetEvent;
 /**
  * Wrapper for web driver objects to delayedly executes events.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class DelayedWebDriver implements WebDriver {

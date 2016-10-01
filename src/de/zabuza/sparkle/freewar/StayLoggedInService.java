@@ -8,7 +8,7 @@ import de.zabuza.sparkle.locale.ErrorMessages;
  * be started using {@link #start()} and stopped using {@link #stopExecution()}.
  * After stopping the service is invalid and should not be used anymore.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class StayLoggedInService extends Thread {

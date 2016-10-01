@@ -15,7 +15,7 @@ import de.zabuza.sparkle.selectors.XPaths;
  * Inventory of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}. Can be used to access the inventory of a player.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public final class Inventory implements IInventory {

@@ -20,7 +20,7 @@ import de.zabuza.sparkle.webdriver.event.IDelayableEvent;
  * of all delays are between {@link #RND_DELAY_MIN} and
  * {@link #RND_DELAY_AVERAGE}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class DelayedEventExecutor extends Thread implements IDelayedEventQueue {

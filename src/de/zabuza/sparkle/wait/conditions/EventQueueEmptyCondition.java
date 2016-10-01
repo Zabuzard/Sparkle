@@ -9,7 +9,7 @@ import de.zabuza.sparkle.webdriver.DelayedWebDriver;
  * Condition that outputs whether the event queue of a given web driver is empty
  * or not.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class EventQueueEmptyCondition implements ExpectedCondition<Boolean> {

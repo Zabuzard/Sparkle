@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * Delayable event that performs a refresh on the browser. See also
  * {@link Navigation#refresh()}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class RefreshEvent implements IDelayableEvent {

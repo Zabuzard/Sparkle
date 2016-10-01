@@ -5,7 +5,7 @@ package de.zabuza.sparkle.freewar.inventory;
  * {@link de.zabuza.sparkle.freewar.IFreewarInstance IFreewarInstance}s. Can be
  * used to access the inventory of a player.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface IInventory {

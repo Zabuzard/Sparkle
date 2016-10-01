@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * Delayable event that navigates to an URL, given as string. See also
  * {@link Navigation#to(String)}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class ToStringEvent implements IDelayableEvent {

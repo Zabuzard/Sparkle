@@ -4,7 +4,7 @@ package de.zabuza.sparkle.freewar;
  * Worlds of the MMORPG <tt>Freewar</tt> that are supported by
  * {@link de.zabuza.sparkle.IFreewarAPI IFreewarAPI}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public enum EWorld {

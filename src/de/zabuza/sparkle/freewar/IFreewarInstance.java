@@ -9,7 +9,7 @@ import de.zabuza.sparkle.freewar.player.IPlayer;
  * Interface for instances of an logged in account from the MMORPG
  * <tt>Freewar</tt>. A instance can be used to control and play the game.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface IFreewarInstance {

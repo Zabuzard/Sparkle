@@ -17,7 +17,7 @@ import de.zabuza.sparkle.webdriver.event.SubmitEvent;
 /**
  * Wrapper for web element objects to delayedly executes events.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class DelayedWebElement implements WebElement {

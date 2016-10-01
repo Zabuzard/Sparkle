@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
  * Class for waiting until a given frame is present. Start waiting using the
  * {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class FramePresenceWait extends NamePresenceWait {

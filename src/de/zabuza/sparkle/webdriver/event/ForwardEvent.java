@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * Delayable event that navigates forward in browser history. See also
  * {@link Navigation#forward()}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class ForwardEvent implements IDelayableEvent {

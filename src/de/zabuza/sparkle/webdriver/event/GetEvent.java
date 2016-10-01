@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
  * Delayable event that performs a get request to a given URL on a given web
  * driver. See also {@link WebDriver#get(String)}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class GetEvent implements IDelayableEvent {

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * Delayable event that navigates back in browser history. See also
  * {@link Navigation#back()}.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public class BackEvent implements IDelayableEvent {

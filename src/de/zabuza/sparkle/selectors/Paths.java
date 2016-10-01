@@ -5,7 +5,7 @@ import de.zabuza.sparkle.freewar.EWorld;
 /**
  * Utility class that provides paths.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class Paths {

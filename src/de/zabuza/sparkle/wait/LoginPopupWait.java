@@ -9,7 +9,7 @@ import de.zabuza.sparkle.wait.conditions.LoginPopupCondition;
  * Class for waiting until the login pop-up is present. Start waiting using the
  * {@link #waitUntilCondition()} method.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class LoginPopupWait extends AConditionalWait<Boolean> {

@@ -3,7 +3,7 @@ package de.zabuza.sparkle.freewar.movement;
 /**
  * Directions a player can move in the MMORPG <tt>Freewar</tt>.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public enum EDirection {

@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 /**
  * Condition that outputs whether the login pop-up is present or not.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
 public final class LoginPopupCondition implements ExpectedCondition<Boolean> {

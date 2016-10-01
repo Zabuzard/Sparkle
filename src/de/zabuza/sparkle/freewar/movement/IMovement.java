@@ -4,7 +4,7 @@ package de.zabuza.sparkle.freewar.movement;
  * Interface for movements of {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}s. Can be used to move the player through the world.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public interface IMovement {

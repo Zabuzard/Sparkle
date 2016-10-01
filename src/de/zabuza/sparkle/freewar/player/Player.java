@@ -17,7 +17,7 @@ import de.zabuza.sparkle.selectors.Splits;
  * Player of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}. Can be used to access various properties of the player.
  * 
- * @author Zabuza
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
 public class Player implements IPlayer {
