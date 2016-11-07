@@ -6,9 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import de.zabuza.pathweaver.network.algorithm.shortestpath.DijkstraShortestPathComputation;
+import de.zabuza.pathweaver.network.algorithm.shortestpath.IShortestPathComputation;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.freewar.location.ILocation;
+import de.zabuza.sparkle.freewar.movement.network.FreewarNetwork;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Classes;
 
@@ -22,6 +25,10 @@ import de.zabuza.sparkle.selectors.Classes;
 public final class Movement implements IMovement {
 
 	/**
+	 * The shortest path computation object to use for routing.
+	 */
+	private final IShortestPathComputation m_Computation;
+	/**
 	 * The web driver used by this movement.
 	 */
 	private final WebDriver m_Driver;
@@ -33,6 +40,10 @@ public final class Movement implements IMovement {
 	 * The location object used by this movement.
 	 */
 	private final ILocation m_Location;
+	/**
+	 * The network to use for routing.
+	 */
+	private final FreewarNetwork m_Network;
 
 	/**
 	 * Creates a new movement object that uses the given driver.
@@ -48,6 +59,8 @@ public final class Movement implements IMovement {
 		m_Driver = driver;
 		m_Location = location;
 		m_FrameManager = frameManager;
+		m_Network = FreewarNetwork.createFromWiki();
+		m_Computation = new DijkstraShortestPathComputation(m_Network);
 	}
 
 	/*
@@ -95,6 +108,18 @@ public final class Movement implements IMovement {
 		// Player moved when positions alter
 
 		return !positionBefore.equals(positionAfter);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#moveTo(int, int)
+	 */
+	@Override
+	public boolean moveTo(final int xCoordinate, final int yCoordinate) {
+		// TODO Implement by using routing
+		
+		return false;
 	}
 
 	/**

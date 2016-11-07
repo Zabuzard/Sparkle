@@ -17,4 +17,19 @@ public interface IMovement {
 	 *         <tt>false</tt> if that was not possible.
 	 */
 	public boolean move(final EDirection direction);
+
+	/**
+	 * Tries to move the player to the given destination. This method is
+	 * blocking, it returns either when the destination was reached or it
+	 * aborted the movement.
+	 * 
+	 * @param xCoordinate
+	 *            The x-coordinate of the destination
+	 * @param yCoordinate
+	 *            The y-coordinate of the destination
+	 * @return <tt>True</tt> if the player has reached the given destination,
+	 *         <tt>false</tt> if the destination was not reached and the method
+	 *         aborted the movement
+	 */
+	public boolean moveTo(final int xCoordinate, final int yCoordinate);
 }
