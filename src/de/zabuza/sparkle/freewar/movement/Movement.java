@@ -1,17 +1,22 @@
 package de.zabuza.sparkle.freewar.movement;
 
 import java.awt.Point;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import de.zabuza.pathweaver.network.Path;
 import de.zabuza.pathweaver.network.algorithm.shortestpath.DijkstraShortestPathComputation;
 import de.zabuza.pathweaver.network.algorithm.shortestpath.IShortestPathComputation;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNetwork;
+import de.zabuza.sparkle.freewar.movement.network.FreewarNode;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Classes;
 
@@ -23,6 +28,11 @@ import de.zabuza.sparkle.selectors.Classes;
  * 
  */
 public final class Movement implements IMovement {
+	/**
+	 * Timeout in milliseconds to wait for the move waiting method cycle to
+	 * check its condition.
+	 */
+	private static final long MOVE_WAITING_TIMEOUT = 500;
 
 	/**
 	 * The shortest path computation object to use for routing.
@@ -40,6 +50,10 @@ public final class Movement implements IMovement {
 	 * The location object used by this movement.
 	 */
 	private final ILocation m_Location;
+	/**
+	 * The current movement task to use.
+	 */
+	private MovementTask m_MovementTask;
 	/**
 	 * The network to use for routing.
 	 */
@@ -61,6 +75,48 @@ public final class Movement implements IMovement {
 		m_FrameManager = frameManager;
 		m_Network = FreewarNetwork.createFromWiki();
 		m_Computation = new DijkstraShortestPathComputation(m_Network);
+		m_MovementTask = null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#cancelMovementTask()
+	 */
+	@Override
+	public void cancelMovementTask() {
+		if (m_MovementTask != null) {
+			m_MovementTask.cancelTask();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#canMove()
+	 */
+	@Override
+	public boolean canMove() {
+		switchToMapFrame();
+
+		final String css = CSSSelectors.MAP_TRAVEL_ON_TIME;
+		final List<WebElement> travelOnElements = m_Driver.findElements(By.cssSelector(css));
+		if (!travelOnElements.isEmpty()) {
+			WebElement travelOnElement = travelOnElements.iterator().next();
+			return travelOnElement.getText().isEmpty();
+		} else {
+			return true;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#hasMovementTask()
+	 */
+	@Override
+	public boolean hasMovementTask() {
+		return m_MovementTask != null && !m_MovementTask.hasTerminated();
 	}
 
 	/*
@@ -116,10 +172,57 @@ public final class Movement implements IMovement {
 	 * @see de.zabuza.sparkle.freewar.movement.IMovement#moveTo(int, int)
 	 */
 	@Override
-	public boolean moveTo(final int xCoordinate, final int yCoordinate) {
-		// TODO Implement by using routing
-		
-		return false;
+	public void moveTo(final int xCoordinate, final int yCoordinate) {
+		final Point sourcePos = m_Location.getPosition();
+		final Optional<FreewarNode> source = m_Network.getNodeByCoordinates((int) sourcePos.getX(),
+				(int) sourcePos.getY());
+		if (!source.isPresent()) {
+			throw new AssertionError();
+		}
+		final Optional<FreewarNode> destination = m_Network.getNodeByCoordinates(xCoordinate, yCoordinate);
+		if (!destination.isPresent()) {
+			m_MovementTask = MovementTask.createCanceledTask();
+			return;
+		}
+
+		final Optional<Path> path = m_Computation.computeShortestPath(source.get(), destination.get());
+		if (!path.isPresent()) {
+			m_MovementTask = MovementTask.createCanceledTask();
+			return;
+		}
+
+		m_MovementTask = new MovementTask(path.get(), m_Location, this);
+		m_MovementTask.start();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#moveWaiting(de.zabuza.
+	 * sparkle.freewar.movement.EDirection)
+	 */
+	@Override
+	public boolean moveWaiting(final EDirection direction) {
+		// Wait for the player to be able to move
+		while (!canMove()) {
+			try {
+				TimeUnit.MILLISECONDS.sleep(MOVE_WAITING_TIMEOUT);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		switchToMapFrame();
+		return move(direction);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#wasTaskSuccessful()
+	 */
+	@Override
+	public boolean wasTaskSuccessful() {
+		return m_MovementTask != null && m_MovementTask.hasTerminated() && !m_MovementTask.wasCanceled();
 	}
 
 	/**

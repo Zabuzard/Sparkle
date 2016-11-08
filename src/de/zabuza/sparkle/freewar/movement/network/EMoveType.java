@@ -16,10 +16,6 @@ public enum EMoveType {
 	 */
 	BLUE_SPHERE,
 	/**
-	 * East or right walking direction.
-	 */
-	EAST,
-	/**
 	 * Teleportation by using the home spell item.
 	 */
 	HOME_SPELL,
@@ -32,18 +28,6 @@ public enum EMoveType {
 	 */
 	NODE_ACTION,
 	/**
-	 * North or up walking direction.
-	 */
-	NORTH,
-	/**
-	 * Northeast or upright walking direction.
-	 */
-	NORTHEAST,
-	/**
-	 * Northwest or upleft walking direction.
-	 */
-	NORTHWEST,
-	/**
 	 * Teleportation by using a portal item.
 	 */
 	PORTAL,
@@ -52,25 +36,13 @@ public enum EMoveType {
 	 */
 	RING_OF_THE_SANDWINDS,
 	/**
-	 * South or down walking direction.
-	 */
-	SOUTH,
-	/**
-	 * Southeast or downright walking direction.
-	 */
-	SOUTHEAST,
-	/**
-	 * Southwest or downleft walking direction.
-	 */
-	SOUTHWEST,
-	/**
 	 * Teleportation by using the staff of trade item.
 	 */
 	STAFF_OF_TRADE,
 	/**
-	 * West or left walking direction.
+	 * Walking movement type.
 	 */
-	WEST,
+	WALKING,
 	/**
 	 * Teleportation by using a yellow sphere item.
 	 */

@@ -1,5 +1,7 @@
 package de.zabuza.sparkle.freewar.movement.network;
 
+import java.util.Optional;
+
 import de.zabuza.pathweaver.network.Node;
 import de.zabuza.pathweaver.network.PathNetwork;
 
@@ -53,9 +55,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 *            The type of the road to add
 	 */
 	public void addEdge(final FreewarNode source, final FreewarNode destination, final EMoveType type) {
-		// TODO Implement logic by using util which assigns each type a
-		// different cost for distinction
-		final float edgeCost = 1;
+		final float edgeCost = NetworkUtil.getCostOfMoveType(type);
 		super.addEdge(source, destination, edgeCost);
 	}
 
@@ -89,6 +89,29 @@ public final class FreewarNetwork extends PathNetwork {
 	@Override
 	public boolean addNode(final Node node) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(UNSUPPORTED_ADD_NODE);
+	}
+
+	/**
+	 * Gets the freewar node represented by the given coordinates, if there is
+	 * such a node in the network.
+	 * 
+	 * @param xCoordinate
+	 *            The x-coordinate of the nodes position
+	 * @param yCoordinate
+	 *            The y-coordinate of the nodes position
+	 * @return The freewar node represented by the given coordinates, if there
+	 *         is such a node in the network
+	 */
+	public Optional<FreewarNode> getNodeByCoordinates(final int xCoordinate, final int yCoordinate) {
+		// TODO Possibly its better to hold them in a nested map int-int-node
+		// for a fast get access
+		for (final Node node : getNodes()) {
+			FreewarNode freewarNode = (FreewarNode) node;
+			if (freewarNode.getXCoordinate() == xCoordinate && freewarNode.getYCoordinate() == yCoordinate) {
+				return Optional.of(freewarNode);
+			}
+		}
+		return Optional.empty();
 	}
 
 }

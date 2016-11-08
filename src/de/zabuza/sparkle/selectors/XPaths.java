@@ -28,12 +28,12 @@ public final class XPaths {
 	 * a given equipped item.
 	 */
 	public static final String ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_PRE = "//p[@class='listitemrow']//span[@class='itemequipped' and contains(text(), '";
-
 	/**
 	 * The post-part of a selector that corresponds to an anchor which performs
 	 * a given action on a given NPC.
 	 */
 	public static final String MAIN_LOCATION_NPC_ACTION_ANCHOR_POST = "')]/following-sibling::";
+
 	/**
 	 * The pre-part of a selector that corresponds to an anchor which performs a
 	 * given action on a given NPC.

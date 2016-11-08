@@ -177,6 +177,12 @@ public final class CSSSelectors {
 	 * current session.
 	 */
 	public static final String MAP_SURELY_LOGOUT_ANCHOR = "a[href^=logout]";
+	/**
+	 * The element which displays the travel on time. When this element is not
+	 * present or contains no text the player is able to move, else he has to
+	 * wait the given time.
+	 */
+	public static final String MAP_TRAVEL_ON_TIME = "div#test";
 
 	/**
 	 * Selector that indicates, when present, if the menu frame has loaded.
