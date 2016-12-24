@@ -115,11 +115,12 @@ public final class MovementTask extends Thread {
 		}
 
 		final Iterator<DirectedWeightedEdge> edgeIter = mPath.getEdges().iterator();
+		Point lastPos = null;
 		while (!mWasCanceled && edgeIter.hasNext()) {
 			final DirectedWeightedEdge edge = edgeIter.next();
 
 			// Wait for the player to be able to move
-			while (!mMovement.canMove()) {
+			while (!mMovement.canMove() || mLocation.getPosition().equals(lastPos)) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(MOVE_WAITING_TIMEOUT);
 				} catch (final InterruptedException e) {
@@ -130,6 +131,7 @@ public final class MovementTask extends Thread {
 			// Check if the player still is at the assumed position
 			final FreewarNode source = (FreewarNode) edge.getSource();
 			final Point currentPos = mLocation.getPosition();
+			lastPos = currentPos;
 			if (source.getXCoordinate() != (int) currentPos.getX()
 					|| source.getYCoordinate() != (int) currentPos.getY()) {
 				cancelTask();
@@ -160,6 +162,9 @@ public final class MovementTask extends Thread {
 		return mWasCanceled;
 	}
 
+	/**
+	 * Finalizes and ends the task successful.
+	 */
 	private void finalizeTask() {
 		mHasTerminated = true;
 	}

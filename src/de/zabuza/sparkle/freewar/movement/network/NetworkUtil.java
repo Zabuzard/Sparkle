@@ -103,7 +103,7 @@ public final class NetworkUtil {
 			final int differenceX = (int) (source.getX() - destination.getX());
 
 			// If source and destination are not adjacent abort
-			if (Math.abs(differenceY) != 1 || Math.abs(differenceX) != 1) {
+			if (Math.abs(differenceY) > 1 || Math.abs(differenceX) > 1) {
 				return false;
 			}
 

@@ -52,4 +52,14 @@ public class FreewarNode extends Node {
 	public int getYCoordinate() {
 		return mYCoordinate;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.pathweaver.network.Node#toString()
+	 */
+	@Override
+	public String toString() {
+		return "<" + getXCoordinate() + ", " + getYCoordinate() + ">";
+	}
 }

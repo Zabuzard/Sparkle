@@ -14,6 +14,19 @@ import de.zabuza.sparkle.webdriver.EBrowser;
  */
 public interface IFreewarAPI {
 	/**
+	 * Creates the capabilities to use with a browser for the given arguments.
+	 * 
+	 * @param browser
+	 *            Browser to create capabilities for
+	 * @param driverPath
+	 *            Path to the driver or <tt>null</tt> if not set
+	 * @param binaryPath
+	 *            Path to the binary or <tt>null</tt> if not set
+	 * @return The capabilities to use or <tt>null</tt> if there are no
+	 */
+	public Capabilities createCapabilities(final EBrowser browser, final String driverPath, final String binaryPath);
+
+	/**
 	 * Gets the browser to use at logging in to accounts with
 	 * {@link #login(String, String, EWorld)}. Once
 	 * {@link #login(String, String, EWorld)} was used it will stick to the

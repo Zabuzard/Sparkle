@@ -1,15 +1,21 @@
 package de.zabuza.sparkle;
 
+import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 import de.zabuza.sparkle.freewar.EWorld;
@@ -97,6 +103,99 @@ public final class Sparkle implements IFreewarAPI {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.IFreewarAPI#createCapabilities(de.zabuza.sparkle.
+	 * webdriver.EBrowser, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Capabilities createCapabilities(final EBrowser browser, final String driverPath, final String binaryPath) {
+		DesiredCapabilities capabilities = null;
+
+		if (browser == EBrowser.FIREFOX) {
+			capabilities = DesiredCapabilities.firefox();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.gecko.driver", driverPath);
+				System.setProperty("webdriver.firefox.marionette", driverPath);
+				capabilities.setCapability(FirefoxDriver.MARIONETTE, true);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				File pathToBinary = new File(binaryPath);
+				FirefoxBinary binary = new FirefoxBinary(pathToBinary);
+				capabilities.setCapability(FirefoxDriver.BINARY, binary);
+			}
+		} else if (browser == EBrowser.CHROME) {
+			capabilities = DesiredCapabilities.chrome();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.chrome.driver", driverPath);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				capabilities.setCapability("chrome.binary", binaryPath);
+			}
+		} else if (browser == EBrowser.SAFARI) {
+			capabilities = DesiredCapabilities.internetExplorer();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.safari.driver", driverPath);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				capabilities.setCapability("safari.binary", binaryPath);
+			}
+		} else if (browser == EBrowser.INTERNET_EXPLORER) {
+			capabilities = DesiredCapabilities.internetExplorer();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.ie.driver", driverPath);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				capabilities.setCapability("ie.binary", binaryPath);
+			}
+		} else if (browser == EBrowser.OPERA) {
+			capabilities = DesiredCapabilities.internetExplorer();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.opera.driver", driverPath);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				capabilities.setCapability("opera.binary", binaryPath);
+			}
+		} else if (browser == EBrowser.MS_EDGE) {
+			capabilities = DesiredCapabilities.internetExplorer();
+
+			// Set the driver
+			if (driverPath != null) {
+				System.setProperty("webdriver.edge.driver", driverPath);
+			}
+
+			// Set the binary
+			if (binaryPath != null) {
+				capabilities.setCapability("edge.binary", binaryPath);
+			}
+		} else {
+			throw new IllegalArgumentException("The given browser is not supported: " + browser);
+		}
+
+		return capabilities;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.zabuza.sparkle.IFreewarAPI#getBrowser()
 	 */
 	@Override
@@ -133,23 +232,31 @@ public final class Sparkle implements IFreewarAPI {
 		loginName.sendKeys(username);
 		loginPassword.sendKeys(password);
 
-		// Submit form and close all pop-ups
+		// Submit form and close all pop-ups if existent
 		String parentWindow = driver.getWindowHandle();
 		loginSubmit.click();
 		// Wait until pop-up pops up
-		new LoginPopupWait(driver).waitUntilCondition();
-		// Close all pup-ups
-		for (String window : driver.getWindowHandles()) {
-			if (!window.equals(parentWindow)) {
-				driver.switchTo().window(window);
-				driver.close();
-			}
+		boolean isThereAPopup;
+		try {
+			new LoginPopupWait(driver).waitUntilCondition();
+			isThereAPopup = true;
+		} catch (TimeoutException e) {
+			isThereAPopup = false;
 		}
-		driver.switchTo().window(parentWindow);
+		// Close all pup-ups if existent
+		if (isThereAPopup) {
+			for (String window : driver.getWindowHandles()) {
+				if (!window.equals(parentWindow)) {
+					driver.switchTo().window(window);
+					driver.close();
+				}
+			}
+			driver.switchTo().window(parentWindow);
 
-		// Wait until element
-		WebElement popupContinue = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
-		popupContinue.click();
+			// Wait until element
+			WebElement popupContinue = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
+			popupContinue.click();
+		}
 
 		IFreewarInstance instance = new FreewarInstance(driver);
 		m_Instances.add(instance);
@@ -266,18 +373,28 @@ public final class Sparkle implements IFreewarAPI {
 			} else {
 				driver = new InternetExplorerDriver();
 			}
-		} else {
+		} else if (browser == EBrowser.OPERA) {
 			if (m_Capabilities != null) {
-				driver = new FirefoxDriver(m_Capabilities);
+				driver = new OperaDriver(m_Capabilities);
 			} else {
-				driver = new FirefoxDriver();
+				driver = new OperaDriver();
 			}
+		} else if (browser == EBrowser.MS_EDGE) {
+			if (m_Capabilities != null) {
+				driver = new EdgeDriver(m_Capabilities);
+			} else {
+				driver = new EdgeDriver();
+			}
+		} else {
+			throw new IllegalArgumentException("The given browser is not supported: " + browser);
 		}
+
 		if (m_DelayEvents) {
 			driver = new DelayedWebDriver(driver);
 		}
 
 		return driver;
+
 	}
 
 	/**

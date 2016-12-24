@@ -20,6 +20,14 @@ public enum EBrowser {
 	 */
 	INTERNET_EXPLORER,
 	/**
+	 * Microsoft edge browser.
+	 */
+	MS_EDGE,
+	/**
+	 * Opera browser.
+	 */
+	OPERA,
+	/**
 	 * Safari browser.
 	 */
 	SAFARI

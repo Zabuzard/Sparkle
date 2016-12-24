@@ -1,6 +1,7 @@
 package de.zabuza.sparkle.freewar.movement;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ import de.zabuza.sparkle.freewar.movement.network.FreewarNetwork;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNode;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Classes;
+import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 
 /**
  * Movement of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
@@ -73,7 +75,11 @@ public final class Movement implements IMovement {
 		m_Driver = driver;
 		m_Location = location;
 		m_FrameManager = frameManager;
-		m_Network = FreewarNetwork.createFromWiki();
+		try {
+			m_Network = FreewarNetwork.createFromWiki();
+		} catch (IOException e) {
+			throw new IllegalStateException("An error while creating the network occurred.");
+		}
 		m_Computation = new DijkstraShortestPathComputation(m_Network);
 		m_MovementTask = null;
 	}
@@ -160,9 +166,12 @@ public final class Movement implements IMovement {
 		// If position is reachable then click it
 		moveAnchor.click();
 
-		Point positionAfter = m_Location.getPosition();
-		// Player moved when positions alter
+		// Wait for movement to be executed if delayed executor is being used
+		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
 
+		Point positionAfter = m_Location.getPosition();
+
+		// Player moved when positions alter
 		return !positionBefore.equals(positionAfter);
 	}
 
