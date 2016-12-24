@@ -1,5 +1,9 @@
 package de.zabuza.sparkle.freewar.movement;
 
+import java.util.Set;
+
+import de.zabuza.sparkle.freewar.movement.network.EMoveType;
+
 /**
  * Interface for movements of {@link de.zabuza.sparkle.freewar.IFreewarInstance
  * IFreewarInstance}s. Can be used to move the player through the world.
@@ -42,8 +46,9 @@ public interface IMovement {
 	public boolean move(final EDirection direction);
 
 	/**
-	 * Tries to move the player to the given destination. This method is not
-	 * blocking, it starts the movement in another task and then returns.
+	 * Tries to move the player to the given destination by walking only. This
+	 * method is not blocking, it starts the movement in another task and then
+	 * returns.
 	 * 
 	 * @param xCoordinate
 	 *            The x-coordinate of the destination
@@ -51,6 +56,21 @@ public interface IMovement {
 	 *            The y-coordinate of the destination
 	 */
 	public void moveTo(final int xCoordinate, final int yCoordinate);
+
+	/**
+	 * Tries to move the player to the given destination using the given
+	 * options. This method is not blocking, it starts the movement in another
+	 * task and then returns.
+	 * 
+	 * @param xCoordinate
+	 *            The x-coordinate of the destination
+	 * @param yCoordinate
+	 *            The y-coordinate of the destination
+	 * @param options
+	 *            A set containing all movement types that are allowed to use.
+	 *            Walking and node action is always allowed.
+	 */
+	public void moveTo(final int xCoordinate, final int yCoordinate, final Set<EMoveType> options);
 
 	/**
 	 * Tries to move the player into a given direction but waits for

@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.zabuza.pathweaver.network.DirectedWeightedEdge;
 import de.zabuza.pathweaver.network.Node;
 import de.zabuza.pathweaver.network.PathNetwork;
 import de.zabuza.pathweaver.util.NestedMap2;
@@ -15,7 +18,7 @@ import de.zabuza.sparkle.freewar.movement.EDirection;
 
 /**
  * A path network which consists of positions and edges that model the world of
- * 'Freewar'. The cost of a road is measured in amount of actions.
+ * 'Freewar'. The cost of an edge is measured in amount of actions.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
@@ -131,7 +134,7 @@ public final class FreewarNetwork extends PathNetwork {
 			createWalkingEdge(nodeAsFreewarNode, EDirection.SOUTHEAST, network);
 		}
 
-		// TODO Create special edges
+		// TODO Create node action edges
 
 		return network;
 	}
@@ -196,27 +199,33 @@ public final class FreewarNetwork extends PathNetwork {
 	private final NestedMap2<Integer, Integer, FreewarNode> m_CoordinatesToNode;
 
 	/**
+	 * Set which holds all temporary edges that are currently in the network.
+	 */
+	private final HashSet<DirectedWeightedEdge> m_TemporaryEdges;
+
+	/**
 	 * Creates an empty freewar network.
 	 */
 	public FreewarNetwork() {
 		super();
 		m_CoordinatesToNode = new NestedMap2<>();
+		m_TemporaryEdges = new HashSet<>();
 	}
 
 	/**
-	 * Adds a road between the given road nodes. The cost of this road is
-	 * measured in seconds and computed using the distances of the road nodes.
+	 * Adds an edge between the given nodes. The cost of this edge is dependent
+	 * on the given type.
 	 * 
 	 * @param source
-	 *            The source node of the road
+	 *            The source node of the edge
 	 * @param destination
-	 *            The destination node of the road
+	 *            The destination node of the edge
 	 * @param type
-	 *            The type of the road to add
+	 *            The type of the edge to add
 	 */
-	public void addEdge(final FreewarNode source, final FreewarNode destination, final EMoveType type) {
+	public DirectedWeightedEdge addEdge(final FreewarNode source, final FreewarNode destination, final EMoveType type) {
 		final float edgeCost = NetworkUtil.getCostOfMoveType(type);
-		super.addEdge(source, destination, edgeCost);
+		return super.addEdge(source, destination, edgeCost);
 	}
 
 	/**
@@ -224,7 +233,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 * {@link #addEdge(FreewarNode, FreewarNode, EMoveType)} instead.
 	 */
 	@Override
-	public void addEdge(final Node source, final Node destination, final float cost)
+	public DirectedWeightedEdge addEdge(final Node source, final Node destination, final float cost)
 			throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(UNSUPPORTED_ADD_EDGE);
 	}
@@ -255,6 +264,106 @@ public final class FreewarNetwork extends PathNetwork {
 	}
 
 	/**
+	 * Adds a set of special edges which are relative to the given node. As they
+	 * change frequently, they should be removed and re-added again for each
+	 * computation task.
+	 * 
+	 * @param node
+	 *            The node to which the edges are relative to
+	 * @param options
+	 *            A set which contains all movement types to allow
+	 */
+	public void addTemporaryEdges(final FreewarNode node, final Set<EMoveType> options) {
+		if (options.contains(EMoveType.BLUE_SPHERE)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(101, 100).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(85, 102).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(92, 105).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(97, 108).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(93, 96).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(81, 94).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(99, 115).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(501, 51).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(103, 110).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(80, 87).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(71, 92).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(92, 90).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(108, 114).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(100, 94).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(75, 99).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(66, 111).get(), EMoveType.BLUE_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(114, 76).get(), EMoveType.BLUE_SPHERE));
+		}
+
+		if (options.contains(EMoveType.YELLOW_SPHERE)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-798, -798).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-785, -786).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-803, -808).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-347, -693).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-599, -489).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-823, -778).get(), EMoveType.YELLOW_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-507, -377).get(), EMoveType.YELLOW_SPHERE));
+		}
+
+		if (options.contains(EMoveType.BLACK_SPHERE)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-288, -721).get(), EMoveType.BLACK_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-922, -179).get(), EMoveType.BLACK_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-529, -169).get(), EMoveType.BLACK_SPHERE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-804, -279).get(), EMoveType.BLACK_SPHERE));
+		}
+
+		if (options.contains(EMoveType.ICY_TELEPORTER)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(1005, 1005).get(), EMoveType.ICY_TELEPORTER));
+		}
+
+		if (options.contains(EMoveType.PORTAL)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(90, 115).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(64, 80).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 100).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(72, 116).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(144, 126).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(121, 91).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 116).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(62, 83).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(59, 106).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(129, 90).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(115, 100).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(111, 83).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(135, 115).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(58, 98).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(106, 93).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(110, 107).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(118, 124).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 78).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-605, -206).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-100, -95).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-286, -479).get(), EMoveType.PORTAL));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-827, -919).get(), EMoveType.PORTAL));
+		}
+
+		if (options.contains(EMoveType.RING_OF_THE_SANDWINDS)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(98, 120).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(98, 81).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(121, 112).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(72, 85).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(123, 92).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(123, 92).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(65, 96).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(100, 135).get(), EMoveType.RING_OF_THE_SANDWINDS));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(45, 98).get(), EMoveType.RING_OF_THE_SANDWINDS));
+		}
+
+		if (options.contains(EMoveType.STAFF_OF_TRADE)) {
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 90).get(), EMoveType.STAFF_OF_TRADE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(88, 89).get(), EMoveType.STAFF_OF_TRADE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 101).get(), EMoveType.STAFF_OF_TRADE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(117, 113).get(), EMoveType.STAFF_OF_TRADE));
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 87).get(), EMoveType.STAFF_OF_TRADE));
+		}
+
+		// TODO Implement home spell edges
+	}
+
+	/**
 	 * Gets the freewar node represented by the given coordinates, if there is
 	 * such a node in the network.
 	 * 
@@ -272,6 +381,17 @@ public final class FreewarNetwork extends PathNetwork {
 		} else {
 			return Optional.empty();
 		}
+	}
+
+	/**
+	 * Removes all special edges that where added by using *
+	 * {@link #addTemporaryEdges(FreewarNode)}.
+	 */
+	public void removeTemporaryEdges() {
+		for (final DirectedWeightedEdge edge : m_TemporaryEdges) {
+			removeEdge(edge);
+		}
+		m_TemporaryEdges.clear();
 	}
 
 }

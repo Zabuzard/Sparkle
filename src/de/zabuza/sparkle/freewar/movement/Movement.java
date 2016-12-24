@@ -2,8 +2,10 @@ package de.zabuza.sparkle.freewar.movement;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -16,6 +18,7 @@ import de.zabuza.pathweaver.network.algorithm.shortestpath.IShortestPathComputat
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.freewar.location.ILocation;
+import de.zabuza.sparkle.freewar.movement.network.EMoveType;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNetwork;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNode;
 import de.zabuza.sparkle.selectors.CSSSelectors;
@@ -182,6 +185,17 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public void moveTo(final int xCoordinate, final int yCoordinate) {
+		moveTo(xCoordinate, yCoordinate, Collections.emptySet());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.movement.IMovement#moveTo(int, int,
+	 * java.util.Set)
+	 */
+	@Override
+	public void moveTo(final int xCoordinate, final int yCoordinate, final Set<EMoveType> options) {
 		final Point sourcePos = m_Location.getPosition();
 		final Optional<FreewarNode> source = m_Network.getNodeByCoordinates((int) sourcePos.getX(),
 				(int) sourcePos.getY());
@@ -194,7 +208,12 @@ public final class Movement implements IMovement {
 			return;
 		}
 
+		// Prepare network for computation by adding temporary edges
+		m_Network.addTemporaryEdges(source.get(), options);
 		final Optional<Path> path = m_Computation.computeShortestPath(source.get(), destination.get());
+		// Remove temporary edges
+		m_Network.removeTemporaryEdges();
+
 		if (!path.isPresent()) {
 			m_MovementTask = MovementTask.createCanceledTask();
 			return;

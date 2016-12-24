@@ -143,7 +143,7 @@ public final class NetworkUtil {
 			throw new IllegalArgumentException(MSG_ILLEGAL_MOVE_TYPE_EXECUTION);
 		}
 	}
-
+	
 	/**
 	 * Gets the costs corresponding to the given move type.
 	 * 
