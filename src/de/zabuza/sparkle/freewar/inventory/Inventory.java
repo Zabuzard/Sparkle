@@ -3,13 +3,17 @@ package de.zabuza.sparkle.freewar.inventory;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.selectors.CSSSelectors;
+import de.zabuza.sparkle.selectors.ItemNames;
 import de.zabuza.sparkle.selectors.XPaths;
+import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
 
 /**
  * Inventory of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
@@ -39,6 +43,39 @@ public final class Inventory implements IInventory {
 	public Inventory(final WebDriver driver, final IFrameManager frameManager) {
 		m_Driver = driver;
 		m_FrameManager = frameManager;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#
+	 * activateCompressedMagicSphere(de.zabuza.sparkle.freewar.inventory.
+	 * EBlueSphereDestination)
+	 */
+	@Override
+	public boolean activateCompressedMagicSphere(final EBlueSphereDestination destination) {
+		if (hasItem(ItemNames.COMPRESSED_MAGIC_SPHERE) && activateItem(ItemNames.COMPRESSED_MAGIC_SPHERE)) {
+			try {
+				final WebElement element = new CSSSelectorPresenceWait(m_Driver,
+						CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SELECT).waitUntilCondition();
+				final Select selectElement = new Select(element);
+				final int accessId = ItemUtil.getBlueSphereAccessIdByDestination(destination);
+				// Select the destination
+				selectElement.selectByValue(accessId + "");
+				final List<WebElement> submitButtons = m_Driver
+						.findElements(By.cssSelector(CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT));
+				if (submitButtons != null && !submitButtons.isEmpty()) {
+					final WebElement submitButton = submitButtons.iterator().next();
+					// Click the teleportation button
+					submitButton.click();
+					return true;
+				}
+			} catch (TimeoutException e) {
+				return false;
+			}
+		}
+
+		return false;
 	}
 
 	/*

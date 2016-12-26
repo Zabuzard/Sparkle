@@ -17,6 +17,7 @@ import de.zabuza.pathweaver.network.algorithm.shortestpath.DijkstraShortestPathC
 import de.zabuza.pathweaver.network.algorithm.shortestpath.IShortestPathComputation;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
+import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.network.EMoveType;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNetwork;
@@ -52,6 +53,10 @@ public final class Movement implements IMovement {
 	 */
 	private final IFrameManager m_FrameManager;
 	/**
+	 * The inventory object used by this movement.
+	 */
+	private final IInventory m_Inventory;
+	/**
 	 * The location object used by this movement.
 	 */
 	private final ILocation m_Location;
@@ -71,12 +76,16 @@ public final class Movement implements IMovement {
 	 *            Web driver this object should use
 	 * @param location
 	 *            Location object this object should use
+	 * @param inventory
+	 *            Inventory object this object should use
 	 * @param frameManager
 	 *            Manager to use for switching frames
 	 */
-	public Movement(final WebDriver driver, final ILocation location, final IFrameManager frameManager) {
+	public Movement(final WebDriver driver, final ILocation location, final IInventory inventory,
+			final IFrameManager frameManager) {
 		m_Driver = driver;
 		m_Location = location;
+		m_Inventory = inventory;
 		m_FrameManager = frameManager;
 		try {
 			m_Network = FreewarNetwork.createFromWiki();
@@ -219,7 +228,7 @@ public final class Movement implements IMovement {
 			return;
 		}
 
-		m_MovementTask = new MovementTask(path.get(), m_Location, this);
+		m_MovementTask = new MovementTask(path.get(), m_Location, this, m_Inventory);
 		m_MovementTask.start();
 	}
 

@@ -10,6 +10,18 @@ package de.zabuza.sparkle.freewar.inventory;
  */
 public interface IInventory {
 	/**
+	 * Tries to activate a compressed magic sphere and teleport to the given
+	 * position.
+	 * 
+	 * @param destination
+	 *            The destination to teleport to
+	 * 
+	 * @return <tt>True</tt> if the item was activated, <tt>false</tt> if it
+	 *         could not be activated.
+	 */
+	public boolean activateCompressedMagicSphere(final EBlueSphereDestination destination);
+
+	/**
 	 * Tries to activate a given item.
 	 * 
 	 * @param item

@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.zabuza.pathweaver.network.DirectedWeightedEdge;
 import de.zabuza.pathweaver.network.Path;
+import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.network.EMoveType;
 import de.zabuza.sparkle.freewar.movement.network.FreewarNode;
@@ -39,7 +40,7 @@ public final class MovementTask extends Thread {
 	 */
 	public static MovementTask createCanceledTask() {
 		if (canceledTaskInstance == null) {
-			canceledTaskInstance = new MovementTask(null, null, null);
+			canceledTaskInstance = new MovementTask(null, null, null, null);
 			canceledTaskInstance.cancelTask();
 			canceledTaskInstance.start();
 		}
@@ -50,6 +51,10 @@ public final class MovementTask extends Thread {
 	 * Whether the task terminated.
 	 */
 	private boolean mHasTerminated;
+	/**
+	 * The object to use for accessing the inventory of the current instance.
+	 */
+	private final IInventory mInventory;
 	/**
 	 * The location object of the current instance.
 	 */
@@ -77,13 +82,18 @@ public final class MovementTask extends Thread {
 	 *            The location object of the current instance
 	 * @param movement
 	 *            The movement object of the current instance
+	 * @param inventory
+	 *            The object to use for accessing the inventory of the current
+	 *            instance
 	 */
-	public MovementTask(final Path path, final ILocation location, final IMovement movement) {
+	public MovementTask(final Path path, final ILocation location, final IMovement movement,
+			final IInventory inventory) {
 		mPath = path;
 		mWasCanceled = false;
 		mHasTerminated = false;
 		mLocation = location;
 		mMovement = movement;
+		mInventory = inventory;
 	}
 
 	/**
@@ -143,7 +153,8 @@ public final class MovementTask extends Thread {
 			final EMoveType type = NetworkUtil.getMoveTypeOfCost(edge.getCost());
 
 			// Execute the movement represented by the edge
-			final boolean wasSuccessful = NetworkUtil.executeMovement(type, sourcePos, destinationPos, mMovement);
+			final boolean wasSuccessful = NetworkUtil.executeMovement(type, sourcePos, destinationPos, mMovement,
+					mInventory);
 			if (!wasSuccessful) {
 				cancelTask();
 			}

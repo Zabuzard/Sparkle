@@ -8,6 +8,16 @@ package de.zabuza.sparkle.selectors;
  */
 public final class CSSSelectors {
 	/**
+	 * Selector that corresponds to the destination selector element of an
+	 * activated compressed magic sphere item.
+	 */
+	public static final String ITEM_COMPRESSED_MAGIC_SPHERE_SELECT = "select[name=z_pos_id]";
+	/**
+	 * Selector that corresponds to the submit button of an activated compressed
+	 * magic sphere item.
+	 */
+	public static final String ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT = "input[value^=\"Noppen dr\"]";
+	/**
 	 * Selector that indicates, when present, if the item frame has loaded.
 	 */
 	public static final String ITEM_FRAME_PRESENT = "div#toplpheader";

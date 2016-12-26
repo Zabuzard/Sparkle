@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar.movement.network;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +15,10 @@ import de.zabuza.pathweaver.network.DirectedWeightedEdge;
 import de.zabuza.pathweaver.network.Node;
 import de.zabuza.pathweaver.network.PathNetwork;
 import de.zabuza.pathweaver.util.NestedMap2;
+import de.zabuza.sparkle.freewar.inventory.EBlueSphereDestination;
+import de.zabuza.sparkle.freewar.inventory.ItemUtil;
 import de.zabuza.sparkle.freewar.movement.EDirection;
+import de.zabuza.sparkle.selectors.Patterns;
 
 /**
  * A path network which consists of positions and edges that model the world of
@@ -35,11 +39,6 @@ public final class FreewarNetwork extends PathNetwork {
 	 * site.
 	 */
 	private final static String MASK_CONTENT_START = "id=\"mw-content-text\"";
-
-	/**
-	 * Coordinate pattern for the wiki content.
-	 */
-	private final static String PATTERN_COORDINATES = "(-?\\d+),(-?\\d+);?";
 	/**
 	 * Number of the pattern group for the x coordinates.
 	 */
@@ -109,7 +108,7 @@ public final class FreewarNetwork extends PathNetwork {
 
 		// Parse the coordinates
 		int idToUse = 0;
-		final Pattern coordinatePattern = Pattern.compile(PATTERN_COORDINATES);
+		final Pattern coordinatePattern = Pattern.compile(Patterns.WIKI_CONTENT_COORDINATES);
 		final Matcher coordinateMatcher = coordinatePattern.matcher(content);
 		while (coordinateMatcher.find()) {
 			final int xCoordinate = Integer.parseInt(coordinateMatcher.group(PATTERN_COORDINATES_X_GROUP));
@@ -275,23 +274,53 @@ public final class FreewarNetwork extends PathNetwork {
 	 */
 	public void addTemporaryEdges(final FreewarNode node, final Set<EMoveType> options) {
 		if (options.contains(EMoveType.BLUE_SPHERE)) {
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(101, 100).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(85, 102).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(92, 105).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(97, 108).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(93, 96).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(81, 94).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(99, 115).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(501, 51).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(103, 110).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(80, 87).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(71, 92).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(92, 90).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(108, 114).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(100, 94).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(75, 99).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(66, 111).get(), EMoveType.BLUE_SPHERE));
-			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(114, 76).get(), EMoveType.BLUE_SPHERE));
+			final Point anatubia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.ANATUBIA);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(anatubia.x, anatubia.y).get(), EMoveType.BLUE_SPHERE));
+			final Point buran = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.BURAN);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(buran.x, buran.y).get(), EMoveType.BLUE_SPHERE));
+			final Point casinoOfFerdolia = ItemUtil
+					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.CASINO_OF_FERDOLIA);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(casinoOfFerdolia.x, casinoOfFerdolia.y).get(),
+					EMoveType.BLUE_SPHERE));
+			final Point hewn = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.HEWN);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(hewn.x, hewn.y).get(), EMoveType.BLUE_SPHERE));
+			final Point kanobia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KANOBIA);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(kanobia.x, kanobia.y).get(), EMoveType.BLUE_SPHERE));
+			final Point konlir = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KONLIR);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(konlir.x, konlir.y).get(), EMoveType.BLUE_SPHERE));
+			final Point lodradon = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LODRADON);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(lodradon.x, lodradon.y).get(), EMoveType.BLUE_SPHERE));
+			final Point lostValley = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LOST_VALLEY);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(lostValley.x, lostValley.y).get(), EMoveType.BLUE_SPHERE));
+			final Point mentoran = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.MENTORAN);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(mentoran.x, mentoran.y).get(), EMoveType.BLUE_SPHERE));
+			final Point narubia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NARUBIA);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(narubia.x, narubia.y).get(), EMoveType.BLUE_SPHERE));
+			final Point nawor = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NAWOR);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(nawor.x, nawor.y).get(), EMoveType.BLUE_SPHERE));
+			final Point orewu = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.OREWU);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(orewu.x, orewu.y).get(), EMoveType.BLUE_SPHERE));
+			final Point reikan = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.REIKAN);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(reikan.x, reikan.y).get(), EMoveType.BLUE_SPHERE));
+			final Point sutrania = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.SUTRANIA);
+			m_TemporaryEdges
+					.add(addEdge(node, getNodeByCoordinates(sutrania.x, sutrania.y).get(), EMoveType.BLUE_SPHERE));
+			final Point terasi = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.TERASI);
+			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(terasi.x, terasi.y).get(), EMoveType.BLUE_SPHERE));
+			final Point universalBank = ItemUtil
+					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.UNIVERSAL_BANK);
+			m_TemporaryEdges.add(
+					addEdge(node, getNodeByCoordinates(universalBank.x, universalBank.y).get(), EMoveType.BLUE_SPHERE));
+			final Point valleyOfRuins = ItemUtil
+					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.VALLEY_OF_RUINS);
+			m_TemporaryEdges.add(
+					addEdge(node, getNodeByCoordinates(valleyOfRuins.x, valleyOfRuins.y).get(), EMoveType.BLUE_SPHERE));
 		}
 
 		if (options.contains(EMoveType.YELLOW_SPHERE)) {

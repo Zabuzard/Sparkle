@@ -2,6 +2,9 @@ package de.zabuza.sparkle.freewar.movement.network;
 
 import java.awt.Point;
 
+import de.zabuza.sparkle.freewar.inventory.EBlueSphereDestination;
+import de.zabuza.sparkle.freewar.inventory.IInventory;
+import de.zabuza.sparkle.freewar.inventory.ItemUtil;
 import de.zabuza.sparkle.freewar.movement.EDirection;
 import de.zabuza.sparkle.freewar.movement.IMovement;
 
@@ -82,6 +85,8 @@ public final class NetworkUtil {
 	 *            Destination position
 	 * @param movement
 	 *            Object to use for movement
+	 * @param inventory
+	 *            Object to use for accessing the inventory
 	 * @return <tt>True</tt> if the player was moved according to the given type
 	 *         and situation, <tt>false</tt> if that was not possible
 	 * @throws IllegalArgumentException
@@ -89,7 +94,7 @@ public final class NetworkUtil {
 	 *             method
 	 */
 	public static boolean executeMovement(final EMoveType type, final Point source, final Point destination,
-			final IMovement movement) throws IllegalArgumentException {
+			final IMovement movement, final IInventory inventory) throws IllegalArgumentException {
 		final boolean isAtSameYLevel = (int) source.getY() == (int) destination.getY();
 		final boolean isAtSameXLevel = (int) source.getX() == (int) destination.getX();
 
@@ -137,13 +142,22 @@ public final class NetworkUtil {
 				}
 			}
 		} else if (type == EMoveType.BLUE_SPHERE) {
-			// TODO Activate blue sphere
-			throw new IllegalArgumentException(MSG_ILLEGAL_MOVE_TYPE_EXECUTION);
+			final EBlueSphereDestination blueSphereDestination = ItemUtil
+					.getBlueSphereDestinationByCoordinates(destination);
+			boolean movementExecuted = false;
+
+			// First try the compressed magic sphere
+			movementExecuted = inventory.activateCompressedMagicSphere(blueSphereDestination);
+
+			// TODO Try other blue sphere teleportation items
+
+			return movementExecuted;
 		} else {
+			// TODO Add support for other movement types
 			throw new IllegalArgumentException(MSG_ILLEGAL_MOVE_TYPE_EXECUTION);
 		}
 	}
-	
+
 	/**
 	 * Gets the costs corresponding to the given move type.
 	 * 
