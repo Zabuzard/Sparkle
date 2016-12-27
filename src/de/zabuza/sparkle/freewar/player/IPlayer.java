@@ -93,7 +93,7 @@ public interface IPlayer {
 	/**
 	 * Gets the name of the player.
 	 * 
-	 * @return The name of the player or <tt>null/<tt> if that is not possible.
+	 * @return The name of the player or <tt>null</tt> if that is not possible.
 	 */
 	public String getName();
 

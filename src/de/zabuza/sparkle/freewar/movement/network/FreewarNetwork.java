@@ -221,6 +221,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 *            The destination node of the edge
 	 * @param type
 	 *            The type of the edge to add
+	 * @return The edge which was created and added
 	 */
 	public DirectedWeightedEdge addEdge(final FreewarNode source, final FreewarNode destination, final EMoveType type) {
 		final float edgeCost = NetworkUtil.getCostOfMoveType(type);
@@ -414,7 +415,7 @@ public final class FreewarNetwork extends PathNetwork {
 
 	/**
 	 * Removes all special edges that where added by using *
-	 * {@link #addTemporaryEdges(FreewarNode)}.
+	 * {@link #addTemporaryEdges(FreewarNode, Set)}.
 	 */
 	public void removeTemporaryEdges() {
 		for (final DirectedWeightedEdge edge : m_TemporaryEdges) {

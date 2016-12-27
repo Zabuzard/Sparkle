@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.wait;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,7 +47,7 @@ public abstract class AConditionalWait<V> {
 	 *            Web driver to use for waiting
 	 * @param timeOutInSeconds
 	 *            Timeout in seconds to wait for the condition to resolve to
-	 *            <tt>true</tt> until a {@link #TimeoutException} is thrown.
+	 *            <tt>true</tt> until a {@link TimeoutException} is thrown.
 	 */
 	public AConditionalWait(final WebDriver driver, final long timeOutInSeconds) {
 		m_Wait = new WebDriverWait(driver, timeOutInSeconds);
