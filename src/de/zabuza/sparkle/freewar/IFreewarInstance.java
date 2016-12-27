@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar;
 
+import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.IMovement;
@@ -13,6 +14,21 @@ import de.zabuza.sparkle.freewar.player.IPlayer;
  * 
  */
 public interface IFreewarInstance {
+	/**
+	 * Tries to click an anchor in the given frame whose content contains the
+	 * given needle.
+	 * 
+	 * @param frame
+	 *            The frame which contains the anchor
+	 * @param needle
+	 *            The needle that is contained by the content of the anchor to
+	 *            click
+	 * @return <tt>True</tt> if the anchor was found and could be clicked,
+	 *         <tt>false</tt> if that was not possible or the anchor was not
+	 *         found.
+	 */
+	public boolean clickAnchorByContent(final EFrame frame, final String needle);
+
 	/**
 	 * Gets the inventory object of this instance. It can be used to access the
 	 * inventory of the player and interact with it.

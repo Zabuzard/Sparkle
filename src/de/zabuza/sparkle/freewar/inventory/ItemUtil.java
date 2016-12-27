@@ -2,6 +2,8 @@ package de.zabuza.sparkle.freewar.inventory;
 
 import java.awt.Point;
 
+import de.zabuza.sparkle.locale.ErrorMessages;
+
 /**
  * Utility class that provides methods for items.
  * 
@@ -225,16 +227,6 @@ public final class ItemUtil {
 	 * of ruins.
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_Y = 96;
-	/**
-	 * Message which is shown when an illegal coordinate was given that does not
-	 * correspond to a blue sphere teleportation destination.
-	 */
-	private static final String MSG_ILLEGAL_BLUE_SPHERE_COORDINATES = "The given coordinates do not correspond to a blue sphere teleportation destination.";
-	/**
-	 * Message which is shown when an illegal blue sphere teleportation
-	 * destination was given that is not supported by the given method.
-	 */
-	private static final String MSG_ILLEGAL_BLUE_SPHERE_DESTINATION = "The given blue sphere teleportation destination is not supported by this method.";
 
 	/**
 	 * Gets the access id of the corresponding blue sphere teleportation
@@ -285,7 +277,7 @@ public final class ItemUtil {
 		} else if (destination == EBlueSphereDestination.VALLEY_OF_RUINS) {
 			return BLUE_SPHERE_VALLEY_OF_RUINS_ID;
 		} else {
-			throw new IllegalArgumentException(MSG_ILLEGAL_BLUE_SPHERE_DESTINATION);
+			throw new IllegalArgumentException(ErrorMessages.BLUE_SPHERE_DESTINATION_ILLEGAL);
 		}
 	}
 
@@ -338,7 +330,7 @@ public final class ItemUtil {
 		} else if (destination == EBlueSphereDestination.VALLEY_OF_RUINS) {
 			return new Point(BLUE_SPHERE_VALLEY_OF_RUINS_X, BLUE_SPHERE_VALLEY_OF_RUINS_Y);
 		} else {
-			throw new IllegalArgumentException(MSG_ILLEGAL_BLUE_SPHERE_DESTINATION);
+			throw new IllegalArgumentException(ErrorMessages.BLUE_SPHERE_DESTINATION_ILLEGAL);
 		}
 	}
 
@@ -392,7 +384,7 @@ public final class ItemUtil {
 		} else if (coordinates.x == BLUE_SPHERE_VALLEY_OF_RUINS_X && coordinates.y == BLUE_SPHERE_VALLEY_OF_RUINS_Y) {
 			return EBlueSphereDestination.VALLEY_OF_RUINS;
 		} else {
-			throw new IllegalArgumentException(MSG_ILLEGAL_BLUE_SPHERE_COORDINATES);
+			throw new IllegalArgumentException(ErrorMessages.BLUE_SPHERE_COORDINATES_ILLEGAL);
 		}
 	}
 

@@ -1,7 +1,12 @@
 package de.zabuza.sparkle.freewar;
 
-import org.openqa.selenium.WebDriver;
+import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.FrameManager;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
@@ -89,6 +94,24 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		m_Inventory = new Inventory(m_Driver, m_FrameManager);
 		m_Location = new Location(m_Driver, m_FrameManager);
 		m_Movement = new Movement(m_Driver, m_Location, m_Inventory, m_FrameManager);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.IFreewarInstance#clickAnchorByContent(de.zabuza
+	 * .sparkle.freewar.frames.EFrame, java.lang.String)
+	 */
+	@Override
+	public boolean clickAnchorByContent(final EFrame frame, final String needle) {
+		m_FrameManager.switchToFrame(frame);
+		final List<WebElement> elements = m_Driver.findElements(By.partialLinkText(needle));
+		if (elements != null && !elements.isEmpty()) {
+			elements.iterator().next().click();
+			return true;
+		}
+		return false;
 	}
 
 	/*

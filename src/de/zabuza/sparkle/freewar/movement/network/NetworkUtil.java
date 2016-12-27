@@ -7,6 +7,7 @@ import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.inventory.ItemUtil;
 import de.zabuza.sparkle.freewar.movement.EDirection;
 import de.zabuza.sparkle.freewar.movement.IMovement;
+import de.zabuza.sparkle.locale.ErrorMessages;
 
 /**
  * Utility class which offers methods useful for freewar networks.
@@ -55,23 +56,6 @@ public final class NetworkUtil {
 	 * The cost corresponding to the move type yellow sphere.
 	 */
 	private final static float COST_OF_MOVE_TYPE_YELLOW_SPHERE = 1.003f;
-
-	/**
-	 * Message shown when trying to get the move type of a given unsupported
-	 * cost.
-	 */
-	private final static String MSG_ILLEGAL_COST_MOVE_TYPE = "The given cost is not supported by this method.";
-
-	/**
-	 * Message shown when trying to get the cost of a given unsupported move
-	 * type.
-	 */
-	private final static String MSG_ILLEGAL_MOVE_TYPE_COST = "The given move type is not supported by this method.";
-	/**
-	 * Message shown when trying to execute the movement for a given unsupported
-	 * move type.
-	 */
-	private final static String MSG_ILLEGAL_MOVE_TYPE_EXECUTION = "The given move type or situation is not supported by this method";
 
 	/**
 	 * Tries to execute the movement corresponding to the given type and
@@ -154,7 +138,7 @@ public final class NetworkUtil {
 			return movementExecuted;
 		} else {
 			// TODO Add support for other movement types
-			throw new IllegalArgumentException(MSG_ILLEGAL_MOVE_TYPE_EXECUTION);
+			throw new IllegalArgumentException(ErrorMessages.MOVE_TYPE_EXECUTION_ILLEGAL);
 		}
 	}
 
@@ -189,7 +173,7 @@ public final class NetworkUtil {
 		} else if (moveType == EMoveType.STAFF_OF_TRADE) {
 			return COST_OF_MOVE_TYPE_STAFF_OF_TRADE;
 		} else {
-			throw new IllegalArgumentException(MSG_ILLEGAL_MOVE_TYPE_COST);
+			throw new IllegalArgumentException(ErrorMessages.MOVE_TYPE_COST_ILLEGAL);
 		}
 	}
 
@@ -224,7 +208,7 @@ public final class NetworkUtil {
 		} else if (cost == COST_OF_MOVE_TYPE_STAFF_OF_TRADE) {
 			return EMoveType.STAFF_OF_TRADE;
 		} else {
-			throw new IllegalArgumentException(MSG_ILLEGAL_COST_MOVE_TYPE);
+			throw new IllegalArgumentException(ErrorMessages.COST_MOVE_TYPE_ILLEGAL);
 		}
 	}
 

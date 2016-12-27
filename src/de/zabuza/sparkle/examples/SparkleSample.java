@@ -1,0 +1,80 @@
+package de.zabuza.sparkle.examples;
+
+import java.util.HashSet;
+
+import org.openqa.selenium.Capabilities;
+
+import de.zabuza.sparkle.IFreewarAPI;
+import de.zabuza.sparkle.Sparkle;
+import de.zabuza.sparkle.freewar.EWorld;
+import de.zabuza.sparkle.freewar.IFreewarInstance;
+import de.zabuza.sparkle.freewar.inventory.IInventory;
+import de.zabuza.sparkle.freewar.location.ILocation;
+import de.zabuza.sparkle.freewar.movement.EDirection;
+import de.zabuza.sparkle.freewar.movement.IMovement;
+import de.zabuza.sparkle.freewar.movement.network.EMoveType;
+import de.zabuza.sparkle.freewar.player.IPlayer;
+import de.zabuza.sparkle.webdriver.EBrowser;
+
+/**
+ * Sample that demonstrates usage of the Sparkle API. It logins to an account,
+ * activates an item, moves around, attacks a NPC and finally logs out from the
+ * account.
+ * 
+ * @author Zabuza {@literal <zabuza.dev@gmail.com>}
+ * 
+ */
+public final class SparkleSample {
+	/**
+	 * Starts the API sample.
+	 * 
+	 * @param args
+	 *            Not supported
+	 */
+	public static void main(final String[] args) {
+		// Create the API and choose a browser
+		IFreewarAPI api = new Sparkle(EBrowser.CHROME);
+
+		// Setup some browser specific settings like path to
+		// browser driver and binary
+		final String pathToDriver = "D:\\GitHubRepos\\Sparkle\\lib\\driver\\chromedriver.exe";
+		final String pathToBinary = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+		final Capabilities capabilities = api.createCapabilities(EBrowser.CHROME, pathToDriver, pathToBinary);
+		api.setCapabilities(capabilities);
+
+		// Login and create an instance
+		final IFreewarInstance instance = api.login("username", "password", EWorld.ONE);
+
+		// Get some objects for interaction from the API
+		final IPlayer player = instance.getPlayer();
+		final IMovement movement = instance.getMovement();
+		final IInventory inventory = instance.getInventory();
+		final ILocation location = instance.getLocation();
+
+		// Equip the mighty 'Waldschlurchpanzer' if held
+		final String weapon = "Waldschlurchpanzer";
+		if (inventory.hasItem(weapon)) {
+			inventory.activateItem(weapon);
+		}
+
+		// Move to some directions. Use methods which wait until the player is
+		// able to move.
+		movement.moveWaiting(EDirection.NORTH);
+		movement.moveWaiting(EDirection.SOUTH);
+
+		// Use the path finder to move to a destination on the shortest path
+		final HashSet<EMoveType> options = new HashSet<>();
+		options.add(EMoveType.BLUE_SPHERE);
+		movement.moveTo(89, 101, options);
+
+		// Use some basic NPC attacking logic
+		final String npc = "Waldschlurch";
+		if (location.hasNPC(npc) && player.getLifePoints() > 10) {
+			location.regularAttackNPC(npc);
+		}
+
+		// Logout and shutdown the instance
+		api.logout(instance);
+		api.shutdown();
+	}
+}
