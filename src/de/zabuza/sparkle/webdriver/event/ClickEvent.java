@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class ClickEvent implements IDelayableEvent {
+public final class ClickEvent implements IDelayableEvent {
 
 	/**
 	 * Web element to click, should not be an instance of

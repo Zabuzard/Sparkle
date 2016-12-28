@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class ForwardEvent implements IDelayableEvent {
+public final class ForwardEvent implements IDelayableEvent {
 
 	/**
 	 * Object to use for navigation, should not be an instance of

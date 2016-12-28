@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class ToStringEvent implements IDelayableEvent {
+public final class ToStringEvent implements IDelayableEvent {
 
 	/**
 	 * Object to use for navigation, should not be an instance of

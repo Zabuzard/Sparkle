@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class RefreshEvent implements IDelayableEvent {
+public final class RefreshEvent implements IDelayableEvent {
 
 	/**
 	 * Object to use for the refresh, should not be an instance of

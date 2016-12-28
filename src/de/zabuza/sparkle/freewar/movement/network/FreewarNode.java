@@ -8,7 +8,7 @@ import de.zabuza.pathweaver.network.Node;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class FreewarNode extends Node {
+public final class FreewarNode extends Node {
 	/**
 	 * The coordinate in x-direction of this node.
 	 */

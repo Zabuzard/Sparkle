@@ -20,7 +20,7 @@ import de.zabuza.sparkle.selectors.Splits;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  * 
  */
-public class Player implements IPlayer {
+public final class Player implements IPlayer {
 
 	/**
 	 * Web driver the player uses.

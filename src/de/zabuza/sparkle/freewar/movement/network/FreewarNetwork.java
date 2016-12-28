@@ -414,7 +414,7 @@ public final class FreewarNetwork extends PathNetwork {
 	}
 
 	/**
-	 * Removes all special edges that where added by using *
+	 * Removes all special edges that where added by using
 	 * {@link #addTemporaryEdges(FreewarNode, Set)}.
 	 */
 	public void removeTemporaryEdges() {

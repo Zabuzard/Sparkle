@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver.Navigation;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class ToUrlEvent implements IDelayableEvent {
+public final class ToUrlEvent implements IDelayableEvent {
 
 	/**
 	 * Object to use for navigation, should not be an instance of

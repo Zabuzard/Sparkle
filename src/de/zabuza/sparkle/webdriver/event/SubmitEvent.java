@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public class SubmitEvent implements IDelayableEvent {
+public final class SubmitEvent implements IDelayableEvent {
 
 	/**
 	 * Web element to submit, should not be an instance of
