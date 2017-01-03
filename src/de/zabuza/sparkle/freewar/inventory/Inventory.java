@@ -14,6 +14,7 @@ import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.ItemNames;
 import de.zabuza.sparkle.selectors.XPaths;
 import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
+import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 
 /**
  * Inventory of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
@@ -187,6 +188,9 @@ public final class Inventory implements IInventory {
 		}
 		WebElement openAnchor = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
 		openAnchor.click();
+		// It is necessary that this method blocks until the
+		// click event was executed
+		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
 	}
 
 	/**
