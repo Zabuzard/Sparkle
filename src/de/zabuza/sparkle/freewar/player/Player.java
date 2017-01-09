@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar.player;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Patterns;
 import de.zabuza.sparkle.selectors.Splits;
+import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 
 /**
  * Player of a {@link de.zabuza.sparkle.freewar.IFreewarInstance
@@ -42,6 +44,37 @@ public final class Player implements IPlayer {
 	public Player(final WebDriver driver, final IFrameManager frameManager) {
 		m_Driver = driver;
 		m_FrameManager = frameManager;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.player.IPlayer#activateSpecialSkill()
+	 */
+	@Override
+	public boolean activateSpecialSkill() {
+		switchToItemFrame();
+
+		// Search for the special skill activation anchor
+		List<WebElement> anchorElements = m_Driver
+				.findElements(By.cssSelector(CSSSelectors.ITEM_PLAYER_SPECIAL_SKILL_ANCHOR));
+		if (!anchorElements.isEmpty()) {
+			final WebElement specialSkillActivationAnchor = anchorElements.iterator().next();
+			specialSkillActivationAnchor.click();
+
+			// Wait until the click gets executed
+			new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+
+			// Follow the dialog and try to activate the special skill
+			final List<WebElement> dialogElements = m_Driver
+					.findElements(By.partialLinkText(Patterns.PLAYER_SPECIAL_SKILL_DIALOG_ACTIVATION));
+			if (dialogElements != null && !dialogElements.isEmpty()) {
+				dialogElements.iterator().next().click();
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/*

@@ -84,6 +84,11 @@ public final class CSSSelectors {
 	 */
 	public static final String ITEM_PLAYER_NAME_EXPERIENCE = "div#toplpheader + p.listcaption";
 	/**
+	 * Selector that corresponds to an anchor which activates the special skill
+	 * of the player.
+	 */
+	public static final String ITEM_PLAYER_SPECIAL_SKILL_ANCHOR = "p#listrow_special a[href$=special]";
+	/**
 	 * Selector that corresponds to an element that holds the amount of speed
 	 * the player has.
 	 */

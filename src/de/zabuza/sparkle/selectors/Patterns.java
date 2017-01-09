@@ -16,6 +16,10 @@ public final class Patterns {
 	 */
 	public final static String PLAYER_MAX_LIFE_POINTS = "\\(\\d+/(\\d+)\\)";
 	/**
+	 * Pattern for the activation anchor in the special skill dialog.
+	 */
+	public final static String PLAYER_SPECIAL_SKILL_DIALOG_ACTIVATION = "Anwenden";
+	/**
 	 * Coordinate pattern for the wiki content. The first group holds the x
 	 * coordinate, the second group holds the y coordinate.
 	 */
