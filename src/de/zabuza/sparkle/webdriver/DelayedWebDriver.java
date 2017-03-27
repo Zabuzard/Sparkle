@@ -104,6 +104,15 @@ public final class DelayedWebDriver implements WebDriver {
 		return m_WebDriver.getPageSource();
 	}
 
+	/**
+	 * Gets the underlying non delayed web driver.
+	 * 
+	 * @return The underlying non delayed web driver
+	 */
+	public WebDriver getRawDriver() {
+		return m_WebDriver;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
