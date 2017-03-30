@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -162,6 +163,35 @@ public final class Inventory implements IInventory {
 			}
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.inventory.IInventory#getItems()
+	 */
+	@Override
+	public String[] getItems() {
+		openInventory();
+		
+		List<String> items = new ArrayList<String>();
+		
+		// Add unequipped items
+		List<WebElement> itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
+		for (WebElement itemElement : itemElements) {
+			items.add(itemElement.getText());
+		}
+		
+		// Add equipped items
+		itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
+		for (WebElement itemElement : itemElements) {
+			items.add(itemElement.getText());
+		}
+		
+		String[] itemsArray = new String[items.size()];
+		itemsArray = items.toArray(itemsArray);
+		return itemsArray;
 	}
 
 	/*
