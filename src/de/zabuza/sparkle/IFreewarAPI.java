@@ -1,6 +1,6 @@
 package de.zabuza.sparkle;
 
-import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import de.zabuza.sparkle.freewar.EWorld;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
@@ -24,7 +24,8 @@ public interface IFreewarAPI {
 	 *            Path to the binary or <tt>null</tt> if not set
 	 * @return The capabilities to use or <tt>null</tt> if there are no
 	 */
-	public Capabilities createCapabilities(final EBrowser browser, final String driverPath, final String binaryPath);
+	public DesiredCapabilities createCapabilities(final EBrowser browser, final String driverPath,
+			final String binaryPath);
 
 	/**
 	 * Gets the browser to use at logging in to accounts with
@@ -83,7 +84,7 @@ public interface IFreewarAPI {
 	 * @param capabilities
 	 *            The capabilities to set
 	 */
-	public void setCapabilities(final Capabilities capabilities);
+	public void setCapabilities(final DesiredCapabilities capabilities);
 
 	/**
 	 * Shuts the API down, closing all remaining connections. This method does

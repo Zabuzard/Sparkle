@@ -2,7 +2,7 @@ package de.zabuza.sparkle.examples;
 
 import java.util.HashSet;
 
-import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import de.zabuza.sparkle.IFreewarAPI;
 import de.zabuza.sparkle.Sparkle;
@@ -39,7 +39,7 @@ public final class SparkleSample {
 		// browser driver and binary
 		final String pathToDriver = "D:\\GitHubRepos\\Sparkle\\lib\\driver\\chromedriver.exe";
 		final String pathToBinary = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
-		final Capabilities capabilities = api.createCapabilities(EBrowser.CHROME, pathToDriver, pathToBinary);
+		final DesiredCapabilities capabilities = api.createCapabilities(EBrowser.CHROME, pathToDriver, pathToBinary);
 		api.setCapabilities(capabilities);
 
 		// Login and create an instance

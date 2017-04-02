@@ -5,7 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,7 +47,7 @@ public final class Sparkle implements IFreewarAPI {
 	/**
 	 * The capabilities to use for the created browsers.
 	 */
-	private Capabilities m_Capabilities;
+	private DesiredCapabilities m_Capabilities;
 	/**
 	 * If the API should automatically delay events to disguise usage of a bot
 	 * for <tt>Freewar.de</tt>.
@@ -107,7 +106,8 @@ public final class Sparkle implements IFreewarAPI {
 	 * webdriver.EBrowser, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Capabilities createCapabilities(final EBrowser browser, final String driverPath, final String binaryPath) {
+	public DesiredCapabilities createCapabilities(final EBrowser browser, final String driverPath,
+			final String binaryPath) {
 		DesiredCapabilities capabilities = null;
 
 		if (browser == EBrowser.FIREFOX) {
@@ -320,7 +320,7 @@ public final class Sparkle implements IFreewarAPI {
 	 * Capabilities)
 	 */
 	@Override
-	public void setCapabilities(final Capabilities capabilities) {
+	public void setCapabilities(final DesiredCapabilities capabilities) {
 		m_Capabilities = capabilities;
 	}
 
