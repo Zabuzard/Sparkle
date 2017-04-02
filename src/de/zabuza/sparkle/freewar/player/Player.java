@@ -180,6 +180,8 @@ public final class Player implements IPlayer {
 		switchToItemFrame();
 		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_GOLD));
 		String goldText = element.getText();
+		// Remove thousand separator
+		goldText = goldText.replaceAll("\\.", "");
 		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(goldText);
 		int gold = NO_VALUE;
 		if (matcher.find()) {
