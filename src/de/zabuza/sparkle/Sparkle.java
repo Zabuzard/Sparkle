@@ -228,11 +228,10 @@ public final class Sparkle implements IFreewarAPI {
 		WebElement loginName = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_NAME));
 		WebElement loginPassword = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_PASSWORD));
 
-		// Clear fields in case browser has set a default login
-		loginName.clear();
-		loginPassword.clear();
 		// Type in user credentials
+		loginName.clear();
 		loginName.sendKeys(username);
+		loginPassword.clear();
 		loginPassword.sendKeys(password);
 
 		// Submit form and close all pop-ups if existent
