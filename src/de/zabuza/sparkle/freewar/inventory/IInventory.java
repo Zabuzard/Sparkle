@@ -41,6 +41,13 @@ public interface IInventory {
 	public boolean closeInventory();
 
 	/**
+	 * Returns the items that the player has.
+	 *
+	 * @return The items that the player has.
+	 */
+	public String[] getItems();
+
+	/**
 	 * If the player has a given item.
 	 *
 	 * @param item
@@ -49,13 +56,6 @@ public interface IInventory {
 	 *         not.
 	 */
 	public boolean hasItem(final String item);
-
-	/**
-	 * Returns the items that the player has.
-	 *
-	 * @return The items that the player has.
-	 */
-	public String[] getItems();
 
 	/**
 	 * Returns whether the inventory currently is opened.

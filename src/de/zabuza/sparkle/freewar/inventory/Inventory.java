@@ -142,6 +142,35 @@ public final class Inventory implements IInventory {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#getItems()
+	 */
+	@Override
+	public String[] getItems() {
+		openInventory();
+
+		final List<String> items = new ArrayList<String>();
+
+		// Add unequipped items
+		final List<WebElement> unequippedItemElements = m_Driver
+				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
+		for (final WebElement itemElement : unequippedItemElements) {
+			items.add(itemElement.getText());
+		}
+
+		// Add equipped items
+		final List<WebElement> equippedItemElements = m_Driver
+				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
+		for (final WebElement itemElement : equippedItemElements) {
+			items.add(itemElement.getText());
+		}
+
+		String[] itemsArray = new String[items.size()];
+		return items.toArray(itemsArray);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * de.zabuza.sparkle.freewar.inventory.IInventory#hasItem(java.lang.String)
 	 */
@@ -163,35 +192,6 @@ public final class Inventory implements IInventory {
 			}
 		}
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.inventory.IInventory#getItems()
-	 */
-	@Override
-	public String[] getItems() {
-		openInventory();
-		
-		List<String> items = new ArrayList<String>();
-		
-		// Add unequipped items
-		List<WebElement> itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
-		for (WebElement itemElement : itemElements) {
-			items.add(itemElement.getText());
-		}
-		
-		// Add equipped items
-		itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
-		for (WebElement itemElement : itemElements) {
-			items.add(itemElement.getText());
-		}
-		
-		String[] itemsArray = new String[items.size()];
-		itemsArray = items.toArray(itemsArray);
-		return itemsArray;
 	}
 
 	/*
