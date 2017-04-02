@@ -28,6 +28,7 @@ import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 import de.zabuza.sparkle.wait.FramePresenceWait;
 import de.zabuza.sparkle.wait.LoginFormWait;
 import de.zabuza.sparkle.wait.LoginPopupWait;
+import de.zabuza.sparkle.wait.TimedWait;
 import de.zabuza.sparkle.webdriver.DelayedWebDriver;
 import de.zabuza.sparkle.webdriver.EBrowser;
 import de.zabuza.sparkle.webdriver.IHasWebDriver;
@@ -231,6 +232,7 @@ public final class Sparkle implements IFreewarAPI {
 		// Type in user credentials
 		loginName.clear();
 		loginName.sendKeys(username);
+		new TimedWait(driver, 200).waitUntilCondition();
 		loginPassword.clear();
 		loginPassword.sendKeys(password);
 
