@@ -41,6 +41,13 @@ public interface ILocation {
 	public boolean fastAttackNPC(final String npcName);
 
 	/**
+	 * Gets the NPCs on the location.
+	 *
+	 * @return The NPCs on the location.
+	 */
+	public String[] getNPCs();
+
+	/**
 	 * Gets the position of the current location in coordinates.
 	 * 
 	 * @return The position of the current location in coordinates

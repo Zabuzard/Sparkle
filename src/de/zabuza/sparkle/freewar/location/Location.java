@@ -1,6 +1,7 @@
 package de.zabuza.sparkle.freewar.location;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,6 +70,27 @@ public final class Location implements ILocation {
 	@Override
 	public boolean fastAttackNPC(final String npcName) {
 		return doNPCAction(npcName, XPaths.MAIN_LOCATION_NPC_ACTION_FAST_ATTACK);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.location.ILocation#getNPCs()
+	 */
+	@Override
+	public String[] getNPCs() {
+		switchToMainFrame();
+
+		final List<String> npcs = new ArrayList<String>();
+
+		final List<WebElement> npcElements = m_Driver.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
+		for (final WebElement npcElement : npcElements) {
+			npcs.add(npcElement.getText());
+		}
+
+		String[] npcsArray = new String[npcs.size()];
+		return npcs.toArray(npcsArray);
 	}
 
 	/*
