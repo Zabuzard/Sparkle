@@ -8,21 +8,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import de.zabuza.sparkle.webdriver.event.GetEvent;
-
 /**
- * Wrapper for web driver objects to delayedly execute events.
+ * Wrapper for web driver objects to execute events only if they do not lead
+ * into bot traps.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
+public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
+
 	/**
-	 * Object that delayedly executes added events.
-	 */
-	private final DelayedEventExecutor m_DelayedEventExecutor;
-	/**
-	 * Web driver to wrap for delayed event execution.
+	 * Web driver to wrap for anti trap event execution.
 	 */
 	private final WebDriver m_WebDriver;
 
@@ -30,12 +26,10 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 * Creates a new instance of this object with a given web driver.
 	 * 
 	 * @param driver
-	 *            Driver to wrap for delayed event execution
+	 *            Driver to wrap for anti trap event execution
 	 */
-	public DelayedWebDriver(final WebDriver driver) {
+	public AntiTrapWebDriver(final WebDriver driver) {
 		m_WebDriver = driver;
-		m_DelayedEventExecutor = new DelayedEventExecutor();
-		m_DelayedEventExecutor.start();
 	}
 
 	/*
@@ -55,7 +49,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new DelayedWebElement(m_WebDriver.findElement(by), m_DelayedEventExecutor);
+		return new AntiTrapWebElement(m_WebDriver.findElement(by));
 	}
 
 	/*
@@ -66,12 +60,12 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	@Override
 	public List<WebElement> findElements(final By by) {
 		final List<WebElement> elements = m_WebDriver.findElements(by);
-		final List<WebElement> delayedElements = new LinkedList<WebElement>();
+		final List<WebElement> antiTrapElements = new LinkedList<WebElement>();
 		for (final WebElement element : elements) {
-			delayedElements.add(new DelayedWebElement(element, m_DelayedEventExecutor));
+			antiTrapElements.add(new AntiTrapWebElement(element));
 		}
 
-		return delayedElements;
+		return antiTrapElements;
 	}
 
 	/*
@@ -81,7 +75,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void get(final String url) {
-		m_DelayedEventExecutor.addEvent(new GetEvent(m_WebDriver, url));
+		m_WebDriver.get(url);
 	}
 
 	/*
@@ -144,15 +138,6 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 		return m_WebDriver.getWindowHandles();
 	}
 
-	/**
-	 * Returns whether the event queue of this driver is empty.
-	 * 
-	 * @return <tt>True</tt> if the event queue is empty, <tt>false</tt> if not.
-	 */
-	public boolean isEventQueueEmpty() {
-		return m_DelayedEventExecutor.isEmpty();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -170,7 +155,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Navigation navigate() {
-		return new DelayedNavigation(m_WebDriver.navigate(), m_DelayedEventExecutor);
+		return m_WebDriver.navigate();
 	}
 
 	/*
@@ -180,7 +165,6 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void quit() {
-		m_DelayedEventExecutor.stopExecution();
 		m_WebDriver.quit();
 	}
 

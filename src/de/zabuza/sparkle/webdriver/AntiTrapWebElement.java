@@ -1,6 +1,5 @@
 package de.zabuza.sparkle.webdriver;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -11,38 +10,28 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
-import de.zabuza.sparkle.webdriver.event.ClickEvent;
-import de.zabuza.sparkle.webdriver.event.SubmitEvent;
-
 /**
- * Wrapper for web element objects to delayedly execute events.
+ * Wrapper for web element objects to execute events only if they do not lead
+ * into bot traps.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public final class DelayedWebElement implements WebElement {
+public final class AntiTrapWebElement implements WebElement {
 
 	/**
-	 * Web element to wrap for delayed event execution.
+	 * Web element to wrap for anti trap event execution.
 	 */
 	private final WebElement m_Element;
-	/**
-	 * Event queue to add events to for delayed execution.
-	 */
-	private final IDelayedEventQueue m_Queue;
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * an event queue.
+	 * Creates a new instance of this object with a given web element object.
 	 * 
 	 * @param element
-	 *            Web element object to wrap for delayed event execution
-	 * @param queue
-	 *            Event queue to add events to for delayed execution
+	 *            Web element object to wrap for anti trap event execution
 	 */
-	public DelayedWebElement(final WebElement element, final IDelayedEventQueue queue) {
+	public AntiTrapWebElement(final WebElement element) {
 		m_Element = element;
-		m_Queue = queue;
 	}
 
 	/*
@@ -52,6 +41,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void clear() {
+		ensureIsNoBotTrap();
 		m_Element.clear();
 	}
 
@@ -62,7 +52,8 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void click() {
-		m_Queue.addEvent(new ClickEvent(m_Element));
+		ensureIsNoBotTrap();
+		m_Element.click();
 	}
 
 	/*
@@ -72,7 +63,8 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new DelayedWebElement(m_Element.findElement(by), m_Queue);
+		ensureIsNoBotTrap();
+		return m_Element.findElement(by);
 	}
 
 	/*
@@ -82,13 +74,8 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		List<WebElement> elements = m_Element.findElements(by);
-		List<WebElement> delayedElements = new LinkedList<WebElement>();
-		for (WebElement element : elements) {
-			delayedElements.add(new DelayedWebElement(element, m_Queue));
-		}
-
-		return delayedElements;
+		ensureIsNoBotTrap();
+		return m_Element.findElements(by);
 	}
 
 	/*
@@ -220,7 +207,20 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void submit() {
-		m_Queue.addEvent(new SubmitEvent(m_Element));
+		ensureIsNoBotTrap();
+		m_Element.submit();
+	}
+
+	/**
+	 * Examines the element and ensures that it is no bot trap.
+	 * 
+	 * @throws TrapElementException
+	 *             Thrown when the element seems to be a bot trap
+	 */
+	private void ensureIsNoBotTrap() throws TrapElementException {
+		if (!isDisplayed() || !isEnabled()) {
+			throw new TrapElementException();
+		}
 	}
 
 }

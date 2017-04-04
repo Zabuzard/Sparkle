@@ -75,8 +75,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#getNPCs()
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#getNPCs()
 	 */
 	@Override
 	public String[] getNPCs() {

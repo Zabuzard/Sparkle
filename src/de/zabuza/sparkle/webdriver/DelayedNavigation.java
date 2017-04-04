@@ -11,7 +11,7 @@ import de.zabuza.sparkle.webdriver.event.ToStringEvent;
 import de.zabuza.sparkle.webdriver.event.ToUrlEvent;
 
 /**
- * Wrapper for navigation objects to delayedly executes events.
+ * Wrapper for navigation objects to delayedly execute events.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *

@@ -29,6 +29,7 @@ import de.zabuza.sparkle.wait.FramePresenceWait;
 import de.zabuza.sparkle.wait.LoginFormWait;
 import de.zabuza.sparkle.wait.LoginPopupWait;
 import de.zabuza.sparkle.wait.TimedWait;
+import de.zabuza.sparkle.webdriver.AntiTrapWebDriver;
 import de.zabuza.sparkle.webdriver.DelayedWebDriver;
 import de.zabuza.sparkle.webdriver.EBrowser;
 import de.zabuza.sparkle.webdriver.IHasWebDriver;
@@ -393,6 +394,10 @@ public final class Sparkle implements IFreewarAPI {
 			throw new IllegalArgumentException("The given browser is not supported: " + browser);
 		}
 
+		// Wrap an anti trap driver around
+		driver = new AntiTrapWebDriver(driver);
+
+		// Wrap a delay web driver around if desired
 		if (m_DelayEvents) {
 			driver = new DelayedWebDriver(driver);
 		}

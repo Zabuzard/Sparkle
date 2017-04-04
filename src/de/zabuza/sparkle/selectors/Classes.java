@@ -29,12 +29,12 @@ public final class Classes {
 		if (element == null || className == null || className.isEmpty()) {
 			return false;
 		}
-		String attributeContent = element.getAttribute("class");
+		final String attributeContent = element.getAttribute("class");
 		if (attributeContent == null || attributeContent.isEmpty()) {
 			return false;
 		}
-		String[] classes = attributeContent.split(" ");
-		for (String thatClassName : classes) {
+		final String[] classes = attributeContent.split(" ");
+		for (final String thatClassName : classes) {
 			if (className.equals(thatClassName)) {
 				return true;
 			}
