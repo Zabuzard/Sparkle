@@ -197,6 +197,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public void sendKeys(final CharSequence... keysToSend) {
+		ensureIsNoBotTrap();
 		m_Element.sendKeys(keysToSend);
 	}
 

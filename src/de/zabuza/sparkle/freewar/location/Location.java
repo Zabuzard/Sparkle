@@ -1,8 +1,12 @@
 package de.zabuza.sparkle.freewar.location;
 
 import java.awt.Point;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,8 +14,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import de.zabuza.sparkle.freewar.IFreewarInstance;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
+import de.zabuza.sparkle.freewar.location.services.ILocationService;
+import de.zabuza.sparkle.freewar.location.services.post.PostOffice;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.Patterns;
 import de.zabuza.sparkle.selectors.XPaths;
@@ -35,18 +42,31 @@ public final class Location implements ILocation {
 	 * Manager to use for switching frames.
 	 */
 	private final IFrameManager m_FrameManager;
+	/**
+	 * The instance to use for accessing other elements.
+	 */
+	private final IFreewarInstance m_Instance;
+	/**
+	 * Structure which holds all registered services.
+	 */
+	private final HashMap<Point, Class<? extends ILocationService>> m_RegisteredServices;
 
 	/**
 	 * Creates a new location using the given driver.
 	 * 
+	 * @param instance
+	 *            The instance to use for accessing other elements
 	 * @param driver
 	 *            Web driver used by this location
 	 * @param frameManager
 	 *            Manager to use for switching frames
 	 */
-	public Location(final WebDriver driver, final IFrameManager frameManager) {
+	public Location(final IFreewarInstance instance, final WebDriver driver, final IFrameManager frameManager) {
+		m_Instance = instance;
 		m_Driver = driver;
 		m_FrameManager = frameManager;
+		m_RegisteredServices = new HashMap<>();
+		registerBuiltInServices();
 	}
 
 	/*
@@ -120,6 +140,30 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#getService()
+	 */
+	@Override
+	public Optional<ILocationService> getService() throws IllegalStateException {
+		final Point location = getPosition();
+		if (!m_RegisteredServices.containsKey(location)) {
+			return Optional.empty();
+		}
+
+		final Class<? extends ILocationService> clazz = m_RegisteredServices.get(location);
+		try {
+			final Constructor<? extends ILocationService> constructor = clazz.getConstructor(Point.class,
+					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
+			ILocationService instance = constructor.newInstance(location, m_Instance, m_Driver, m_FrameManager);
+			return Optional.of(instance);
+		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			throw new IllegalStateException();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * de.zabuza.sparkle.freewar.location.ILocation#hasNPC(java.lang.String)
 	 */
@@ -135,6 +179,35 @@ public final class Location implements ILocation {
 		}
 
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#hasService()
+	 */
+	@Override
+	public boolean hasService() {
+		final Point location = getPosition();
+		return m_RegisteredServices.containsKey(location);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.location.ILocation#registerService(java.awt.
+	 * Point, java.lang.Class)
+	 */
+	@Override
+	public void registerService(final Point location, final Class<? extends ILocationService> service)
+			throws IllegalArgumentException {
+		try {
+			service.getConstructor(Point.class, IFreewarInstance.class, WebDriver.class, IFrameManager.class);
+			m_RegisteredServices.put(location, service);
+		} catch (final NoSuchMethodException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/*
@@ -220,6 +293,20 @@ public final class Location implements ILocation {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Registers all already buili-in services.
+	 */
+	private void registerBuiltInServices() {
+		// Forest of the Lonely Tree
+		registerService(new Point(91, 104), PostOffice.class);
+
+		// Wilisia
+		registerService(new Point(112, 83), PostOffice.class);
+
+		// Laree
+		registerService(new Point(54, 76), PostOffice.class);
 	}
 
 	/**
