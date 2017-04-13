@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.webdriver;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -64,7 +65,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public WebElement findElement(final By by) {
 		ensureIsNoBotTrap();
-		return m_Element.findElement(by);
+		return new AntiTrapWebElement(m_Element.findElement(by));
 	}
 
 	/*
@@ -75,7 +76,13 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public List<WebElement> findElements(final By by) {
 		ensureIsNoBotTrap();
-		return m_Element.findElements(by);
+		final List<WebElement> elements = m_Element.findElements(by);
+		final List<WebElement> antiTrapElements = new LinkedList<WebElement>();
+		for (final WebElement element : elements) {
+			antiTrapElements.add(new AntiTrapWebElement(element));
+		}
+
+		return antiTrapElements;
 	}
 
 	/*
@@ -219,7 +226,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 *             Thrown when the element seems to be a bot trap
 	 */
 	private void ensureIsNoBotTrap() throws TrapElementException {
-		if (!isDisplayed() || !isEnabled()) {
+		if (!m_Element.isDisplayed() || !m_Element.isEnabled()) {
 			throw new TrapElementException();
 		}
 	}

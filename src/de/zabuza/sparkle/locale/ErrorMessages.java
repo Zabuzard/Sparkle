@@ -1,9 +1,12 @@
 package de.zabuza.sparkle.locale;
 
+import org.openqa.selenium.StaleElementReferenceException;
+
 import de.zabuza.sparkle.freewar.StayLoggedInService;
 import de.zabuza.sparkle.freewar.inventory.ItemUtil;
 import de.zabuza.sparkle.freewar.movement.network.NetworkUtil;
 import de.zabuza.sparkle.webdriver.DelayedEventExecutor;
+import de.zabuza.sparkle.webdriver.StaleRefresherWebElement;
 
 /**
  * Utility class that provides error messages for the API.
@@ -42,6 +45,11 @@ public final class ErrorMessages {
 	 * type in {@link NetworkUtil}.
 	 */
 	public final static String MOVE_TYPE_EXECUTION_ILLEGAL = "The given move type or situation is not supported by this method.";
+	/**
+	 * Thrown when a {@link StaleRefresherWebElement} tries to resolve a
+	 * {@link StaleElementReferenceException} but could not succeed.
+	 */
+	public static final String STALE_REFRESHER_STALED_STATE_NOT_SOLVED = "Element is in a staled state. Could not resolve the issue.";
 	/**
 	 * Thrown when a {@link StayLoggedInService} gets interrupted while
 	 * sleeping.

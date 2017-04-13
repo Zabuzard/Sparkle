@@ -44,6 +44,10 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	private final static long STANDARD_DELAY = 100;
 
 	/**
+	 * If all held events are executed.
+	 */
+	private boolean m_AllEventsExecuted;
+	/**
 	 * The event queue used for executing events.
 	 */
 	private final Queue<IDelayableEvent> m_EventQueue;
@@ -68,6 +72,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		m_Rnd = new Random();
 		m_EventQueue = new LinkedList<>();
 		m_StopExecution = false;
+		m_AllEventsExecuted = true;
 	}
 
 	/*
@@ -79,6 +84,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public void addEvent(final IDelayableEvent event) {
+		m_AllEventsExecuted = false;
 		m_EventQueue.add(event);
 	}
 
@@ -89,7 +95,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public boolean isEmpty() {
-		return m_EventQueue.isEmpty();
+		return m_EventQueue.isEmpty() && m_AllEventsExecuted;
 	}
 
 	/*
@@ -105,6 +111,9 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 			try {
 				if (event != null) {
 					event.execute();
+					if (m_EventQueue.isEmpty()) {
+						m_AllEventsExecuted = true;
+					}
 					sleep(getRandomDelay());
 				}
 				sleep(STANDARD_DELAY);
