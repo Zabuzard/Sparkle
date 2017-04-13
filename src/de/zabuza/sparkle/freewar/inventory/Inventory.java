@@ -1,23 +1,26 @@
 package de.zabuza.sparkle.freewar.inventory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
+import de.zabuza.sparkle.freewar.IFreewarInstance;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
+import de.zabuza.sparkle.freewar.inventory.services.IItemService;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.MagicSphere;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.ItemNames;
 import de.zabuza.sparkle.selectors.Patterns;
 import de.zabuza.sparkle.selectors.XPaths;
-import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
 import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 
 /**
@@ -36,51 +39,31 @@ public final class Inventory implements IInventory {
 	 * Manager to use for switching frames.
 	 */
 	private final IFrameManager m_FrameManager;
+	/**
+	 * The instance to use for accessing other elements.
+	 */
+	private final IFreewarInstance m_Instance;
+	/**
+	 * Structure which holds all registered services.
+	 */
+	private final HashMap<String, Class<? extends IItemService>> m_RegisteredServices;
 
 	/**
 	 * Creates a new inventory that uses a given web driver.
 	 * 
+	 * @param instance
+	 *            The instance to use for accessing other elements
 	 * @param driver
 	 *            Web driver to use
 	 * @param frameManager
 	 *            Manager to use for switching frames
 	 */
-	public Inventory(final WebDriver driver, final IFrameManager frameManager) {
+	public Inventory(final IFreewarInstance instance, final WebDriver driver, final IFrameManager frameManager) {
+		m_Instance = instance;
 		m_Driver = driver;
 		m_FrameManager = frameManager;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#
-	 * activateCompressedMagicSphere(de.zabuza.sparkle.freewar.inventory.
-	 * EBlueSphereDestination)
-	 */
-	@Override
-	public boolean activateCompressedMagicSphere(final EBlueSphereDestination destination) {
-		if (hasItem(ItemNames.COMPRESSED_MAGIC_SPHERE) && activateItem(ItemNames.COMPRESSED_MAGIC_SPHERE)) {
-			try {
-				final WebElement element = new CSSSelectorPresenceWait(m_Driver,
-						CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SELECT).waitUntilCondition();
-				final Select selectElement = new Select(element);
-				final int accessId = ItemUtil.getBlueSphereAccessIdByDestination(destination);
-				// Select the destination
-				selectElement.selectByValue(accessId + "");
-				final List<WebElement> submitButtons = m_Driver
-						.findElements(By.cssSelector(CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT));
-				if (submitButtons != null && !submitButtons.isEmpty()) {
-					final WebElement submitButton = submitButtons.iterator().next();
-					// Click the teleportation button
-					submitButton.click();
-					return true;
-				}
-			} catch (TimeoutException e) {
-				return false;
-			}
-		}
-
-		return false;
+		m_RegisteredServices = new HashMap<>();
+		registerBuiltInServices();
 	}
 
 	/*
@@ -193,6 +176,30 @@ public final class Inventory implements IInventory {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#getService(java.lang.
+	 * String)
+	 */
+	@Override
+	public Optional<IItemService> getService(final String itemName) throws IllegalStateException {
+		if (!m_RegisteredServices.containsKey(itemName)) {
+			return Optional.empty();
+		}
+
+		final Class<? extends IItemService> clazz = m_RegisteredServices.get(itemName);
+		try {
+			final Constructor<? extends IItemService> constructor = clazz.getConstructor(String.class,
+					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
+			IItemService instance = constructor.newInstance(itemName, m_Instance, m_Driver, m_FrameManager);
+			return Optional.of(instance);
+		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			throw new IllegalStateException();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * de.zabuza.sparkle.freewar.inventory.IInventory#hasItem(java.lang.String)
 	 */
@@ -214,6 +221,17 @@ public final class Inventory implements IInventory {
 			}
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#hasService(java.lang.
+	 * String)
+	 */
+	@Override
+	public boolean hasService(final String itemName) {
+		return m_RegisteredServices.containsKey(itemName);
 	}
 
 	/*
@@ -243,6 +261,32 @@ public final class Inventory implements IInventory {
 		// It is necessary that this method blocks until the
 		// click event was executed
 		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.inventory.IInventory#registerService(java.lang.
+	 * String, java.lang.Class)
+	 */
+	@Override
+	public void registerService(final String itemName, final Class<? extends IItemService> service)
+			throws IllegalArgumentException {
+		try {
+			service.getConstructor(String.class, IFreewarInstance.class, WebDriver.class, IFrameManager.class);
+			m_RegisteredServices.put(itemName, service);
+		} catch (final NoSuchMethodException e) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	/**
+	 * Registers all already built-in services.
+	 */
+	private void registerBuiltInServices() {
+		// TODO
+		registerService(ItemNames.COMPRESSED_MAGIC_SPHERE, MagicSphere.class);
 	}
 
 	/**

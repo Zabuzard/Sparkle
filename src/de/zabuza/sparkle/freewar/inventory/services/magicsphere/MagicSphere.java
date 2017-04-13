@@ -1,16 +1,38 @@
-package de.zabuza.sparkle.freewar.inventory;
+package de.zabuza.sparkle.freewar.inventory.services.magicsphere;
 
 import java.awt.Point;
+import java.util.List;
+import java.util.Optional;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import de.zabuza.sparkle.freewar.IFreewarInstance;
+import de.zabuza.sparkle.freewar.frames.EFrame;
+import de.zabuza.sparkle.freewar.frames.IFrameManager;
+import de.zabuza.sparkle.freewar.inventory.IInventory;
+import de.zabuza.sparkle.freewar.inventory.services.IItemService;
 import de.zabuza.sparkle.locale.ErrorMessages;
+import de.zabuza.sparkle.selectors.CSSSelectors;
+import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
+import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 
 /**
- * Utility class that provides methods for items.
+ * Service for magic sphere items. Offers methods to activate magic sphere
+ * teleportation items.
  * 
  * @author Zabuza {@literal <zabuza.dev@gmail.com>}
  *
  */
-public final class ItemUtil {
+public final class MagicSphere implements IItemService {
+
+	/**
+	 * Needle that matches the anchor that aborts the teleportation process.
+	 */
+	private final static String ANCHOR_NEEDLE_TELEPORTATION_ABORT = "Zur";
 	/**
 	 * Access id of the blue sphere teleportation destination in Anatubia.
 	 */
@@ -81,11 +103,11 @@ public final class ItemUtil {
 	 * X coordinate of the blue sphere teleportation destination in Konlir.
 	 */
 	private static final int BLUE_SPHERE_KONLIR_X = 101;
+
 	/**
 	 * Y coordinate of the blue sphere teleportation destination in Konlir.
 	 */
 	private static final int BLUE_SPHERE_KONLIR_Y = 100;
-
 	/**
 	 * Access id of the blue sphere teleportation destination in Lodradon.
 	 */
@@ -222,64 +244,12 @@ public final class ItemUtil {
 	 * of ruins.
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_X = 93;
+
 	/**
 	 * Y coordinate of the blue sphere teleportation destination to the valley
 	 * of ruins.
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_Y = 96;
-
-	/**
-	 * Gets the access id of the corresponding blue sphere teleportation
-	 * destination.
-	 * 
-	 * @param destination
-	 *            The destination to get the access id of
-	 * @return The access id that corresponds to the given blue sphere
-	 *         teleportation destination
-	 * @throws IllegalArgumentException
-	 *             If the given blue sphere teleportation destination is not
-	 *             supported by this method
-	 */
-	public static int getBlueSphereAccessIdByDestination(final EBlueSphereDestination destination)
-			throws IllegalArgumentException {
-		if (destination == EBlueSphereDestination.ANATUBIA) {
-			return BLUE_SPHERE_ANATUBIA_ID;
-		} else if (destination == EBlueSphereDestination.BURAN) {
-			return BLUE_SPHERE_BURAN_ID;
-		} else if (destination == EBlueSphereDestination.CASINO_OF_FERDOLIA) {
-			return BLUE_SPHERE_CASINO_OF_FERDOLIA_ID;
-		} else if (destination == EBlueSphereDestination.HEWN) {
-			return BLUE_SPHERE_HEWN_ID;
-		} else if (destination == EBlueSphereDestination.KANOBIA) {
-			return BLUE_SPHERE_KANOBIA_ID;
-		} else if (destination == EBlueSphereDestination.KONLIR) {
-			return BLUE_SPHERE_KONLIR_ID;
-		} else if (destination == EBlueSphereDestination.LODRADON) {
-			return BLUE_SPHERE_LODRADON_ID;
-		} else if (destination == EBlueSphereDestination.LOST_VALLEY) {
-			return BLUE_SPHERE_LOST_VALLEY_ID;
-		} else if (destination == EBlueSphereDestination.MENTORAN) {
-			return BLUE_SPHERE_MENTORAN_ID;
-		} else if (destination == EBlueSphereDestination.NARUBIA) {
-			return BLUE_SPHERE_NARUBIA_ID;
-		} else if (destination == EBlueSphereDestination.NAWOR) {
-			return BLUE_SPHERE_NAWOR_ID;
-		} else if (destination == EBlueSphereDestination.OREWU) {
-			return BLUE_SPHERE_OREWU_ID;
-		} else if (destination == EBlueSphereDestination.REIKAN) {
-			return BLUE_SPHERE_REIKAN_ID;
-		} else if (destination == EBlueSphereDestination.SUTRANIA) {
-			return BLUE_SPHERE_SUTRANIA_ID;
-		} else if (destination == EBlueSphereDestination.TERASI) {
-			return BLUE_SPHERE_TERASI_ID;
-		} else if (destination == EBlueSphereDestination.UNIVERSAL_BANK) {
-			return BLUE_SPHERE_UNIVERSAL_BANK_ID;
-		} else if (destination == EBlueSphereDestination.VALLEY_OF_RUINS) {
-			return BLUE_SPHERE_VALLEY_OF_RUINS_ID;
-		} else {
-			throw new IllegalArgumentException(ErrorMessages.BLUE_SPHERE_DESTINATION_ILLEGAL);
-		}
-	}
 
 	/**
 	 * Gets coordinates by their corresponding blue sphere teleportation
@@ -389,10 +359,156 @@ public final class ItemUtil {
 	}
 
 	/**
-	 * Utility class. No implementation.
+	 * Gets the access id of the corresponding blue sphere teleportation
+	 * destination.
+	 * 
+	 * @param destination
+	 *            The destination to get the access id of
+	 * @return The access id that corresponds to the given blue sphere
+	 *         teleportation destination
+	 * @throws IllegalArgumentException
+	 *             If the given blue sphere teleportation destination is not
+	 *             supported by this method
 	 */
-	private ItemUtil() {
+	private static int getBlueSphereAccessIdByDestination(final EBlueSphereDestination destination)
+			throws IllegalArgumentException {
+		if (destination == EBlueSphereDestination.ANATUBIA) {
+			return BLUE_SPHERE_ANATUBIA_ID;
+		} else if (destination == EBlueSphereDestination.BURAN) {
+			return BLUE_SPHERE_BURAN_ID;
+		} else if (destination == EBlueSphereDestination.CASINO_OF_FERDOLIA) {
+			return BLUE_SPHERE_CASINO_OF_FERDOLIA_ID;
+		} else if (destination == EBlueSphereDestination.HEWN) {
+			return BLUE_SPHERE_HEWN_ID;
+		} else if (destination == EBlueSphereDestination.KANOBIA) {
+			return BLUE_SPHERE_KANOBIA_ID;
+		} else if (destination == EBlueSphereDestination.KONLIR) {
+			return BLUE_SPHERE_KONLIR_ID;
+		} else if (destination == EBlueSphereDestination.LODRADON) {
+			return BLUE_SPHERE_LODRADON_ID;
+		} else if (destination == EBlueSphereDestination.LOST_VALLEY) {
+			return BLUE_SPHERE_LOST_VALLEY_ID;
+		} else if (destination == EBlueSphereDestination.MENTORAN) {
+			return BLUE_SPHERE_MENTORAN_ID;
+		} else if (destination == EBlueSphereDestination.NARUBIA) {
+			return BLUE_SPHERE_NARUBIA_ID;
+		} else if (destination == EBlueSphereDestination.NAWOR) {
+			return BLUE_SPHERE_NAWOR_ID;
+		} else if (destination == EBlueSphereDestination.OREWU) {
+			return BLUE_SPHERE_OREWU_ID;
+		} else if (destination == EBlueSphereDestination.REIKAN) {
+			return BLUE_SPHERE_REIKAN_ID;
+		} else if (destination == EBlueSphereDestination.SUTRANIA) {
+			return BLUE_SPHERE_SUTRANIA_ID;
+		} else if (destination == EBlueSphereDestination.TERASI) {
+			return BLUE_SPHERE_TERASI_ID;
+		} else if (destination == EBlueSphereDestination.UNIVERSAL_BANK) {
+			return BLUE_SPHERE_UNIVERSAL_BANK_ID;
+		} else if (destination == EBlueSphereDestination.VALLEY_OF_RUINS) {
+			return BLUE_SPHERE_VALLEY_OF_RUINS_ID;
+		} else {
+			throw new IllegalArgumentException(ErrorMessages.BLUE_SPHERE_DESTINATION_ILLEGAL);
+		}
+	}
 
+	/**
+	 * The web driver to use for accessing elements.
+	 */
+	private final WebDriver m_Driver;
+	/**
+	 * The instance to use for accessing other data.
+	 */
+	private final IFreewarInstance m_Instance;
+	/**
+	 * The name of the item this service offers actions for.
+	 */
+	private final String m_ItemName;
+
+	/**
+	 * Creates a magic sphere service.
+	 * 
+	 * @param itemName
+	 *            The name of the item this service offers actions for
+	 * @param instance
+	 *            The instance to use for accessing other data
+	 * @param driver
+	 *            The web driver to use for accessing elements
+	 * @param frameManager
+	 *            The frame manager to use for changing frames
+	 */
+	public MagicSphere(final String itemName, final IFreewarInstance instance, final WebDriver driver,
+			final IFrameManager frameManager) {
+		m_ItemName = itemName;
+		m_Driver = driver;
+		m_Instance = instance;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.zabuza.sparkle.freewar.inventory.services.IItemService#getItemName()
+	 */
+	@Override
+	public String getItemName() {
+		return m_ItemName;
+	}
+
+	/**
+	 * Teleports to the given destination by using the item registered for while
+	 * assuming it is a blue sphere.
+	 * 
+	 * @param destination
+	 *            Blue sphere destination to teleport to
+	 * @return If not present the action was successful, if present it contains
+	 *         the error code
+	 */
+	public Optional<EErrorCode> teleportWithMagicSphere(final EBlueSphereDestination destination) {
+		return teleportByAccessId(getBlueSphereAccessIdByDestination(destination));
+	}
+
+	/**
+	 * Teleports to the destination given by its access id in the dialog by
+	 * using the item registered for.
+	 * 
+	 * @param accessId
+	 *            The access id in the dialog of the destination to teleport to
+	 * @return If not present the action was successful, if present it contains
+	 *         the error code
+	 */
+	private Optional<EErrorCode> teleportByAccessId(final int accessId) {
+		final IInventory inventory = m_Instance.getInventory();
+		if (!inventory.hasItem(m_ItemName)) {
+			return Optional.of(EErrorCode.NO_ITEM);
+		}
+		if (!inventory.activateItem(m_ItemName)) {
+			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
+		}
+
+		try {
+			final WebElement element = new CSSSelectorPresenceWait(m_Driver,
+					CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SELECT).waitUntilCondition();
+
+			// Select the destination
+			final Select selectElement = new Select(element);
+			selectElement.selectByValue(accessId + "");
+
+			final List<WebElement> submitButtons = m_Driver
+					.findElements(By.cssSelector(CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT));
+			if (submitButtons == null || submitButtons.isEmpty()) {
+				return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
+			}
+			final WebElement submitButton = submitButtons.iterator().next();
+
+			// Click the teleportation button
+			submitButton.click();
+			return Optional.empty();
+		} catch (final TimeoutException e) {
+			// Try to abort the process
+			m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_TELEPORTATION_ABORT);
+			new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
+		}
 	}
 
 }

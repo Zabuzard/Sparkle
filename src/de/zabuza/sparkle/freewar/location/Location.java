@@ -296,7 +296,7 @@ public final class Location implements ILocation {
 	}
 
 	/**
-	 * Registers all already buili-in services.
+	 * Registers all already built-in services.
 	 */
 	private void registerBuiltInServices() {
 		// Forest of the Lonely Tree

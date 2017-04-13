@@ -1,4 +1,4 @@
-package de.zabuza.sparkle.freewar.inventory;
+package de.zabuza.sparkle.freewar.inventory.services.magicsphere;
 
 /**
  * Destinations of blue sphere teleportation items.

@@ -1,13 +1,16 @@
 package de.zabuza.sparkle.freewar.movement.network;
 
 import java.awt.Point;
+import java.util.Optional;
 
-import de.zabuza.sparkle.freewar.inventory.EBlueSphereDestination;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
-import de.zabuza.sparkle.freewar.inventory.ItemUtil;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.EBlueSphereDestination;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.EErrorCode;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.MagicSphere;
 import de.zabuza.sparkle.freewar.movement.EDirection;
 import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.locale.ErrorMessages;
+import de.zabuza.sparkle.selectors.ItemNames;
 
 /**
  * Utility class which offers methods useful for freewar networks.
@@ -126,16 +129,20 @@ public final class NetworkUtil {
 				}
 			}
 		} else if (type == EMoveType.BLUE_SPHERE) {
-			final EBlueSphereDestination blueSphereDestination = ItemUtil
+			final EBlueSphereDestination blueSphereDestination = MagicSphere
 					.getBlueSphereDestinationByCoordinates(destination);
-			boolean movementExecuted = false;
+			final MagicSphere magicSphereService;
 
 			// First try the compressed magic sphere
-			movementExecuted = inventory.activateCompressedMagicSphere(blueSphereDestination);
+			if (inventory.hasService(ItemNames.COMPRESSED_MAGIC_SPHERE)) {
+				magicSphereService = (MagicSphere) inventory.getService(ItemNames.COMPRESSED_MAGIC_SPHERE).get();
+			} else {
+				// TODO Try other blue sphere teleportation items
+				return false;
+			}
 
-			// TODO Try other blue sphere teleportation items
-
-			return movementExecuted;
+			final Optional<EErrorCode> errorCode = magicSphereService.teleportWithMagicSphere(blueSphereDestination);
+			return !errorCode.isPresent();
 		} else {
 			// TODO Add support for other movement types
 			throw new IllegalArgumentException(ErrorMessages.MOVE_TYPE_EXECUTION_ILLEGAL);

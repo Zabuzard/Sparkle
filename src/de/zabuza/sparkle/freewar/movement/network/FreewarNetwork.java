@@ -15,8 +15,8 @@ import de.zabuza.pathweaver.network.DirectedWeightedEdge;
 import de.zabuza.pathweaver.network.Node;
 import de.zabuza.pathweaver.network.PathNetwork;
 import de.zabuza.pathweaver.util.NestedMap2;
-import de.zabuza.sparkle.freewar.inventory.EBlueSphereDestination;
-import de.zabuza.sparkle.freewar.inventory.ItemUtil;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.EBlueSphereDestination;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.MagicSphere;
 import de.zabuza.sparkle.freewar.movement.EDirection;
 import de.zabuza.sparkle.selectors.Patterns;
 
@@ -275,50 +275,51 @@ public final class FreewarNetwork extends PathNetwork {
 	 */
 	public void addTemporaryEdges(final FreewarNode node, final Set<EMoveType> options) {
 		if (options.contains(EMoveType.BLUE_SPHERE)) {
-			final Point anatubia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.ANATUBIA);
+			final Point anatubia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.ANATUBIA);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(anatubia.x, anatubia.y).get(), EMoveType.BLUE_SPHERE));
-			final Point buran = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.BURAN);
+			final Point buran = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.BURAN);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(buran.x, buran.y).get(), EMoveType.BLUE_SPHERE));
-			final Point casinoOfFerdolia = ItemUtil
+			final Point casinoOfFerdolia = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.CASINO_OF_FERDOLIA);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(casinoOfFerdolia.x, casinoOfFerdolia.y).get(),
 					EMoveType.BLUE_SPHERE));
-			final Point hewn = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.HEWN);
+			final Point hewn = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.HEWN);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(hewn.x, hewn.y).get(), EMoveType.BLUE_SPHERE));
-			final Point kanobia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KANOBIA);
+			final Point kanobia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KANOBIA);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(kanobia.x, kanobia.y).get(), EMoveType.BLUE_SPHERE));
-			final Point konlir = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KONLIR);
+			final Point konlir = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KONLIR);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(konlir.x, konlir.y).get(), EMoveType.BLUE_SPHERE));
-			final Point lodradon = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LODRADON);
+			final Point lodradon = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LODRADON);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(lodradon.x, lodradon.y).get(), EMoveType.BLUE_SPHERE));
-			final Point lostValley = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LOST_VALLEY);
+			final Point lostValley = MagicSphere
+					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LOST_VALLEY);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(lostValley.x, lostValley.y).get(), EMoveType.BLUE_SPHERE));
-			final Point mentoran = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.MENTORAN);
+			final Point mentoran = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.MENTORAN);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(mentoran.x, mentoran.y).get(), EMoveType.BLUE_SPHERE));
-			final Point narubia = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NARUBIA);
+			final Point narubia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NARUBIA);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(narubia.x, narubia.y).get(), EMoveType.BLUE_SPHERE));
-			final Point nawor = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NAWOR);
+			final Point nawor = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NAWOR);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(nawor.x, nawor.y).get(), EMoveType.BLUE_SPHERE));
-			final Point orewu = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.OREWU);
+			final Point orewu = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.OREWU);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(orewu.x, orewu.y).get(), EMoveType.BLUE_SPHERE));
-			final Point reikan = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.REIKAN);
+			final Point reikan = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.REIKAN);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(reikan.x, reikan.y).get(), EMoveType.BLUE_SPHERE));
-			final Point sutrania = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.SUTRANIA);
+			final Point sutrania = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.SUTRANIA);
 			m_TemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(sutrania.x, sutrania.y).get(), EMoveType.BLUE_SPHERE));
-			final Point terasi = ItemUtil.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.TERASI);
+			final Point terasi = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.TERASI);
 			m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(terasi.x, terasi.y).get(), EMoveType.BLUE_SPHERE));
-			final Point universalBank = ItemUtil
+			final Point universalBank = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.UNIVERSAL_BANK);
 			m_TemporaryEdges.add(
 					addEdge(node, getNodeByCoordinates(universalBank.x, universalBank.y).get(), EMoveType.BLUE_SPHERE));
-			final Point valleyOfRuins = ItemUtil
+			final Point valleyOfRuins = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.VALLEY_OF_RUINS);
 			m_TemporaryEdges.add(
 					addEdge(node, getNodeByCoordinates(valleyOfRuins.x, valleyOfRuins.y).get(), EMoveType.BLUE_SPHERE));

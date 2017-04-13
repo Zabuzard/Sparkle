@@ -10,6 +10,8 @@ import de.zabuza.sparkle.freewar.EWorld;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
+import de.zabuza.sparkle.freewar.location.services.ILocationService;
+import de.zabuza.sparkle.freewar.location.services.post.PostOffice;
 import de.zabuza.sparkle.freewar.movement.EDirection;
 import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.freewar.movement.network.EMoveType;
@@ -57,20 +59,36 @@ public final class SparkleSample {
 			inventory.activateItem(weapon);
 		}
 
-		// Move to some directions. Use methods which wait until the player is
-		// able to move.
+		// Move to some directions.
 		movement.moveWaiting(EDirection.NORTH);
 		movement.moveWaiting(EDirection.SOUTH);
-
-		// Use the path finder to move to a destination on the shortest path
-		final HashSet<EMoveType> options = new HashSet<>();
-		options.add(EMoveType.BLUE_SPHERE);
-		movement.moveTo(89, 101, options);
 
 		// Use some basic NPC attacking logic
 		final String npc = "Waldschlurch";
 		if (location.hasNPC(npc) && player.getLifePoints() > 10) {
 			location.regularAttackNPC(npc);
+		}
+
+		// Use the path finder to move to a destination on the shortest path
+		final HashSet<EMoveType> options = new HashSet<>();
+		options.add(EMoveType.BLUE_SPHERE);
+		movement.moveTo(91, 104, options);
+		// Wait for the movement to finish
+		while (movement.hasMovementTask()) {
+			try {
+				Thread.sleep(100);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// Since we walked to the post, we write a letter
+		if (location.hasService()) {
+			final ILocationService service = location.getService().get();
+			if (service instanceof PostOffice) {
+				final PostOffice postOfficeService = (PostOffice) service;
+				postOfficeService.writeLetter("PlayerXY", "Sparkle is cool!");
+			}
 		}
 
 		// Logout and shutdown the instance

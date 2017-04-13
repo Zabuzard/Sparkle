@@ -91,7 +91,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		setStayLoggedIn(stayLoggedIn);
 		m_FrameManager = new FrameManager(m_Driver);
 		m_Player = new Player(m_Driver, m_FrameManager);
-		m_Inventory = new Inventory(m_Driver, m_FrameManager);
+		m_Inventory = new Inventory(this, m_Driver, m_FrameManager);
 		m_Location = new Location(this, m_Driver, m_FrameManager);
 		m_Movement = new Movement(m_Driver, m_Location, m_Inventory, m_FrameManager);
 	}

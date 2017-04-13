@@ -12,7 +12,7 @@ public enum EErrorCode {
 	 */
 	NO_GOLD,
 	/**
-	 * THe receiver of the letter is inexistent.
+	 * The receiver of the letter is inexistent.
 	 */
 	RECEIVER_INEXISTENT,
 	/**

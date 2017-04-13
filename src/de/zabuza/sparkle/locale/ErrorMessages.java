@@ -3,7 +3,6 @@ package de.zabuza.sparkle.locale;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import de.zabuza.sparkle.freewar.StayLoggedInService;
-import de.zabuza.sparkle.freewar.inventory.ItemUtil;
 import de.zabuza.sparkle.freewar.movement.network.NetworkUtil;
 import de.zabuza.sparkle.webdriver.DelayedEventExecutor;
 import de.zabuza.sparkle.webdriver.StaleRefresherWebElement;
