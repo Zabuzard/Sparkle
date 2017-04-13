@@ -10,6 +10,11 @@ package de.zabuza.sparkle.freewar.inventory;
  */
 public interface IInventory {
 	/**
+	 * Constant for a non valid value.
+	 */
+	public final static int NO_VALUE = -1;
+
+	/**
 	 * Tries to activate a compressed magic sphere and teleport to the given
 	 * position.
 	 * 
@@ -41,7 +46,18 @@ public interface IInventory {
 	public boolean closeInventory();
 
 	/**
-	 * Returns the items that the player has.
+	 * Gets the size of the players inventory which is the amount of items the
+	 * player carries.
+	 * 
+	 * @return The size of the players inventory which is the amount of item the
+	 *         player carries or {@link #NO_VALUE} if unknown.
+	 */
+	public int getInventorySize();
+
+	/**
+	 * Returns the items that the player has. The size is not necessarily backed
+	 * with {@link #getInventorySize()} as it is not ensured that the result
+	 * contains duplicates of the same item though the player might have some.
 	 *
 	 * @return The items that the player has.
 	 */

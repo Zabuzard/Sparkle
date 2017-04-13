@@ -29,6 +29,11 @@ public final class XPaths {
 	 */
 	public static final String ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_PRE = "//p[@class='listitemrow']//span[@class='itemequipped' and contains(text(), '";
 	/**
+	 * The selector that corresponds to the element that contains the current
+	 * inventory size.
+	 */
+	public static final String ITEM_INVENTORY_SIZE = "//p[@class='listcaption' and contains(., 'Inventar')]";
+	/**
 	 * The post-part of a selector that corresponds to an anchor which performs
 	 * a given action on a given NPC.
 	 */

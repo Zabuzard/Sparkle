@@ -2,6 +2,8 @@ package de.zabuza.sparkle.freewar.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -13,6 +15,7 @@ import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.selectors.CSSSelectors;
 import de.zabuza.sparkle.selectors.ItemNames;
+import de.zabuza.sparkle.selectors.Patterns;
 import de.zabuza.sparkle.selectors.XPaths;
 import de.zabuza.sparkle.wait.CSSSelectorPresenceWait;
 import de.zabuza.sparkle.wait.EventQueueEmptyWait;
@@ -137,6 +140,25 @@ public final class Inventory implements IInventory {
 		}
 
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#getInventorySize()
+	 */
+	@Override
+	public int getInventorySize() {
+		switchToItemFrame();
+		final WebElement element = m_Driver.findElement(By.xpath(XPaths.ITEM_INVENTORY_SIZE));
+		final String inventorySizeText = element.getText();
+		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(inventorySizeText);
+		int inventorySize = NO_VALUE;
+		if (matcher.find()) {
+			inventorySize = Integer.parseInt(matcher.group());
+		}
+
+		return inventorySize;
 	}
 
 	/*
