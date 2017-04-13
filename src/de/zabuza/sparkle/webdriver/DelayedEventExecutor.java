@@ -118,7 +118,10 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 				}
 				sleep(STANDARD_DELAY);
 			} catch (InterruptedException e) {
-				System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
+				if (!m_StopExecution) {
+					// Not interrupted for stopping
+					System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
+				}
 			}
 		}
 	}
@@ -129,6 +132,9 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	public void stopExecution() {
 		m_StopExecution = true;
+
+		// Wake up thread if currently sleeping
+		interrupt();
 	}
 
 	/**

@@ -54,8 +54,11 @@ public final class StayLoggedInService extends Thread {
 			try {
 				sleep(TIMEOUT_ALIVE);
 				m_Instance.refresh();
-			} catch (InterruptedException e) {
-				System.err.println(ErrorMessages.STAY_LOGGED_IN_SERVICE_INTERRUPTED);
+			} catch (final InterruptedException e) {
+				if (!m_StopExecution) {
+					// Not interrupted for stopping
+					System.err.println(ErrorMessages.STAY_LOGGED_IN_SERVICE_INTERRUPTED);
+				}
 			}
 		}
 	}
@@ -66,5 +69,8 @@ public final class StayLoggedInService extends Thread {
 	 */
 	public void stopExecution() {
 		m_StopExecution = true;
+
+		// Wake up thread if currently sleeping
+		interrupt();
 	}
 }

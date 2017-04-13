@@ -60,29 +60,6 @@ public interface IInventory {
 	public String[] getItems();
 
 	/**
-	 * If the player has a given item.
-	 *
-	 * @param item
-	 *            The name of the item in question
-	 * @return <tt>True</tt> if the player has the given item, <tt>false</tt> if
-	 *         not.
-	 */
-	public boolean hasItem(final String item);
-
-	/**
-	 * Returns whether the inventory currently is opened.
-	 * 
-	 * @return <tt>True</tt> if the inventory currently is opened,
-	 *         <tt>false</tt> if closed.
-	 */
-	public boolean isInventoryOpened();
-
-	/**
-	 * Opens the inventory if not already opened.
-	 */
-	public void openInventory();
-
-	/**
 	 * Gets the {@link IItemService} that is registered for the given item.
 	 * Services can be registered using {@link #registerService(String, Class)}.
 	 * 
@@ -98,6 +75,16 @@ public interface IInventory {
 	public Optional<IItemService> getService(final String itemName) throws IllegalStateException;
 
 	/**
+	 * If the player has a given item.
+	 *
+	 * @param item
+	 *            The name of the item in question
+	 * @return <tt>True</tt> if the player has the given item, <tt>false</tt> if
+	 *         not.
+	 */
+	public boolean hasItem(final String item);
+
+	/**
 	 * If there is a {@link IItemService} registered for the given item.
 	 * Services can be registered using {@link #registerService(String, Class)}.
 	 * 
@@ -107,6 +94,19 @@ public interface IInventory {
 	 *         {@link IItemService}, <tt>false</tt> if not.
 	 */
 	public boolean hasService(final String itemName);
+
+	/**
+	 * Returns whether the inventory currently is opened.
+	 * 
+	 * @return <tt>True</tt> if the inventory currently is opened,
+	 *         <tt>false</tt> if closed.
+	 */
+	public boolean isInventoryOpened();
+
+	/**
+	 * Opens the inventory if not already opened.
+	 */
+	public void openInventory();
 
 	/**
 	 * Registers the given service for the given item. It can be accessed by
