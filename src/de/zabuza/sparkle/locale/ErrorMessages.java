@@ -3,6 +3,8 @@ package de.zabuza.sparkle.locale;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import de.zabuza.sparkle.freewar.StayLoggedInService;
+import de.zabuza.sparkle.freewar.chat.Chat;
+import de.zabuza.sparkle.freewar.inventory.services.magicsphere.MagicSphere;
 import de.zabuza.sparkle.freewar.movement.network.NetworkUtil;
 import de.zabuza.sparkle.webdriver.DelayedEventExecutor;
 import de.zabuza.sparkle.webdriver.StaleRefresherWebElement;
@@ -16,12 +18,12 @@ import de.zabuza.sparkle.webdriver.StaleRefresherWebElement;
 public final class ErrorMessages {
 	/**
 	 * Thrown when an illegal coordinate was given that does not correspond to a
-	 * blue sphere teleportation destination in {@link ItemUtil}.
+	 * blue sphere teleportation destination in {@link MagicSphere}.
 	 */
 	public static final String BLUE_SPHERE_COORDINATES_ILLEGAL = "The given coordinates do not correspond to a blue sphere teleportation destination.";
 	/**
 	 * Thrown when an illegal blue sphere teleportation destination was given
-	 * that is not supported by the given method in {@link ItemUtil}.
+	 * that is not supported by the given method in {@link MagicSphere}.
 	 */
 	public static final String BLUE_SPHERE_DESTINATION_ILLEGAL = "The given blue sphere teleportation destination is not supported by this method.";
 	/**
