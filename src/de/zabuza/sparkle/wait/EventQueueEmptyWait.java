@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.wait;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
@@ -14,6 +15,11 @@ import de.zabuza.sparkle.wait.conditions.EventQueueEmptyCondition;
  */
 public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	/**
+	 * Default time out the object waits for a the event queue to empty until a
+	 * {@link TimeoutException} is thrown.
+	 */
+	protected static final int EVENT_QUEUE_EMPTY_TIMEOUT = 20;
+	/**
 	 * Condition to wait for.
 	 */
 	private final ExpectedCondition<Boolean> m_Condition;
@@ -25,7 +31,7 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	 *            Driver to wait for its event queue to be empty
 	 */
 	public EventQueueEmptyWait(final WebDriver driver) {
-		super(driver);
+		super(driver, EVENT_QUEUE_EMPTY_TIMEOUT);
 		m_Condition = new EventQueueEmptyCondition();
 	}
 
