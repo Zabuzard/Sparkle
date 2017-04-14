@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import de.zabuza.sparkle.freewar.chat.Chat;
+import de.zabuza.sparkle.freewar.chat.IChat;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.FrameManager;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
@@ -27,6 +29,10 @@ import de.zabuza.sparkle.webdriver.IHasWebDriver;
  * 
  */
 public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
+	/**
+	 * The chat object of this instance.
+	 */
+	private final IChat m_Chat;
 	/**
 	 * The web driver used by this instance.
 	 */
@@ -69,9 +75,11 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 * 
 	 * @param driver
 	 *            The driver this instance should use
+	 * @param user
+	 *            The name of the user of this instance
 	 */
-	public FreewarInstance(final WebDriver driver) {
-		this(driver, true);
+	public FreewarInstance(final WebDriver driver, final String user) {
+		this(driver, user, true);
 	}
 
 	/**
@@ -81,12 +89,14 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 * 
 	 * @param driver
 	 *            The driver this instance should use
+	 * @param user
+	 *            The name of the user of this instance
 	 * @param stayLoggedIn
 	 *            If <tt>true</tt> the instance cares of not being automatically
 	 *            logged out. If <tt>false</tt> the instance can be logged out
 	 *            by <tt>Freewar</tt> due to absence.
 	 */
-	public FreewarInstance(final WebDriver driver, final boolean stayLoggedIn) {
+	public FreewarInstance(final WebDriver driver, final String user, final boolean stayLoggedIn) {
 		m_Driver = driver;
 		setStayLoggedIn(stayLoggedIn);
 		m_FrameManager = new FrameManager(m_Driver);
@@ -94,6 +104,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		m_Inventory = new Inventory(this, m_Driver, m_FrameManager);
 		m_Location = new Location(this, m_Driver, m_FrameManager);
 		m_Movement = new Movement(m_Driver, m_Location, m_Inventory, m_FrameManager);
+		m_Chat = new Chat(m_Driver, m_FrameManager, user);
 	}
 
 	/*
@@ -112,6 +123,16 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 			return true;
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getChat()
+	 */
+	@Override
+	public IChat getChat() {
+		return m_Chat;
 	}
 
 	/*

@@ -11,6 +11,38 @@ import org.openqa.selenium.WebElement;
 public final class Classes {
 
 	/**
+	 * Class for clan messages.
+	 */
+	public static final String CHAT_MESSAGE_CLAN = "chattextclan";
+	/**
+	 * Class for direct messages.
+	 */
+	public static final String CHAT_MESSAGE_DIRECT = "chattext";
+	/**
+	 * Class for global messages.
+	 */
+	public static final String CHAT_MESSAGE_GLOBAL = "chattextglobal";
+	/**
+	 * Class for group messages.
+	 */
+	public static final String CHAT_MESSAGE_GROUP = "chattextgroup";
+	/**
+	 * Class for info messages.
+	 */
+	public static final String CHAT_MESSAGE_INFO = "chattextinfo";
+	/**
+	 * Class for scream messages.
+	 */
+	public static final String CHAT_MESSAGE_SCREAM = "chattextscream";
+	/**
+	 * Class for whisper messages.
+	 */
+	public static final String CHAT_MESSAGE_WHISPER = "chattextwhisper";
+	/**
+	 * Class for world-say messages.
+	 */
+	public static final String CHAT_MESSAGE_WORLDSAY = "worldsay";
+	/**
 	 * Class for not accessible fields.
 	 */
 	public static final String MAP_FIELD_NOCANGO = "nocango";

@@ -8,6 +8,14 @@ package de.zabuza.sparkle.freewar.frames;
  */
 public enum EFrame {
 	/**
+	 * The chat form frame.
+	 */
+	CHAT_FORM,
+	/**
+	 * The chat text frame.
+	 */
+	CHAT_TEXT,
+	/**
 	 * The item frame.
 	 */
 	ITEM,

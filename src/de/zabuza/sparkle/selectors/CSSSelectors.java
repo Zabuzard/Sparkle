@@ -8,6 +8,52 @@ package de.zabuza.sparkle.selectors;
  */
 public final class CSSSelectors {
 	/**
+	 * Selector that indicates, when present, if the chat form frame has loaded.
+	 */
+	public static final String CHAT_FORM_FRAME_PRESENT = "input#chat_text";
+	/**
+	 * Selector that corresponds to an input field for entering chat messages
+	 * for submission.
+	 */
+	public static final String CHAT_FORM_MESSAGE_INPUT = "input#chat_text";
+	/**
+	 * Selector that corresponds to the field for submitting clan chat messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_CLAN = "input.submitclan";
+	/**
+	 * Selector that corresponds to the field for submitting direct chat
+	 * messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_DIRECT = "input.submitsagen";
+	/**
+	 * Selector that corresponds to the field for submitting global chat
+	 * messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_GLOBAL = "input.submitglobalchat";
+	/**
+	 * Selector that corresponds to the field for submitting group chat
+	 * messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_GROUP = "input.submitgroup";
+	/**
+	 * Selector that corresponds to the field for submitting scream chat
+	 * messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_SCREAM = "input.submitschreien";
+	/**
+	 * Selector that corresponds to the field for submitting whisper chat
+	 * messages.
+	 */
+	public static final String CHAT_FORM_SUBMIT_WHISPER = "input.submitwhisper";
+	/**
+	 * Selector that indicates, when present, if the chat text frame has loaded.
+	 */
+	public static final String CHAT_TEXT_FRAME_PRESENT = "body.framechattextbg";
+	/**
+	 * Selector that matches all chat messages.
+	 */
+	public static final String CHAT_TEXT_MESSAGE_ANCHOR = "p";
+	/**
 	 * Selector that corresponds to the destination selector element of an
 	 * activated compressed magic sphere item.
 	 */
@@ -48,6 +94,7 @@ public final class CSSSelectors {
 	 * equipped attack weapon.
 	 */
 	public static final String ITEM_PLAYER_ATTACK_WEAPON = "p#listrow_attackw";
+
 	/**
 	 * Selector that corresponds to an element that holds the defense points of
 	 * the player.
@@ -68,6 +115,7 @@ public final class CSSSelectors {
 	 * player has.
 	 */
 	public static final String ITEM_PLAYER_INTELLIGENCE = "p#listrow_int";
+
 	/**
 	 * Selector that corresponds to an element that holds the amount of life
 	 * points the player has.
@@ -88,6 +136,7 @@ public final class CSSSelectors {
 	 * of the player.
 	 */
 	public static final String ITEM_PLAYER_SPECIAL_SKILL_ANCHOR = "p#listrow_special a[href$=special]";
+
 	/**
 	 * Selector that corresponds to an element that holds the amount of speed
 	 * the player has.
@@ -98,7 +147,6 @@ public final class CSSSelectors {
 	 * player has.
 	 */
 	public static final String ITEM_PLAYER_STATUS = "p#listrow_status";
-
 	/**
 	 * Selector that corresponds to the name input field of the login form.
 	 */
@@ -116,7 +164,6 @@ public final class CSSSelectors {
 	 * continues to the game.
 	 */
 	public static final String LOGIN_POPUP_CONTINUE = "a[href^=frset]";
-
 	/**
 	 * Selector that indicates, when present, if the main frame has loaded.
 	 */
@@ -135,7 +182,6 @@ public final class CSSSelectors {
 	 * Selector that corresponds to an element that holds the name of a NPC.
 	 */
 	public static final String MAIN_LOCATION_NPC_NAME = "p.listusersrow b";
-
 	/**
 	 * Selector that indicates, when present, if the map frame has loaded.
 	 */
@@ -154,6 +200,7 @@ public final class CSSSelectors {
 	 * Selector that corresponds to an anchor which moves to east.
 	 */
 	public static final String MAP_MOVE_EAST_ANCHOR = MAP_MOVE_ANCHOR_PRE + "right" + MAP_MOVE_ANCHOR_POST;
+
 	/**
 	 * Selector that corresponds to an anchor which moves to north.
 	 */
@@ -162,6 +209,7 @@ public final class CSSSelectors {
 	 * Selector that corresponds to an anchor which moves to northeast.
 	 */
 	public static final String MAP_MOVE_NORTHEAST_ANCHOR = MAP_MOVE_ANCHOR_PRE + "upright" + MAP_MOVE_ANCHOR_POST;
+
 	/**
 	 * Selector that corresponds to an anchor which moves to northwest.
 	 */
@@ -170,6 +218,7 @@ public final class CSSSelectors {
 	 * Selector that corresponds to an anchor which moves to south.
 	 */
 	public static final String MAP_MOVE_SOUTH_ANCHOR = MAP_MOVE_ANCHOR_PRE + "down" + MAP_MOVE_ANCHOR_POST;
+
 	/**
 	 * Selector that corresponds to an anchor which moves to southeast.
 	 */
@@ -198,7 +247,6 @@ public final class CSSSelectors {
 	 * wait the given time.
 	 */
 	public static final String MAP_TRAVEL_ON_TIME = "div#test";
-
 	/**
 	 * Selector that indicates, when present, if the menu frame has loaded.
 	 */
@@ -208,6 +256,11 @@ public final class CSSSelectors {
 	 * session.
 	 */
 	public static final String MENU_LOGOUT_ANCHOR = "a[href^=logout]";
+
+	/**
+	 * The selector that is used to match a CSS class.
+	 */
+	public static final String SELECTOR_CLASS = ".";
 
 	/**
 	 * Utility class. No implementation.

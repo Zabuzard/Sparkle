@@ -8,6 +8,8 @@ import de.zabuza.sparkle.IFreewarAPI;
 import de.zabuza.sparkle.Sparkle;
 import de.zabuza.sparkle.freewar.EWorld;
 import de.zabuza.sparkle.freewar.IFreewarInstance;
+import de.zabuza.sparkle.freewar.chat.EChatType;
+import de.zabuza.sparkle.freewar.chat.IChat;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.location.services.ILocationService;
@@ -52,6 +54,10 @@ public final class SparkleSample {
 		final IMovement movement = instance.getMovement();
 		final IInventory inventory = instance.getInventory();
 		final ILocation location = instance.getLocation();
+		final IChat chat = instance.getChat();
+
+		// Say hi to all
+		chat.submitMessage("Hello world!", EChatType.DIRECT);
 
 		// Equip the mighty 'Waldschlurchpanzer' if held
 		final String weapon = "Waldschlurchpanzer";

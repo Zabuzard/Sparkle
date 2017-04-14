@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar;
 
+import de.zabuza.sparkle.freewar.chat.IChat;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
@@ -28,6 +29,14 @@ public interface IFreewarInstance {
 	 *         found.
 	 */
 	public boolean clickAnchorByContent(final EFrame frame, final String needle);
+
+	/**
+	 * Gets the chat object of this instance. It can be used to interact with
+	 * the chat.
+	 * 
+	 * @return The chat object of this instance
+	 */
+	public IChat getChat();
 
 	/**
 	 * Gets the inventory object of this instance. It can be used to access the

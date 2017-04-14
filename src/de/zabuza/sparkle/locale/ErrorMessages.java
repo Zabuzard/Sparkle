@@ -25,6 +25,10 @@ public final class ErrorMessages {
 	 */
 	public static final String BLUE_SPHERE_DESTINATION_ILLEGAL = "The given blue sphere teleportation destination is not supported by this method.";
 	/**
+	 * Thrown when a {@link Chat} tries to process an invalid message.
+	 */
+	public static final String CHAT_MESSAGE_INVALID = "The chat message is invalid.";
+	/**
 	 * Thrown when trying to get the move type of a given unsupported cost in
 	 * {@link NetworkUtil}.
 	 */

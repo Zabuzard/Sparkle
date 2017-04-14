@@ -8,6 +8,14 @@ package de.zabuza.sparkle.selectors;
  */
 public final class Names {
 	/**
+	 * Name of the chat form frame.
+	 */
+	public static final String FRAME_CHAT_FORM = "chatformFrame";
+	/**
+	 * Name of the chat text frame.
+	 */
+	public static final String FRAME_CHAT_TEXT = "chattextFrame";
+	/**
 	 * Name of the item frame.
 	 */
 	public static final String FRAME_ITEM = "itemFrame";

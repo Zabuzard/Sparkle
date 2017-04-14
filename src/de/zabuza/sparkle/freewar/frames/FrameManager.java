@@ -51,9 +51,17 @@ public final class FrameManager implements IFrameManager {
 		} else if (frame == EFrame.MAP) {
 			frameName = Names.FRAME_MAP;
 			frameLoaded = CSSSelectors.MAP_FRAME_PRESENT;
-		} else {
+		} else if (frame == EFrame.MAIN) {
 			frameName = Names.FRAME_MAIN;
 			frameLoaded = CSSSelectors.MAIN_FRAME_PRESENT;
+		} else if (frame == EFrame.CHAT_TEXT) {
+			frameName = Names.FRAME_CHAT_TEXT;
+			frameLoaded = CSSSelectors.CHAT_TEXT_FRAME_PRESENT;
+		} else if (frame == EFrame.CHAT_FORM) {
+			frameName = Names.FRAME_CHAT_FORM;
+			frameLoaded = CSSSelectors.CHAT_FORM_FRAME_PRESENT;
+		} else {
+			throw new AssertionError();
 		}
 		switchToFrame(frameName, frameLoaded);
 	}

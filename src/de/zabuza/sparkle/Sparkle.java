@@ -264,7 +264,7 @@ public final class Sparkle implements IFreewarAPI {
 			popupContinue.click();
 		}
 
-		IFreewarInstance instance = new FreewarInstance(driver);
+		IFreewarInstance instance = new FreewarInstance(driver, username);
 		m_Instances.add(instance);
 
 		return instance;
