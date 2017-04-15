@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
+
 import de.zabuza.sparkle.locale.ErrorMessages;
 import de.zabuza.sparkle.webdriver.event.IDelayableEvent;
 
@@ -122,6 +126,9 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 					// Not interrupted for stopping
 					System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
 				}
+			} catch (final StaleElementReferenceException | TimeoutException | NoSuchElementException e) {
+				// Log the exception but continue
+				e.printStackTrace();
 			}
 		}
 	}
