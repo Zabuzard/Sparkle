@@ -103,7 +103,7 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public void cancelMovementTask() {
-		if (m_MovementTask != null) {
+		if (hasMovementTask()) {
 			m_MovementTask.cancelTask();
 		}
 	}
@@ -205,6 +205,10 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public void moveTo(final int xCoordinate, final int yCoordinate, final Set<EMoveType> options) {
+		// Cancel previous movement
+		if (hasMovementTask()) {
+			m_MovementTask.cancelTask();
+		}
 		final Point sourcePos = m_Location.getPosition();
 		final Optional<FreewarNode> source = m_Network.getNodeByCoordinates((int) sourcePos.getX(),
 				(int) sourcePos.getY());
