@@ -285,7 +285,6 @@ public final class Inventory implements IInventory {
 	 * Registers all already built-in services.
 	 */
 	private void registerBuiltInServices() {
-		// TODO
 		registerService(ItemNames.COMPRESSED_MAGIC_SPHERE, MagicSphere.class);
 	}
 
