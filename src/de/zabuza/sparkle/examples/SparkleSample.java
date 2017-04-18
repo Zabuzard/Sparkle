@@ -39,11 +39,12 @@ public final class SparkleSample {
 		// Create the API and choose a browser
 		IFreewarAPI api = new Sparkle(EBrowser.CHROME);
 
-		// Setup some browser specific settings like path to
-		// browser driver and binary
+		// Setup some browser specific settings
 		final String pathToDriver = "D:\\GitHubRepos\\Sparkle\\lib\\driver\\chromedriver.exe";
 		final String pathToBinary = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
-		final DesiredCapabilities capabilities = api.createCapabilities(EBrowser.CHROME, pathToDriver, pathToBinary);
+		final String userProfile = "C:\\Users\\MyUserName\\AppData\\Local\\Google\\Chrome\\User Data";
+		final DesiredCapabilities capabilities = api.createCapabilities(EBrowser.CHROME, pathToDriver, pathToBinary,
+				userProfile);
 		api.setCapabilities(capabilities);
 
 		// Login and create an instance

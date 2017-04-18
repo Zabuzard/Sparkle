@@ -22,10 +22,13 @@ public interface IFreewarAPI {
 	 *            Path to the driver or <tt>null</tt> if not set
 	 * @param binaryPath
 	 *            Path to the binary or <tt>null</tt> if not set
+	 * @param userProfile
+	 *            The name or the path to the user profile, depending on the
+	 *            browser, or <tt>null</tt> if not set
 	 * @return The capabilities to use or <tt>null</tt> if there are no
 	 */
 	public DesiredCapabilities createCapabilities(final EBrowser browser, final String driverPath,
-			final String binaryPath);
+			final String binaryPath, final String userProfile);
 
 	/**
 	 * Gets the browser to use at logging in to accounts with

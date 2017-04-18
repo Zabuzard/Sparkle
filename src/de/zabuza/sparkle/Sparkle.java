@@ -9,9 +9,13 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -106,15 +110,16 @@ public final class Sparkle implements IFreewarAPI {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.zabuza.sparkle.IFreewarAPI#createCapabilities(de.zabuza.sparkle.
-	 * webdriver.EBrowser, java.lang.String, java.lang.String)
+	 * webdriver.EBrowser, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public DesiredCapabilities createCapabilities(final EBrowser browser, final String driverPath,
-			final String binaryPath) {
+			final String binaryPath, final String userProfile) {
 		DesiredCapabilities capabilities = null;
 
 		if (browser == EBrowser.FIREFOX) {
 			capabilities = DesiredCapabilities.firefox();
+			final FirefoxOptions options = new FirefoxOptions();
 
 			// Set the driver
 			if (driverPath != null) {
@@ -127,10 +132,19 @@ public final class Sparkle implements IFreewarAPI {
 			if (binaryPath != null) {
 				File pathToBinary = new File(binaryPath);
 				FirefoxBinary binary = new FirefoxBinary(pathToBinary);
-				capabilities.setCapability(FirefoxDriver.BINARY, binary);
+				options.setBinary(binary);
 			}
+
+			// Set the user profile
+			if (userProfile != null) {
+				final FirefoxProfile profile = new ProfilesIni().getProfile(userProfile);
+				options.setProfile(profile);
+			}
+
+			options.addTo(capabilities);
 		} else if (browser == EBrowser.CHROME) {
 			capabilities = DesiredCapabilities.chrome();
+			final ChromeOptions options = new ChromeOptions();
 
 			// Set the driver
 			if (driverPath != null) {
@@ -139,8 +153,16 @@ public final class Sparkle implements IFreewarAPI {
 
 			// Set the binary
 			if (binaryPath != null) {
-				capabilities.setCapability("chrome.binary", binaryPath);
+				options.setBinary(binaryPath);
 			}
+
+			// Set the user profile
+			if (userProfile != null) {
+				options.addArguments("user-data-dir=" + userProfile);
+			}
+			options.addArguments("disable-infobars");
+
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		} else if (browser == EBrowser.SAFARI) {
 			capabilities = DesiredCapabilities.internetExplorer();
 
@@ -176,6 +198,11 @@ public final class Sparkle implements IFreewarAPI {
 			// Set the binary
 			if (binaryPath != null) {
 				capabilities.setCapability("opera.binary", binaryPath);
+			}
+
+			// Set the user profile
+			if (userProfile != null) {
+				capabilities.setCapability("opera.profile", userProfile);
 			}
 		} else if (browser == EBrowser.MS_EDGE) {
 			capabilities = DesiredCapabilities.internetExplorer();
