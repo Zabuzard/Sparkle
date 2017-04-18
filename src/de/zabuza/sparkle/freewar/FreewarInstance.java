@@ -224,11 +224,13 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#shutdown()
 	 */
 	@Override
-	public void shutdown() {
+	public void shutdown(final boolean doQuitDriver) {
 		// Shutdown stay-logged-in service if used
 		setStayLoggedIn(false);
 
-		m_Driver.quit();
+		if (doQuitDriver) {
+			m_Driver.quit();
+		}
 	}
 
 	/**

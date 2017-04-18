@@ -98,7 +98,7 @@ public final class SparkleSample {
 		}
 
 		// Logout and shutdown the instance
-		api.logout(instance);
-		api.shutdown();
+		api.logout(instance, true);
+		api.shutdown(true);
 	}
 }

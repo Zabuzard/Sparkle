@@ -277,7 +277,7 @@ public final class Sparkle implements IFreewarAPI {
 	 * IFreewarInstance)
 	 */
 	@Override
-	public void logout(final IFreewarInstance instance) {
+	public void logout(final IFreewarInstance instance, final boolean doQuitDriver) {
 		if (instance instanceof IHasWebDriver) {
 			WebDriver driver = ((IHasWebDriver) instance).getWebDriver();
 			// Wait for events to be processed before switching frames
@@ -304,7 +304,7 @@ public final class Sparkle implements IFreewarAPI {
 			// Wait for logout to be fully executed and then shutdown
 			new LoginFormWait(driver).waitUntilCondition();
 		}
-		shutdownInstance(instance);
+		shutdownInstance(instance, doQuitDriver);
 	}
 
 	/*
@@ -336,9 +336,9 @@ public final class Sparkle implements IFreewarAPI {
 	 * @see de.zabuza.sparkle.IFreewarAPI#shutdown()
 	 */
 	@Override
-	public void shutdown() {
+	public void shutdown(final boolean doQuitDriver) {
 		for (IFreewarInstance instance : m_Instances) {
-			shutdownInstance(instance);
+			shutdownInstance(instance, doQuitDriver);
 		}
 	}
 
@@ -418,10 +418,16 @@ public final class Sparkle implements IFreewarAPI {
 	 * 
 	 * @param instance
 	 *            Instance to shutdown
+	 * @param doQuitDriver
+	 *            <tt>True</tt> if the browser driver of this instance should be
+	 *            quit at shutdown, <tt>false</tt> if not. If not quit the
+	 *            browser can still be accessed by the user even after API
+	 *            shutdown.
+	 * 
 	 */
-	private void shutdownInstance(final IFreewarInstance instance) {
+	private void shutdownInstance(final IFreewarInstance instance, final boolean doQuitDriver) {
 		if (instance != null) {
-			instance.shutdown();
+			instance.shutdown(doQuitDriver);
 			m_Instances.remove(instance);
 		}
 	}

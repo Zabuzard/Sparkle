@@ -61,8 +61,13 @@ public interface IFreewarAPI {
 	 * 
 	 * @param instance
 	 *            Instance to logout
+	 * @param doQuitDriver
+	 *            <tt>True</tt> if the browser driver of the given instance
+	 *            should be quit at logout, <tt>false</tt> if not. If not quit
+	 *            the browser can still be accessed by the user even after API
+	 *            shutdown.
 	 */
-	public void logout(final IFreewarInstance instance);
+	public void logout(final IFreewarInstance instance, final boolean doQuitDriver);
 
 	/**
 	 * Sets the browser to use at logging in to accounts with
@@ -89,6 +94,12 @@ public interface IFreewarAPI {
 	/**
 	 * Shuts the API down, closing all remaining connections. This method does
 	 * not necessarily logout from remaining {@link IFreewarInstance}s.
+	 * 
+	 * @param doQuitDriver
+	 *            <tt>True</tt> if the browser drivers of instances should be
+	 *            quit at shutdown, <tt>false</tt> if not. If not quit the
+	 *            browsers can still be accessed by the user even after API
+	 *            shutdown.
 	 */
-	public void shutdown();
+	public void shutdown(final boolean doQuitDriver);
 }

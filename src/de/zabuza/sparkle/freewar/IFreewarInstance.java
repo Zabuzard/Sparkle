@@ -99,6 +99,12 @@ public interface IFreewarInstance {
 	 * Shutdowns the instance. This does not necessarily logout from the
 	 * account. After shutdown an instance is invalid and should not be used
 	 * anymore.
+	 * 
+	 * @param doQuitDriver
+	 *            <tt>True</tt> if the browser driver of this instance should be
+	 *            quit at shutdown, <tt>false</tt> if not. If not quit the
+	 *            browser can still be accessed by the user even after API
+	 *            shutdown.
 	 */
-	public void shutdown();
+	public void shutdown(final boolean doQuitDriver);
 }
