@@ -17,7 +17,7 @@ public final class StayLoggedInService extends Thread {
 	 * Time after which the service calls <tt>alive</tt> to <tt>Freewar</tt> by
 	 * using {@link IFreewarInstance#refresh()}.
 	 */
-	private final static long TIMEOUT_ALIVE = 1_000 * 60 * 2;
+	private final static long TIMEOUT_ALIVE = 1_000 * 60 * 5;
 
 	/**
 	 * Instance the service takes care about.
