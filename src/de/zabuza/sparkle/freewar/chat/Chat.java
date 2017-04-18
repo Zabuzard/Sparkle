@@ -1,6 +1,8 @@
 package de.zabuza.sparkle.freewar.chat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +27,7 @@ import de.zabuza.sparkle.selectors.Patterns;
  */
 public final class Chat implements IChat {
 
+	private final static String EMPTY_TEXT = "";
 	/**
 	 * The web driver used by this chat.
 	 */
@@ -33,6 +36,7 @@ public final class Chat implements IChat {
 	 * Manager to use for switching frames.
 	 */
 	private final IFrameManager m_FrameManager;
+
 	/**
 	 * The name of the user of this instance
 	 */
@@ -57,11 +61,31 @@ public final class Chat implements IChat {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.freewar.chat.IChat#focusChatInput()
+	 */
+	@Override
+	public boolean focusChatInput() {
+		switchToChatFormFrame();
+
+		// Get focus by sending an empty text
+		final List<WebElement> inputElements = m_Driver
+				.findElements(By.cssSelector(CSSSelectors.CHAT_FORM_MESSAGE_INPUT));
+		if (inputElements.isEmpty()) {
+			return false;
+		}
+		final WebElement inputElement = inputElements.iterator().next();
+		inputElement.sendKeys(EMPTY_TEXT);
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.zabuza.sparkle.freewar.chat.IChat#getChat()
 	 */
 	@Override
 	public ArrayList<Message> getMessages() {
-		return getChatBySelector(CSSSelectors.CHAT_TEXT_MESSAGE_ANCHOR);
+		return getMessagesBySelector(CSSSelectors.CHAT_TEXT_MESSAGE_ANCHOR);
 	}
 
 	/*
@@ -96,7 +120,7 @@ public final class Chat implements IChat {
 
 		final String selector = CSSSelectors.CHAT_TEXT_MESSAGE_ANCHOR + CSSSelectors.SELECTOR_CLASS + className;
 
-		return getChatBySelector(selector);
+		return getMessagesBySelector(selector);
 	}
 
 	/*
@@ -275,35 +299,49 @@ public final class Chat implements IChat {
 	 * @return All messages of the chat that matches the given selector in time
 	 *         ascending order
 	 */
-	private ArrayList<Message> getChatBySelector(final String cssSelector) {
+	private ArrayList<Message> getMessagesBySelector(final String cssSelector) {
 		switchToChatTextFrame();
 
+		// Fetch the elements and immediately extract the data before creating
+		// big objects to prevent stale elements
+		final LinkedList<String> elementsClasses = new LinkedList<>();
+		final LinkedList<String> elementsFullTexts = new LinkedList<>();
 		final List<WebElement> elements = m_Driver.findElements(By.cssSelector(cssSelector));
-		final ArrayList<Message> messages = new ArrayList<>(elements.size());
-
 		for (final WebElement element : elements) {
+			elementsClasses.add(Classes.getClassAttribute(element));
+			elementsFullTexts.add(element.getText());
+		}
+
+		// Now shift the data to message objects
+		final ArrayList<Message> messages = new ArrayList<>(elementsClasses.size());
+		final Iterator<String> classes = elementsClasses.iterator();
+		final Iterator<String> fullTexts = elementsFullTexts.iterator();
+
+		while (classes.hasNext() && fullTexts.hasNext()) {
+			final String classAttribute = classes.next();
+			final String fullText = fullTexts.next();
+
 			final EChatType chatType;
-			if (Classes.hasClass(element, Classes.CHAT_MESSAGE_CLAN)) {
+			if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_CLAN)) {
 				chatType = EChatType.CLAN;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_DIRECT)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_DIRECT)) {
 				chatType = EChatType.DIRECT;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_GLOBAL)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_GLOBAL)) {
 				chatType = EChatType.GLOBAL;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_GROUP)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_GROUP)) {
 				chatType = EChatType.GROUP;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_INFO)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_INFO)) {
 				chatType = EChatType.INFO;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_SCREAM)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_SCREAM)) {
 				chatType = EChatType.SCREAM;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_WHISPER)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_WHISPER)) {
 				chatType = EChatType.WHISPER;
-			} else if (Classes.hasClass(element, Classes.CHAT_MESSAGE_WORLDSAY)) {
+			} else if (Classes.hasClass(classAttribute, Classes.CHAT_MESSAGE_WORLDSAY)) {
 				chatType = EChatType.WORLDSAY;
 			} else {
 				throw new AssertionError();
 			}
 
-			final String fullText = element.getText();
 			messages.add(extractMessage(fullText, chatType));
 		}
 
@@ -327,5 +365,4 @@ public final class Chat implements IChat {
 	private void switchToChatTextFrame() {
 		m_FrameManager.switchToFrame(EFrame.CHAT_TEXT);
 	}
-
 }

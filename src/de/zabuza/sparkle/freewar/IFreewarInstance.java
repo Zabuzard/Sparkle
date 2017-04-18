@@ -2,6 +2,7 @@ package de.zabuza.sparkle.freewar;
 
 import de.zabuza.sparkle.freewar.chat.IChat;
 import de.zabuza.sparkle.freewar.frames.EFrame;
+import de.zabuza.sparkle.freewar.frames.IFrameManager;
 import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.IMovement;
@@ -37,6 +38,14 @@ public interface IFreewarInstance {
 	 * @return The chat object of this instance
 	 */
 	public IChat getChat();
+
+	/**
+	 * Gets the frame manager object of this instance. It can be used to switch
+	 * frames.
+	 * 
+	 * @return The frame manager object of this instance
+	 */
+	public IFrameManager getFrameManager();
 
 	/**
 	 * Gets the inventory object of this instance. It can be used to access the

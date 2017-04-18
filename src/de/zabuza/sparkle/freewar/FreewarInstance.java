@@ -138,6 +138,16 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getFrameManager()
+	 */
+	@Override
+	public IFrameManager getFrameManager() {
+		return m_FrameManager;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getInventory()
 	 */
 	@Override

@@ -48,6 +48,53 @@ public final class Classes {
 	public static final String MAP_FIELD_NOCANGO = "nocango";
 
 	/**
+	 * The attribute key for classes.
+	 */
+	private static final String ATTRIBUTE_CLASS_KEY = "class";
+	/**
+	 * The value which separates classes from the class attribute.
+	 */
+	private static final String ATTRIBUTE_CLASS_SEPARATOR = " ";
+
+	/**
+	 * Gets the class attribute of the given element.
+	 * 
+	 * @param element
+	 *            The element to get the class attribute of
+	 * @return The class attribute of the given element or <tt>null</tt> if the
+	 *         element is <tt>null</tt>.
+	 */
+	public static String getClassAttribute(final WebElement element) {
+		if (element == null) {
+			return null;
+		}
+		return element.getAttribute(ATTRIBUTE_CLASS_KEY);
+	}
+
+	/**
+	 * Returns if a given class attribute has a given class.
+	 * 
+	 * @param classAttribue
+	 *            The class attribute in question
+	 * @param className
+	 *            The class name in question
+	 * @return <tt>True</tt> if the given class attribute has the given class,
+	 *         <tt>false</tt> if not.
+	 */
+	public static boolean hasClass(final String classAttribue, final String className) {
+		if (classAttribue == null || classAttribue.isEmpty() || className == null || className.isEmpty()) {
+			return false;
+		}
+		final String[] classes = classAttribue.split(ATTRIBUTE_CLASS_SEPARATOR);
+		for (final String thatClassName : classes) {
+			if (className.equals(thatClassName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Returns if a given element has a given class.
 	 * 
 	 * @param element
@@ -58,20 +105,7 @@ public final class Classes {
 	 *         <tt>false</tt> if not.
 	 */
 	public static boolean hasClass(final WebElement element, final String className) {
-		if (element == null || className == null || className.isEmpty()) {
-			return false;
-		}
-		final String attributeContent = element.getAttribute("class");
-		if (attributeContent == null || attributeContent.isEmpty()) {
-			return false;
-		}
-		final String[] classes = attributeContent.split(" ");
-		for (final String thatClassName : classes) {
-			if (className.equals(thatClassName)) {
-				return true;
-			}
-		}
-		return false;
+		return hasClass(getClassAttribute(element), className);
 	}
 
 	/**

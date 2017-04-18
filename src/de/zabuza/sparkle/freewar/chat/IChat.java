@@ -12,6 +12,14 @@ import java.util.ArrayList;
  */
 public interface IChat {
 	/**
+	 * Focuses the chat input element.
+	 * 
+	 * @return <tt>True</tt> if the action was successful, <tt>false</tt> if
+	 *         not.
+	 */
+	public boolean focusChatInput();
+
+	/**
 	 * Gets all messages of the chat in time ascending order. That is the latest
 	 * message first. The collection type is an {@link ArrayList} which allows a
 	 * fast get access if needed.
