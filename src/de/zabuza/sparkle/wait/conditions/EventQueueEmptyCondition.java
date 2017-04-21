@@ -29,7 +29,7 @@ public final class EventQueueEmptyCondition implements ExpectedCondition<Boolean
 		}
 
 		if (rawDriver instanceof DelayedWebDriver) {
-			DelayedWebDriver driverAsDelayed = (DelayedWebDriver) rawDriver;
+			final DelayedWebDriver driverAsDelayed = (DelayedWebDriver) rawDriver;
 			return Boolean.valueOf(driverAsDelayed.isEventQueueEmpty());
 		}
 		return Boolean.TRUE;

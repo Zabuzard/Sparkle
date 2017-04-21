@@ -89,7 +89,7 @@ public final class Movement implements IMovement {
 		this.m_FrameManager = frameManager;
 		try {
 			this.m_Network = FreewarNetwork.createFromWiki();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new IllegalStateException("An error while creating the network occurred.");
 		}
 		this.m_Computation = new DijkstraShortestPathComputation(this.m_Network);
@@ -120,7 +120,7 @@ public final class Movement implements IMovement {
 		final String css = CSSSelectors.MAP_TRAVEL_ON_TIME;
 		final List<WebElement> travelOnElements = this.m_Driver.findElements(By.cssSelector(css));
 		if (!travelOnElements.isEmpty()) {
-			WebElement travelOnElement = travelOnElements.iterator().next();
+			final WebElement travelOnElement = travelOnElements.iterator().next();
 			return travelOnElement.getText().isEmpty();
 		}
 		return true;
@@ -144,7 +144,7 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public boolean move(final EDirection direction) {
-		Point positionBefore = this.m_Location.getPosition();
+		final Point positionBefore = this.m_Location.getPosition();
 
 		switchToMapFrame();
 		String selector;
@@ -167,7 +167,7 @@ public final class Movement implements IMovement {
 		}
 
 		// Get move anchor and click it
-		WebElement moveAnchor = this.m_Driver.findElement(By.cssSelector(selector));
+		final WebElement moveAnchor = this.m_Driver.findElement(By.cssSelector(selector));
 
 		// Desired position is not reachable
 		if (Classes.hasClass(moveAnchor, Classes.MAP_FIELD_NOCANGO)) {
@@ -180,7 +180,7 @@ public final class Movement implements IMovement {
 		// Wait for movement to be executed if delayed executor is being used
 		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 
-		Point positionAfter = this.m_Location.getPosition();
+		final Point positionAfter = this.m_Location.getPosition();
 
 		// Player moved when positions alter
 		return !positionBefore.equals(positionAfter);

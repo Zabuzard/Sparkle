@@ -221,7 +221,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#setStayLoggedIn(boolean)
 	 */
 	@Override
-	public void setStayLoggedIn(boolean stayLoggedIn) {
+	public void setStayLoggedIn(final boolean stayLoggedIn) {
 		if (this.m_StayLoggedIn != stayLoggedIn) {
 			manageStayLoggedInService(stayLoggedIn);
 		}

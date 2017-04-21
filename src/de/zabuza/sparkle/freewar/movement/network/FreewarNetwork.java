@@ -79,7 +79,7 @@ public final class FreewarNetwork extends PathNetwork {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(coordinateSite.openStream()));
-			StringBuilder contentBuilder = new StringBuilder();
+			final StringBuilder contentBuilder = new StringBuilder();
 			boolean isInsideContent = false;
 			String line = br.readLine();
 			while (br.ready() && line != null) {
@@ -246,7 +246,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 *         before, <tt>false</tt> otherwise
 	 */
 	public boolean addFreewarNode(final FreewarNode node) {
-		boolean wasAdded = super.addNode(node);
+		final boolean wasAdded = super.addNode(node);
 		if (wasAdded) {
 			this.m_CoordinatesToNode.put(Integer.valueOf(node.getXCoordinate()), Integer.valueOf(node.getYCoordinate()),
 					node);

@@ -130,8 +130,8 @@ public final class Sparkle implements IFreewarAPI {
 
 			// Set the binary
 			if (binaryPath != null) {
-				File pathToBinary = new File(binaryPath);
-				FirefoxBinary binary = new FirefoxBinary(pathToBinary);
+				final File pathToBinary = new File(binaryPath);
+				final FirefoxBinary binary = new FirefoxBinary(pathToBinary);
 				options.setBinary(binary);
 			}
 
@@ -246,17 +246,17 @@ public final class Sparkle implements IFreewarAPI {
 			return null;
 		}
 
-		WebDriver driver = createWebDriver(this.m_Browser);
+		final WebDriver driver = createWebDriver(this.m_Browser);
 
 		// Connect to login form
-		String fullWorldDomain = Paths.getFullWorldDomain(world);
-		String loginUrl = fullWorldDomain + Paths.LOGIN;
+		final String fullWorldDomain = Paths.getFullWorldDomain(world);
+		final String loginUrl = fullWorldDomain + Paths.LOGIN;
 		driver.get(loginUrl);
 
 		// Wait for form elements and get them
-		WebElement loginSubmit = new LoginFormWait(driver).waitUntilCondition();
-		WebElement loginName = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_NAME));
-		WebElement loginPassword = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_PASSWORD));
+		final WebElement loginSubmit = new LoginFormWait(driver).waitUntilCondition();
+		final WebElement loginName = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_NAME));
+		final WebElement loginPassword = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_FORM_PASSWORD));
 
 		// Type in user credentials
 		loginName.clear();
@@ -266,19 +266,19 @@ public final class Sparkle implements IFreewarAPI {
 		loginPassword.sendKeys(password);
 
 		// Submit form and close all pop-ups if existent
-		String parentWindow = driver.getWindowHandle();
+		final String parentWindow = driver.getWindowHandle();
 		loginSubmit.click();
 		// Wait until pop-up pops up
 		boolean isThereAPopup;
 		try {
 			new LoginPopupWait(driver).waitUntilCondition();
 			isThereAPopup = true;
-		} catch (TimeoutException e) {
+		} catch (final TimeoutException e) {
 			isThereAPopup = false;
 		}
 		// Close all pup-ups if existent
 		if (isThereAPopup) {
-			for (String window : driver.getWindowHandles()) {
+			for (final String window : driver.getWindowHandles()) {
 				if (!window.equals(parentWindow)) {
 					driver.switchTo().window(window);
 					driver.close();
@@ -287,11 +287,11 @@ public final class Sparkle implements IFreewarAPI {
 			driver.switchTo().window(parentWindow);
 
 			// Wait until element
-			WebElement popupContinue = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
+			final WebElement popupContinue = driver.findElement(By.cssSelector(CSSSelectors.LOGIN_POPUP_CONTINUE));
 			popupContinue.click();
 		}
 
-		IFreewarInstance instance = new FreewarInstance(driver, username);
+		final IFreewarInstance instance = new FreewarInstance(driver, username);
 		this.m_Instances.add(instance);
 
 		return instance;
@@ -306,7 +306,7 @@ public final class Sparkle implements IFreewarAPI {
 	@Override
 	public void logout(final IFreewarInstance instance, final boolean doQuitDriver) {
 		if (instance instanceof IHasWebDriver) {
-			WebDriver driver = ((IHasWebDriver) instance).getWebDriver();
+			final WebDriver driver = ((IHasWebDriver) instance).getWebDriver();
 			// Wait for events to be processed before switching frames
 			new EventQueueEmptyWait(driver).waitUntilCondition();
 			driver.switchTo().defaultContent();
@@ -315,7 +315,7 @@ public final class Sparkle implements IFreewarAPI {
 			new FramePresenceWait(driver, Names.FRAME_MENU).waitUntilCondition();
 			driver.switchTo().frame(Names.FRAME_MENU);
 			// Click logout in menu
-			WebElement logout = driver.findElement(By.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
+			final WebElement logout = driver.findElement(By.cssSelector(CSSSelectors.MENU_LOGOUT_ANCHOR));
 			logout.click();
 
 			// Wait for click to be executed and switch to frameset
@@ -324,7 +324,7 @@ public final class Sparkle implements IFreewarAPI {
 
 			// Switch to map and click surely logout
 			driver.switchTo().frame(Names.FRAME_MAP);
-			WebElement surelyLogout = new CSSSelectorPresenceWait(driver, CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR)
+			final WebElement surelyLogout = new CSSSelectorPresenceWait(driver, CSSSelectors.MAP_SURELY_LOGOUT_ANCHOR)
 					.waitUntilCondition();
 			surelyLogout.click();
 
@@ -364,7 +364,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void shutdown(final boolean doQuitDriver) {
-		for (IFreewarInstance instance : this.m_Instances) {
+		for (final IFreewarInstance instance : this.m_Instances) {
 			shutdownInstance(instance, doQuitDriver);
 		}
 	}

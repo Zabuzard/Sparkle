@@ -82,9 +82,9 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		List<WebElement> elements = this.m_Element.findElements(by);
-		List<WebElement> delayedElements = new LinkedList<>();
-		for (WebElement element : elements) {
+		final List<WebElement> elements = this.m_Element.findElements(by);
+		final List<WebElement> delayedElements = new LinkedList<>();
+		for (final WebElement element : elements) {
 			delayedElements.add(new DelayedWebElement(element, this.m_Queue));
 		}
 

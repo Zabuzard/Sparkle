@@ -109,7 +109,7 @@ public final class Location implements ILocation {
 			npcs.add(npcElement.getText());
 		}
 
-		String[] npcsArray = new String[npcs.size()];
+		final String[] npcsArray = new String[npcs.size()];
 		return npcs.toArray(npcsArray);
 	}
 
@@ -124,11 +124,11 @@ public final class Location implements ILocation {
 
 		// Get position text, has the format:
 		// Position X: 508 Y: -57
-		String positionText = this.m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
+		final String positionText = this.m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
 
 		// Extract x and y coordinates from text
-		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
-		Point position = new Point();
+		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
+		final Point position = new Point();
 		if (matcher.find()) {
 			position.x = Integer.parseInt(matcher.group());
 			if (matcher.find()) {
@@ -154,7 +154,7 @@ public final class Location implements ILocation {
 		try {
 			final Constructor<? extends ILocationService> constructor = clazz.getConstructor(Point.class,
 					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			ILocationService instance = constructor.newInstance(location, this.m_Instance, this.m_Driver,
+			final ILocationService instance = constructor.newInstance(location, this.m_Instance, this.m_Driver,
 					this.m_FrameManager);
 			return Optional.of(instance);
 		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
@@ -173,8 +173,9 @@ public final class Location implements ILocation {
 	public boolean hasNPC(final String npcName) {
 		switchToMainFrame();
 
-		List<WebElement> npcElements = this.m_Driver.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
-		for (WebElement npcElement : npcElements) {
+		final List<WebElement> npcElements = this.m_Driver
+				.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
+		for (final WebElement npcElement : npcElements) {
 			if (npcElement.getText().equals(npcName)) {
 				return true;
 			}
@@ -220,12 +221,12 @@ public final class Location implements ILocation {
 	 * .String)
 	 */
 	@Override
-	public boolean regularAttackNPC(String npcName) {
+	public boolean regularAttackNPC(final String npcName) {
 		if (!attackNPC(npcName)) {
 			return false;
 		}
 
-		WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
+		final WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
 				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_REGULAR_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
@@ -240,12 +241,12 @@ public final class Location implements ILocation {
 	 * .String)
 	 */
 	@Override
-	public boolean singleAttackNPC(String npcName) {
+	public boolean singleAttackNPC(final String npcName) {
 		if (!attackNPC(npcName)) {
 			return false;
 		}
 
-		WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
+		final WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
 				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_SINGLE_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
@@ -287,9 +288,9 @@ public final class Location implements ILocation {
 		xpath += xPathNPCAction;
 
 		// If the NPC has the action link then click it
-		List<WebElement> npcElements = this.m_Driver.findElements(By.xpath(xpath));
+		final List<WebElement> npcElements = this.m_Driver.findElements(By.xpath(xpath));
 		if (!npcElements.isEmpty()) {
-			WebElement npcElement = npcElements.iterator().next();
+			final WebElement npcElement = npcElements.iterator().next();
 			npcElement.click();
 			return true;
 		}

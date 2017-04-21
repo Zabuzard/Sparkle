@@ -111,7 +111,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	public void run() {
 		this.m_StopExecution = false;
 		while (!this.m_StopExecution) {
-			IDelayableEvent event = this.m_EventQueue.poll();
+			final IDelayableEvent event = this.m_EventQueue.poll();
 			try {
 				if (event != null) {
 					event.execute();
@@ -121,7 +121,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 					sleep(getRandomDelay());
 				}
 				sleep(STANDARD_DELAY);
-			} catch (InterruptedException e) {
+			} catch (final InterruptedException e) {
 				if (!this.m_StopExecution) {
 					// Not interrupted for stopping
 					System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
@@ -159,9 +159,9 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		// RND_DELAY_MAX] with RND_DELAY_AVERAGE being the standard deviation
 		// where [RND_DELAY_MIN, RND_DELAY_AVERAGE] has a percentage
 		// of about 75%.
-		double gaussian = Math.abs(this.m_Rnd.nextGaussian());
-		double deviation = gaussian * RND_DELAY_AVERAGE + RND_DELAY_MIN;
-		long delay = (long) Math.floor(Math.min(deviation, RND_DELAY_MAX));
+		final double gaussian = Math.abs(this.m_Rnd.nextGaussian());
+		final double deviation = gaussian * RND_DELAY_AVERAGE + RND_DELAY_MIN;
+		final long delay = (long) Math.floor(Math.min(deviation, RND_DELAY_MAX));
 
 		return delay;
 	}

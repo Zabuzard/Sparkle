@@ -37,7 +37,7 @@ public final class SparkleSample {
 	 */
 	public static void main(final String[] args) {
 		// Create the API and choose a browser
-		IFreewarAPI api = new Sparkle(EBrowser.CHROME);
+		final IFreewarAPI api = new Sparkle(EBrowser.CHROME);
 
 		// Setup some browser specific settings
 		final String pathToDriver = "D:\\GitHubRepos\\Sparkle\\lib\\driver\\chromedriver.exe";

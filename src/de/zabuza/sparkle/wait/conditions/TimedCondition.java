@@ -22,7 +22,7 @@ public class TimedCondition implements ExpectedCondition<Boolean> {
 	/**
 	 * Time period to wait for to pass, in milliseconds.
 	 */
-	private long m_TimeToWait;
+	private final long m_TimeToWait;
 
 	/**
 	 * Creates a new instance of this object with a given time to wait. The

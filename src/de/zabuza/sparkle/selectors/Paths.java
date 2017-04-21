@@ -58,7 +58,7 @@ public final class Paths {
 	 * @return The full domain url corresponding to the given world
 	 */
 	public static String getFullWorldDomain(final EWorld world) {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append(PROTOCOL);
 
 		if (world == EWorld.ACTION) {

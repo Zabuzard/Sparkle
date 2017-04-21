@@ -84,7 +84,7 @@ public final class Inventory implements IInventory {
 		// If item has an activation link then click it
 		List<WebElement> itemElements = this.m_Driver.findElements(By.xpath(xpath));
 		if (!itemElements.isEmpty()) {
-			WebElement itemElement = itemElements.iterator().next();
+			final WebElement itemElement = itemElements.iterator().next();
 			itemElement.click();
 			return true;
 		}
@@ -95,7 +95,7 @@ public final class Inventory implements IInventory {
 
 		itemElements = this.m_Driver.findElements(By.xpath(xpath));
 		if (!itemElements.isEmpty()) {
-			WebElement itemElement = itemElements.iterator().next();
+			final WebElement itemElement = itemElements.iterator().next();
 			itemElement.click();
 			return true;
 		}
@@ -115,10 +115,10 @@ public final class Inventory implements IInventory {
 		}
 		// Only close inventory if it can be closed. Closing is not possible if
 		// the player only has few items
-		List<WebElement> closeAnchors = this.m_Driver
+		final List<WebElement> closeAnchors = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_CLOSE_ANCHOR));
 		if (!closeAnchors.isEmpty()) {
-			WebElement closeAnchor = closeAnchors.iterator().next();
+			final WebElement closeAnchor = closeAnchors.iterator().next();
 			closeAnchor.click();
 			return true;
 		}
@@ -170,7 +170,7 @@ public final class Inventory implements IInventory {
 			items.add(itemElement.getText());
 		}
 
-		String[] itemsArray = new String[items.size()];
+		final String[] itemsArray = new String[items.size()];
 		return items.toArray(itemsArray);
 	}
 
@@ -190,7 +190,7 @@ public final class Inventory implements IInventory {
 		try {
 			final Constructor<? extends IItemService> constructor = clazz.getConstructor(String.class,
 					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			IItemService instance = constructor.newInstance(itemName, this.m_Instance, this.m_Driver,
+			final IItemService instance = constructor.newInstance(itemName, this.m_Instance, this.m_Driver,
 					this.m_FrameManager);
 			return Optional.of(instance);
 		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
@@ -211,14 +211,14 @@ public final class Inventory implements IInventory {
 
 		List<WebElement> itemElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
-		for (WebElement itemElement : itemElements) {
+		for (final WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;
 			}
 		}
 		// If item was not found then search for equipped items
 		itemElements = this.m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
-		for (WebElement itemElement : itemElements) {
+		for (final WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;
 			}
@@ -259,7 +259,8 @@ public final class Inventory implements IInventory {
 		if (isInventoryOpened()) {
 			return;
 		}
-		WebElement openAnchor = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
+		final WebElement openAnchor = this.m_Driver
+				.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
 		openAnchor.click();
 		// It is necessary that this method blocks until the
 		// click event was executed
