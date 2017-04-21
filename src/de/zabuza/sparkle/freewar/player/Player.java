@@ -42,8 +42,8 @@ public final class Player implements IPlayer {
 	 *            Manager to use for switching frames
 	 */
 	public Player(final WebDriver driver, final IFrameManager frameManager) {
-		m_Driver = driver;
-		m_FrameManager = frameManager;
+		this.m_Driver = driver;
+		this.m_FrameManager = frameManager;
 	}
 
 	/*
@@ -56,17 +56,17 @@ public final class Player implements IPlayer {
 		switchToItemFrame();
 
 		// Search for the special skill activation anchor
-		List<WebElement> anchorElements = m_Driver
+		List<WebElement> anchorElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.ITEM_PLAYER_SPECIAL_SKILL_ANCHOR));
 		if (!anchorElements.isEmpty()) {
 			final WebElement specialSkillActivationAnchor = anchorElements.iterator().next();
 			specialSkillActivationAnchor.click();
 
 			// Wait until the click gets executed
-			new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+			new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 
 			// Follow the dialog and try to activate the special skill
-			final List<WebElement> dialogElements = m_Driver
+			final List<WebElement> dialogElements = this.m_Driver
 					.findElements(By.partialLinkText(Patterns.PLAYER_SPECIAL_SKILL_DIALOG_ACTIVATION));
 			if (dialogElements != null && !dialogElements.isEmpty()) {
 				dialogElements.iterator().next().click();
@@ -85,7 +85,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getAttackPoints() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_ATTACK_POINTS));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_ATTACK_POINTS));
 		String attackPointsText = element.getText();
 		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(attackPointsText);
 		int attackPoints = NO_VALUE;
@@ -104,7 +104,7 @@ public final class Player implements IPlayer {
 	@Override
 	public String getAttackWeapon() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_ATTACK_WEAPON));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_ATTACK_WEAPON));
 		String[] weaponTexts = element.getText().split(Splits.ITEM_PLAYER_WEAPON);
 		String weaponText = NO_WEAPON;
 		if (weaponTexts.length > 1) {
@@ -121,7 +121,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getDefensePoints() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_DEFENSE_POINTS));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_DEFENSE_POINTS));
 		String defensePointsText = element.getText();
 		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(defensePointsText);
 		int defensePoints = NO_VALUE;
@@ -140,7 +140,7 @@ public final class Player implements IPlayer {
 	@Override
 	public String getDefenseWeapon() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_DEFENSE_WEAPON));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_DEFENSE_WEAPON));
 		String[] weaponTexts = element.getText().split(Splits.ITEM_PLAYER_WEAPON);
 		String weaponText = NO_WEAPON;
 		if (weaponTexts.length > 1) {
@@ -157,7 +157,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getExperiencePoints() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_NAME_EXPERIENCE));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_NAME_EXPERIENCE));
 		String[] experienceTexts = element.getText().split(Splits.ITEM_PLAYER_NAME_EXPERIENCE);
 		int experience = NO_VALUE;
 		if (experienceTexts.length > 1) {
@@ -178,7 +178,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getGold() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_GOLD));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_GOLD));
 		String goldText = element.getText();
 		// Remove thousand separator
 		goldText = goldText.replaceAll("\\.", "");
@@ -199,7 +199,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getIntelligence() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_INTELLIGENCE));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_INTELLIGENCE));
 		String intelligenceText = element.getText();
 		Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(intelligenceText);
 		int intelligence = NO_VALUE;
@@ -218,7 +218,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getLifePoints() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_LIFE_POINTS));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_LIFE_POINTS));
 		return Integer.parseInt(element.getText());
 	}
 
@@ -230,7 +230,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getMaxLifePoints() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_MAX_LIFE_POINTS));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_MAX_LIFE_POINTS));
 		String lifepointsText = element.getText();
 		Matcher matcher = Pattern.compile(Patterns.PLAYER_MAX_LIFE_POINTS).matcher(lifepointsText);
 		int maxLifepoints = NO_VALUE;
@@ -249,7 +249,7 @@ public final class Player implements IPlayer {
 	@Override
 	public String getName() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_NAME_EXPERIENCE));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_NAME_EXPERIENCE));
 		String[] nameTexts = element.getText().split(Splits.ITEM_PLAYER_NAME_EXPERIENCE);
 		String nameText = null;
 		if (nameTexts.length > 0) {
@@ -266,7 +266,7 @@ public final class Player implements IPlayer {
 	@Override
 	public int getSpeed() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_SPEED));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_SPEED));
 		return Integer.parseInt(element.getText());
 	}
 
@@ -278,7 +278,7 @@ public final class Player implements IPlayer {
 	@Override
 	public String getStatus() {
 		switchToItemFrame();
-		WebElement element = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_STATUS));
+		WebElement element = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_PLAYER_STATUS));
 		return element.getText();
 	}
 
@@ -288,7 +288,7 @@ public final class Player implements IPlayer {
 	 * switching frames.
 	 */
 	private void switchToItemFrame() {
-		m_FrameManager.switchToFrame(EFrame.ITEM);
+		this.m_FrameManager.switchToFrame(EFrame.ITEM);
 	}
 
 }

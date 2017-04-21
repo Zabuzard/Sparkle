@@ -41,8 +41,8 @@ public final class DelayedWebElement implements WebElement {
 	 *            Event queue to add events to for delayed execution
 	 */
 	public DelayedWebElement(final WebElement element, final IDelayedEventQueue queue) {
-		m_Element = element;
-		m_Queue = queue;
+		this.m_Element = element;
+		this.m_Queue = queue;
 	}
 
 	/*
@@ -52,7 +52,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void clear() {
-		m_Element.clear();
+		this.m_Element.clear();
 	}
 
 	/*
@@ -62,7 +62,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void click() {
-		m_Queue.addEvent(new ClickEvent(m_Element));
+		this.m_Queue.addEvent(new ClickEvent(this.m_Element));
 	}
 
 	/*
@@ -72,7 +72,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new DelayedWebElement(m_Element.findElement(by), m_Queue);
+		return new DelayedWebElement(this.m_Element.findElement(by), this.m_Queue);
 	}
 
 	/*
@@ -82,10 +82,10 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		List<WebElement> elements = m_Element.findElements(by);
-		List<WebElement> delayedElements = new LinkedList<WebElement>();
+		List<WebElement> elements = this.m_Element.findElements(by);
+		List<WebElement> delayedElements = new LinkedList<>();
 		for (WebElement element : elements) {
-			delayedElements.add(new DelayedWebElement(element, m_Queue));
+			delayedElements.add(new DelayedWebElement(element, this.m_Queue));
 		}
 
 		return delayedElements;
@@ -98,7 +98,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public String getAttribute(final String name) {
-		return m_Element.getAttribute(name);
+		return this.m_Element.getAttribute(name);
 	}
 
 	/*
@@ -108,7 +108,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public String getCssValue(final String propertyName) {
-		return m_Element.getCssValue(propertyName);
+		return this.m_Element.getCssValue(propertyName);
 	}
 
 	/*
@@ -118,7 +118,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public Point getLocation() {
-		return m_Element.getLocation();
+		return this.m_Element.getLocation();
 	}
 
 	/*
@@ -128,7 +128,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public Rectangle getRect() {
-		return m_Element.getRect();
+		return this.m_Element.getRect();
 	}
 
 	/*
@@ -140,7 +140,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public <X> X getScreenshotAs(final OutputType<X> target) throws WebDriverException {
-		return m_Element.getScreenshotAs(target);
+		return this.m_Element.getScreenshotAs(target);
 	}
 
 	/*
@@ -150,7 +150,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public Dimension getSize() {
-		return m_Element.getSize();
+		return this.m_Element.getSize();
 	}
 
 	/*
@@ -160,7 +160,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public String getTagName() {
-		return m_Element.getTagName();
+		return this.m_Element.getTagName();
 	}
 
 	/*
@@ -170,7 +170,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public String getText() {
-		return m_Element.getText();
+		return this.m_Element.getText();
 	}
 
 	/*
@@ -180,7 +180,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isDisplayed() {
-		return m_Element.isDisplayed();
+		return this.m_Element.isDisplayed();
 	}
 
 	/*
@@ -190,7 +190,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return m_Element.isEnabled();
+		return this.m_Element.isEnabled();
 	}
 
 	/*
@@ -200,7 +200,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isSelected() {
-		return m_Element.isSelected();
+		return this.m_Element.isSelected();
 	}
 
 	/*
@@ -210,7 +210,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void sendKeys(final CharSequence... keysToSend) {
-		m_Element.sendKeys(keysToSend);
+		this.m_Element.sendKeys(keysToSend);
 	}
 
 	/*
@@ -220,7 +220,7 @@ public final class DelayedWebElement implements WebElement {
 	 */
 	@Override
 	public void submit() {
-		m_Queue.addEvent(new SubmitEvent(m_Element));
+		this.m_Queue.addEvent(new SubmitEvent(this.m_Element));
 	}
 
 }

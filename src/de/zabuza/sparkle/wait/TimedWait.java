@@ -39,7 +39,7 @@ public class TimedWait extends AConditionalWait<Boolean> {
 	 */
 	public TimedWait(final WebDriver driver, final long timeToWait) {
 		super(driver, (timeToWait / SECONDS_TO_MILLIS) + TIMEOUT_OFFSET);
-		m_Condition = new TimedCondition(timeToWait);
+		this.m_Condition = new TimedCondition(timeToWait);
 	}
 
 	/*
@@ -49,6 +49,6 @@ public class TimedWait extends AConditionalWait<Boolean> {
 	 */
 	@Override
 	protected ExpectedCondition<Boolean> getCondition() {
-		return m_Condition;
+		return this.m_Condition;
 	}
 }

@@ -88,19 +88,19 @@ public final class MovementTask extends Thread {
 	 */
 	public MovementTask(final Path path, final ILocation location, final IMovement movement,
 			final IInventory inventory) {
-		mPath = path;
-		mWasCanceled = false;
-		mHasTerminated = false;
-		mLocation = location;
-		mMovement = movement;
-		mInventory = inventory;
+		this.mPath = path;
+		this.mWasCanceled = false;
+		this.mHasTerminated = false;
+		this.mLocation = location;
+		this.mMovement = movement;
+		this.mInventory = inventory;
 	}
 
 	/**
 	 * Cancels this task.
 	 */
 	public void cancelTask() {
-		mWasCanceled = true;
+		this.mWasCanceled = true;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public final class MovementTask extends Thread {
 	 *         otherwise
 	 */
 	public boolean hasTerminated() {
-		return mHasTerminated;
+		return this.mHasTerminated;
 	}
 
 	/*
@@ -120,17 +120,17 @@ public final class MovementTask extends Thread {
 	 */
 	@Override
 	public void run() {
-		if (mWasCanceled) {
+		if (this.mWasCanceled) {
 			finalizeTask();
 		}
 
-		final Iterator<DirectedWeightedEdge> edgeIter = mPath.getEdges().iterator();
+		final Iterator<DirectedWeightedEdge> edgeIter = this.mPath.getEdges().iterator();
 		Point lastPos = null;
-		while (!mWasCanceled && edgeIter.hasNext()) {
+		while (!this.mWasCanceled && edgeIter.hasNext()) {
 			final DirectedWeightedEdge edge = edgeIter.next();
 
 			// Wait for the player to be able to move
-			while (!mMovement.canMove() || mLocation.getPosition().equals(lastPos)) {
+			while (!this.mMovement.canMove() || this.mLocation.getPosition().equals(lastPos)) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(MOVE_WAITING_TIMEOUT);
 				} catch (final InterruptedException e) {
@@ -140,7 +140,7 @@ public final class MovementTask extends Thread {
 
 			// Check if the player still is at the assumed position
 			final FreewarNode source = (FreewarNode) edge.getSource();
-			final Point currentPos = mLocation.getPosition();
+			final Point currentPos = this.mLocation.getPosition();
 			lastPos = currentPos;
 			if (source.getXCoordinate() != (int) currentPos.getX()
 					|| source.getYCoordinate() != (int) currentPos.getY()) {
@@ -153,8 +153,8 @@ public final class MovementTask extends Thread {
 			final EMoveType type = NetworkUtil.getMoveTypeOfCost(edge.getCost());
 
 			// Execute the movement represented by the edge
-			final boolean wasSuccessful = NetworkUtil.executeMovement(type, sourcePos, destinationPos, mMovement,
-					mInventory);
+			final boolean wasSuccessful = NetworkUtil.executeMovement(type, sourcePos, destinationPos, this.mMovement,
+					this.mInventory);
 			if (!wasSuccessful) {
 				cancelTask();
 			}
@@ -170,13 +170,13 @@ public final class MovementTask extends Thread {
 	 * @return <tt>True</tt> if the task was canceled, <tt>false</tt> otherwise
 	 */
 	public boolean wasCanceled() {
-		return mWasCanceled;
+		return this.mWasCanceled;
 	}
 
 	/**
 	 * Finalizes and ends the task successful.
 	 */
 	private void finalizeTask() {
-		mHasTerminated = true;
+		this.mHasTerminated = true;
 	}
 }

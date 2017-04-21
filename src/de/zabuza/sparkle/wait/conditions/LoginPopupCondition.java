@@ -18,7 +18,7 @@ public final class LoginPopupCondition implements ExpectedCondition<Boolean> {
 	 */
 	@Override
 	public Boolean apply(final WebDriver driver) {
-		return driver.getWindowHandles().size() > 1;
+		return Boolean.valueOf(driver.getWindowHandles().size() > 1);
 	}
 
 }

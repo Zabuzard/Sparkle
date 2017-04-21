@@ -26,7 +26,7 @@ public final class SubmitEvent implements IDelayableEvent {
 	 *            DelayedWebElement}.
 	 */
 	public SubmitEvent(final WebElement element) {
-		m_Element = element;
+		this.m_Element = element;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class SubmitEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Element.submit();
+		this.m_Element.submit();
 	}
 
 }

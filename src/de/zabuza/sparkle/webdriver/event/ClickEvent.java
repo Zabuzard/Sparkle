@@ -26,7 +26,7 @@ public final class ClickEvent implements IDelayableEvent {
 	 *            DelayedWebElement}.
 	 */
 	public ClickEvent(final WebElement element) {
-		m_Element = element;
+		this.m_Element = element;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class ClickEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Element.click();
+		this.m_Element.click();
 	}
 
 }

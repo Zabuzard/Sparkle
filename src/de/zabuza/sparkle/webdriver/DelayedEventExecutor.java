@@ -73,10 +73,10 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 * added events.
 	 */
 	public DelayedEventExecutor() {
-		m_Rnd = new Random();
-		m_EventQueue = new LinkedList<>();
-		m_StopExecution = false;
-		m_AllEventsExecuted = true;
+		this.m_Rnd = new Random();
+		this.m_EventQueue = new LinkedList<>();
+		this.m_StopExecution = false;
+		this.m_AllEventsExecuted = true;
 	}
 
 	/*
@@ -88,8 +88,8 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public void addEvent(final IDelayableEvent event) {
-		m_AllEventsExecuted = false;
-		m_EventQueue.add(event);
+		this.m_AllEventsExecuted = false;
+		this.m_EventQueue.add(event);
 	}
 
 	/*
@@ -99,7 +99,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public boolean isEmpty() {
-		return m_EventQueue.isEmpty() && m_AllEventsExecuted;
+		return this.m_EventQueue.isEmpty() && this.m_AllEventsExecuted;
 	}
 
 	/*
@@ -109,20 +109,20 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public void run() {
-		m_StopExecution = false;
-		while (!m_StopExecution) {
-			IDelayableEvent event = m_EventQueue.poll();
+		this.m_StopExecution = false;
+		while (!this.m_StopExecution) {
+			IDelayableEvent event = this.m_EventQueue.poll();
 			try {
 				if (event != null) {
 					event.execute();
-					if (m_EventQueue.isEmpty()) {
-						m_AllEventsExecuted = true;
+					if (this.m_EventQueue.isEmpty()) {
+						this.m_AllEventsExecuted = true;
 					}
 					sleep(getRandomDelay());
 				}
 				sleep(STANDARD_DELAY);
 			} catch (InterruptedException e) {
-				if (!m_StopExecution) {
+				if (!this.m_StopExecution) {
 					// Not interrupted for stopping
 					System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
 				}
@@ -138,7 +138,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 * used anymore.
 	 */
 	public void stopExecution() {
-		m_StopExecution = true;
+		this.m_StopExecution = true;
 
 		// Wake up thread if currently sleeping
 		interrupt();
@@ -159,7 +159,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		// RND_DELAY_MAX] with RND_DELAY_AVERAGE being the standard deviation
 		// where [RND_DELAY_MIN, RND_DELAY_AVERAGE] has a percentage
 		// of about 75%.
-		double gaussian = Math.abs(m_Rnd.nextGaussian());
+		double gaussian = Math.abs(this.m_Rnd.nextGaussian());
 		double deviation = gaussian * RND_DELAY_AVERAGE + RND_DELAY_MIN;
 		long delay = (long) Math.floor(Math.min(deviation, RND_DELAY_MAX));
 

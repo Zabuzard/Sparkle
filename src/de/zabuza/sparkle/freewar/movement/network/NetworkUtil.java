@@ -104,29 +104,24 @@ public final class NetworkUtil {
 			if (isAtSameYLevel) {
 				if (isEast) {
 					return movement.move(EDirection.EAST);
-				} else {
-					return movement.move(EDirection.WEST);
 				}
+				return movement.move(EDirection.WEST);
 			} else if (isAtSameXLevel) {
 				if (isSouth) {
 					return movement.move(EDirection.SOUTH);
-				} else {
-					return movement.move(EDirection.NORTH);
 				}
+				return movement.move(EDirection.NORTH);
 			} else {
 				if (isSouth) {
 					if (isEast) {
 						return movement.move(EDirection.SOUTHEAST);
-					} else {
-						return movement.move(EDirection.SOUTHWEST);
 					}
-				} else {
-					if (isEast) {
-						return movement.move(EDirection.NORTHEAST);
-					} else {
-						return movement.move(EDirection.NORTHWEST);
-					}
+					return movement.move(EDirection.SOUTHWEST);
 				}
+				if (isEast) {
+					return movement.move(EDirection.NORTHEAST);
+				}
+				return movement.move(EDirection.NORTHWEST);
 			}
 		} else if (type == EMoveType.BLUE_SPHERE) {
 			final EBlueSphereDestination blueSphereDestination = MagicSphere

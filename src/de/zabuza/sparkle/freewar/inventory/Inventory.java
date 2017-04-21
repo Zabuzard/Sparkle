@@ -59,10 +59,10 @@ public final class Inventory implements IInventory {
 	 *            Manager to use for switching frames
 	 */
 	public Inventory(final IFreewarInstance instance, final WebDriver driver, final IFrameManager frameManager) {
-		m_Instance = instance;
-		m_Driver = driver;
-		m_FrameManager = frameManager;
-		m_RegisteredServices = new HashMap<>();
+		this.m_Instance = instance;
+		this.m_Driver = driver;
+		this.m_FrameManager = frameManager;
+		this.m_RegisteredServices = new HashMap<>();
 		registerBuiltInServices();
 	}
 
@@ -82,7 +82,7 @@ public final class Inventory implements IInventory {
 				+ XPaths.ITEM_INVENTORY_ITEM_ACTIVATE_ANCHOR_POST;
 
 		// If item has an activation link then click it
-		List<WebElement> itemElements = m_Driver.findElements(By.xpath(xpath));
+		List<WebElement> itemElements = this.m_Driver.findElements(By.xpath(xpath));
 		if (!itemElements.isEmpty()) {
 			WebElement itemElement = itemElements.iterator().next();
 			itemElement.click();
@@ -93,7 +93,7 @@ public final class Inventory implements IInventory {
 		xpath = XPaths.ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_PRE + item
 				+ XPaths.ITEM_INVENTORY_ITEM_EQUIPPED_ACTIVATE_ANCHOR_POST;
 
-		itemElements = m_Driver.findElements(By.xpath(xpath));
+		itemElements = this.m_Driver.findElements(By.xpath(xpath));
 		if (!itemElements.isEmpty()) {
 			WebElement itemElement = itemElements.iterator().next();
 			itemElement.click();
@@ -115,7 +115,8 @@ public final class Inventory implements IInventory {
 		}
 		// Only close inventory if it can be closed. Closing is not possible if
 		// the player only has few items
-		List<WebElement> closeAnchors = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_CLOSE_ANCHOR));
+		List<WebElement> closeAnchors = this.m_Driver
+				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_CLOSE_ANCHOR));
 		if (!closeAnchors.isEmpty()) {
 			WebElement closeAnchor = closeAnchors.iterator().next();
 			closeAnchor.click();
@@ -133,7 +134,7 @@ public final class Inventory implements IInventory {
 	@Override
 	public int getInventorySize() {
 		switchToItemFrame();
-		final WebElement element = m_Driver.findElement(By.xpath(XPaths.ITEM_INVENTORY_SIZE));
+		final WebElement element = this.m_Driver.findElement(By.xpath(XPaths.ITEM_INVENTORY_SIZE));
 		final String inventorySizeText = element.getText();
 		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(inventorySizeText);
 		int inventorySize = NO_VALUE;
@@ -153,17 +154,17 @@ public final class Inventory implements IInventory {
 	public String[] getItems() {
 		openInventory();
 
-		final List<String> items = new ArrayList<String>();
+		final List<String> items = new ArrayList<>();
 
 		// Add unequipped items
-		final List<WebElement> unequippedItemElements = m_Driver
+		final List<WebElement> unequippedItemElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
 		for (final WebElement itemElement : unequippedItemElements) {
 			items.add(itemElement.getText());
 		}
 
 		// Add equipped items
-		final List<WebElement> equippedItemElements = m_Driver
+		final List<WebElement> equippedItemElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
 		for (final WebElement itemElement : equippedItemElements) {
 			items.add(itemElement.getText());
@@ -181,15 +182,16 @@ public final class Inventory implements IInventory {
 	 */
 	@Override
 	public Optional<IItemService> getService(final String itemName) throws IllegalStateException {
-		if (!m_RegisteredServices.containsKey(itemName)) {
+		if (!this.m_RegisteredServices.containsKey(itemName)) {
 			return Optional.empty();
 		}
 
-		final Class<? extends IItemService> clazz = m_RegisteredServices.get(itemName);
+		final Class<? extends IItemService> clazz = this.m_RegisteredServices.get(itemName);
 		try {
 			final Constructor<? extends IItemService> constructor = clazz.getConstructor(String.class,
 					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			IItemService instance = constructor.newInstance(itemName, m_Instance, m_Driver, m_FrameManager);
+			IItemService instance = constructor.newInstance(itemName, this.m_Instance, this.m_Driver,
+					this.m_FrameManager);
 			return Optional.of(instance);
 		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -207,14 +209,15 @@ public final class Inventory implements IInventory {
 	public boolean hasItem(final String item) {
 		openInventory();
 
-		List<WebElement> itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
+		List<WebElement> itemElements = this.m_Driver
+				.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_NAME));
 		for (WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;
 			}
 		}
 		// If item was not found then search for equipped items
-		itemElements = m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
+		itemElements = this.m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_ITEM_EQUIPPED_NAME));
 		for (WebElement itemElement : itemElements) {
 			if (itemElement.getText().equals(item)) {
 				return true;
@@ -231,7 +234,7 @@ public final class Inventory implements IInventory {
 	 */
 	@Override
 	public boolean hasService(final String itemName) {
-		return m_RegisteredServices.containsKey(itemName);
+		return this.m_RegisteredServices.containsKey(itemName);
 	}
 
 	/*
@@ -243,7 +246,7 @@ public final class Inventory implements IInventory {
 	public boolean isInventoryOpened() {
 		switchToItemFrame();
 		// If inventory can not be opened assume it is already open
-		return m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR)).isEmpty();
+		return this.m_Driver.findElements(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR)).isEmpty();
 	}
 
 	/*
@@ -256,11 +259,11 @@ public final class Inventory implements IInventory {
 		if (isInventoryOpened()) {
 			return;
 		}
-		WebElement openAnchor = m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
+		WebElement openAnchor = this.m_Driver.findElement(By.cssSelector(CSSSelectors.ITEM_INVENTORY_OPEN_ANCHOR));
 		openAnchor.click();
 		// It is necessary that this method blocks until the
 		// click event was executed
-		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 	}
 
 	/*
@@ -275,7 +278,7 @@ public final class Inventory implements IInventory {
 			throws IllegalArgumentException {
 		try {
 			service.getConstructor(String.class, IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			m_RegisteredServices.put(itemName, service);
+			this.m_RegisteredServices.put(itemName, service);
 		} catch (final NoSuchMethodException e) {
 			throw new IllegalArgumentException();
 		}
@@ -294,6 +297,6 @@ public final class Inventory implements IInventory {
 	 * switching frames.
 	 */
 	private void switchToItemFrame() {
-		m_FrameManager.switchToFrame(EFrame.ITEM);
+		this.m_FrameManager.switchToFrame(EFrame.ITEM);
 	}
 }

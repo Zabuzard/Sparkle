@@ -32,7 +32,7 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	 */
 	public EventQueueEmptyWait(final WebDriver driver) {
 		super(driver, EVENT_QUEUE_EMPTY_TIMEOUT);
-		m_Condition = new EventQueueEmptyCondition();
+		this.m_Condition = new EventQueueEmptyCondition();
 	}
 
 	/*
@@ -42,6 +42,6 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	 */
 	@Override
 	protected ExpectedCondition<Boolean> getCondition() {
-		return m_Condition;
+		return this.m_Condition;
 	}
 }

@@ -65,10 +65,10 @@ public final class Message {
 	 *            The chat type of the message
 	 */
 	public Message(final String sender, final String receiver, final String content, final EChatType chatType) {
-		m_Sender = sender;
-		m_Receiver = receiver;
-		m_Content = content;
-		m_ChatType = chatType;
+		this.m_Sender = sender;
+		this.m_Receiver = receiver;
+		this.m_Content = content;
+		this.m_ChatType = chatType;
 	}
 
 	/*
@@ -88,28 +88,28 @@ public final class Message {
 			return false;
 		}
 		final Message other = (Message) obj;
-		if (m_ChatType != other.m_ChatType) {
+		if (this.m_ChatType != other.m_ChatType) {
 			return false;
 		}
-		if (m_Content == null) {
+		if (this.m_Content == null) {
 			if (other.m_Content != null) {
 				return false;
 			}
-		} else if (!m_Content.equals(other.m_Content)) {
+		} else if (!this.m_Content.equals(other.m_Content)) {
 			return false;
 		}
-		if (m_Receiver == null) {
+		if (this.m_Receiver == null) {
 			if (other.m_Receiver != null) {
 				return false;
 			}
-		} else if (!m_Receiver.equals(other.m_Receiver)) {
+		} else if (!this.m_Receiver.equals(other.m_Receiver)) {
 			return false;
 		}
-		if (m_Sender == null) {
+		if (this.m_Sender == null) {
 			if (other.m_Sender != null) {
 				return false;
 			}
-		} else if (!m_Sender.equals(other.m_Sender)) {
+		} else if (!this.m_Sender.equals(other.m_Sender)) {
 			return false;
 		}
 		return true;
@@ -121,7 +121,7 @@ public final class Message {
 	 * @return The chat type of the message to get
 	 */
 	public EChatType getChatType() {
-		return m_ChatType;
+		return this.m_ChatType;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public final class Message {
 	 * @return The content of the message to get
 	 */
 	public String getContent() {
-		return m_Content;
+		return this.m_Content;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public final class Message {
 	 * @return If present the receiver of the message
 	 */
 	public Optional<String> getReceiver() {
-		return Optional.of(m_Receiver);
+		return Optional.of(this.m_Receiver);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class Message {
 	 * @return The sender of the message to get
 	 */
 	public Optional<String> getSender() {
-		return Optional.of(m_Sender);
+		return Optional.of(this.m_Sender);
 	}
 
 	/*
@@ -160,10 +160,10 @@ public final class Message {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((m_ChatType == null) ? 0 : m_ChatType.hashCode());
-		result = prime * result + ((m_Content == null) ? 0 : m_Content.hashCode());
-		result = prime * result + ((m_Receiver == null) ? 0 : m_Receiver.hashCode());
-		result = prime * result + ((m_Sender == null) ? 0 : m_Sender.hashCode());
+		result = prime * result + ((this.m_ChatType == null) ? 0 : this.m_ChatType.hashCode());
+		result = prime * result + ((this.m_Content == null) ? 0 : this.m_Content.hashCode());
+		result = prime * result + ((this.m_Receiver == null) ? 0 : this.m_Receiver.hashCode());
+		result = prime * result + ((this.m_Sender == null) ? 0 : this.m_Sender.hashCode());
 		return result;
 	}
 
@@ -174,7 +174,7 @@ public final class Message {
 	 *         not
 	 */
 	public boolean hasReceiver() {
-		return m_Receiver != null;
+		return this.m_Receiver != null;
 	}
 
 	/**
@@ -183,7 +183,7 @@ public final class Message {
 	 * @return <tt>True</tt> if the message has a sender, <tt>false</tt> if not
 	 */
 	public boolean hasSender() {
-		return m_Sender != null;
+		return this.m_Sender != null;
 	}
 
 	/*
@@ -195,24 +195,24 @@ public final class Message {
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("Message [");
-		if (m_ChatType != null) {
+		if (this.m_ChatType != null) {
 			builder.append("chatType=");
-			builder.append(m_ChatType);
+			builder.append(this.m_ChatType);
 			builder.append(", ");
 		}
-		if (m_Sender != null) {
+		if (this.m_Sender != null) {
 			builder.append("sender=");
-			builder.append(m_Sender);
+			builder.append(this.m_Sender);
 			builder.append(", ");
 		}
-		if (m_Receiver != null) {
+		if (this.m_Receiver != null) {
 			builder.append("receiver=");
-			builder.append(m_Receiver);
+			builder.append(this.m_Receiver);
 			builder.append(", ");
 		}
-		if (m_Content != null) {
+		if (this.m_Content != null) {
 			builder.append("content=");
-			builder.append(m_Content);
+			builder.append(this.m_Content);
 		}
 		builder.append("]");
 		return builder.toString();

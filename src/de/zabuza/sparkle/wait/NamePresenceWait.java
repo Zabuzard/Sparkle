@@ -29,7 +29,7 @@ public class NamePresenceWait extends AConditionalWait<WebElement> {
 	 */
 	public NamePresenceWait(final WebDriver driver, final String name) {
 		super(driver);
-		m_Condition = ExpectedConditions.presenceOfElementLocated(By.name(name));
+		this.m_Condition = ExpectedConditions.presenceOfElementLocated(By.name(name));
 	}
 
 	/*
@@ -39,6 +39,6 @@ public class NamePresenceWait extends AConditionalWait<WebElement> {
 	 */
 	@Override
 	protected ExpectedCondition<WebElement> getCondition() {
-		return m_Condition;
+		return this.m_Condition;
 	}
 }

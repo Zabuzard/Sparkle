@@ -97,14 +97,14 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 *            by <tt>Freewar</tt> due to absence.
 	 */
 	public FreewarInstance(final WebDriver driver, final String user, final boolean stayLoggedIn) {
-		m_Driver = driver;
+		this.m_Driver = driver;
 		setStayLoggedIn(stayLoggedIn);
-		m_FrameManager = new FrameManager(m_Driver);
-		m_Player = new Player(m_Driver, m_FrameManager);
-		m_Inventory = new Inventory(this, m_Driver, m_FrameManager);
-		m_Location = new Location(this, m_Driver, m_FrameManager);
-		m_Movement = new Movement(m_Driver, m_Location, m_Inventory, m_FrameManager);
-		m_Chat = new Chat(m_Driver, m_FrameManager, user);
+		this.m_FrameManager = new FrameManager(this.m_Driver);
+		this.m_Player = new Player(this.m_Driver, this.m_FrameManager);
+		this.m_Inventory = new Inventory(this, this.m_Driver, this.m_FrameManager);
+		this.m_Location = new Location(this, this.m_Driver, this.m_FrameManager);
+		this.m_Movement = new Movement(this.m_Driver, this.m_Location, this.m_Inventory, this.m_FrameManager);
+		this.m_Chat = new Chat(this.m_Driver, this.m_FrameManager, user);
 	}
 
 	/*
@@ -116,8 +116,8 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public boolean clickAnchorByContent(final EFrame frame, final String needle) {
-		m_FrameManager.switchToFrame(frame);
-		final List<WebElement> elements = m_Driver.findElements(By.partialLinkText(needle));
+		this.m_FrameManager.switchToFrame(frame);
+		final List<WebElement> elements = this.m_Driver.findElements(By.partialLinkText(needle));
 		if (elements != null && !elements.isEmpty()) {
 			elements.iterator().next().click();
 			return true;
@@ -132,7 +132,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public IChat getChat() {
-		return m_Chat;
+		return this.m_Chat;
 	}
 
 	/*
@@ -142,7 +142,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public IFrameManager getFrameManager() {
-		return m_FrameManager;
+		return this.m_FrameManager;
 	}
 
 	/*
@@ -152,7 +152,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public IInventory getInventory() {
-		return m_Inventory;
+		return this.m_Inventory;
 	}
 
 	/*
@@ -162,7 +162,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public ILocation getLocation() {
-		return m_Location;
+		return this.m_Location;
 	}
 
 	/*
@@ -172,7 +172,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public IMovement getMovement() {
-		return m_Movement;
+		return this.m_Movement;
 	}
 
 	/*
@@ -182,7 +182,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public IPlayer getPlayer() {
-		return m_Player;
+		return this.m_Player;
 	}
 
 	/*
@@ -192,7 +192,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public WebDriver getWebDriver() {
-		return m_Driver;
+		return this.m_Driver;
 	}
 
 	/*
@@ -202,7 +202,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public boolean isStayLoggedIn() {
-		return m_StayLoggedIn;
+		return this.m_StayLoggedIn;
 	}
 
 	/*
@@ -212,7 +212,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public void refresh() {
-		m_Driver.navigate().refresh();
+		this.m_Driver.navigate().refresh();
 	}
 
 	/*
@@ -222,10 +222,10 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	@Override
 	public void setStayLoggedIn(boolean stayLoggedIn) {
-		if (m_StayLoggedIn != stayLoggedIn) {
+		if (this.m_StayLoggedIn != stayLoggedIn) {
 			manageStayLoggedInService(stayLoggedIn);
 		}
-		m_StayLoggedIn = stayLoggedIn;
+		this.m_StayLoggedIn = stayLoggedIn;
 	}
 
 	/*
@@ -239,7 +239,7 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		setStayLoggedIn(false);
 
 		if (doQuitDriver) {
-			m_Driver.quit();
+			this.m_Driver.quit();
 		}
 	}
 
@@ -254,10 +254,10 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 */
 	private void manageStayLoggedInService(final boolean stayLoggedIn) {
 		if (stayLoggedIn) {
-			m_StayLoggedInService = new StayLoggedInService(this);
-			m_StayLoggedInService.start();
+			this.m_StayLoggedInService = new StayLoggedInService(this);
+			this.m_StayLoggedInService.start();
 		} else {
-			m_StayLoggedInService.stopExecution();
+			this.m_StayLoggedInService.stopExecution();
 		}
 	}
 }

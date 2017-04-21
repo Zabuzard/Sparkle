@@ -26,7 +26,7 @@ public final class ForwardEvent implements IDelayableEvent {
 	 *            DelayedNavigation}.
 	 */
 	public ForwardEvent(final Navigation navigation) {
-		m_Navigation = navigation;
+		this.m_Navigation = navigation;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class ForwardEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Navigation.forward();
+		this.m_Navigation.forward();
 	}
 
 }

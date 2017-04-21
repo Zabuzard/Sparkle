@@ -31,7 +31,7 @@ public class CSSSelectorPresenceWait extends AConditionalWait<WebElement> {
 	 */
 	public CSSSelectorPresenceWait(final WebDriver driver, final String cssSelector) {
 		super(driver);
-		m_Condition = ExpectedConditions.presenceOfElementLocated(By.cssSelector(cssSelector));
+		this.m_Condition = ExpectedConditions.presenceOfElementLocated(By.cssSelector(cssSelector));
 	}
 
 	/*
@@ -41,6 +41,6 @@ public class CSSSelectorPresenceWait extends AConditionalWait<WebElement> {
 	 */
 	@Override
 	protected ExpectedCondition<WebElement> getCondition() {
-		return m_Condition;
+		return this.m_Condition;
 	}
 }

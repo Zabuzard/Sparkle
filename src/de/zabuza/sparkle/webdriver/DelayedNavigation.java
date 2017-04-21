@@ -37,8 +37,8 @@ public class DelayedNavigation implements Navigation {
 	 *            Event queue to add events to for delayed execution
 	 */
 	public DelayedNavigation(final Navigation navigation, final IDelayedEventQueue queue) {
-		m_Navigation = navigation;
-		m_Queue = queue;
+		this.m_Navigation = navigation;
+		this.m_Queue = queue;
 	}
 
 	/*
@@ -48,7 +48,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void back() {
-		m_Queue.addEvent(new BackEvent(m_Navigation));
+		this.m_Queue.addEvent(new BackEvent(this.m_Navigation));
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void forward() {
-		m_Queue.addEvent(new ForwardEvent(m_Navigation));
+		this.m_Queue.addEvent(new ForwardEvent(this.m_Navigation));
 	}
 
 	/*
@@ -68,7 +68,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void refresh() {
-		m_Queue.addEvent(new RefreshEvent(m_Navigation));
+		this.m_Queue.addEvent(new RefreshEvent(this.m_Navigation));
 	}
 
 	/*
@@ -78,7 +78,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void to(final String url) {
-		m_Queue.addEvent(new ToStringEvent(m_Navigation, url));
+		this.m_Queue.addEvent(new ToStringEvent(this.m_Navigation, url));
 	}
 
 	/*
@@ -88,7 +88,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void to(final URL url) {
-		m_Queue.addEvent(new ToUrlEvent(m_Navigation, url));
+		this.m_Queue.addEvent(new ToUrlEvent(this.m_Navigation, url));
 	}
 
 }

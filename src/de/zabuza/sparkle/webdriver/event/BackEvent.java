@@ -26,7 +26,7 @@ public final class BackEvent implements IDelayableEvent {
 	 *            DelayedNavigation}.
 	 */
 	public BackEvent(final Navigation navigation) {
-		m_Navigation = navigation;
+		this.m_Navigation = navigation;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class BackEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Navigation.back();
+		this.m_Navigation.back();
 	}
 
 }

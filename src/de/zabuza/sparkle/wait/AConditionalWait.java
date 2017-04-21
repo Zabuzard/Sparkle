@@ -50,7 +50,7 @@ public abstract class AConditionalWait<V> {
 	 *            <tt>true</tt> until a {@link TimeoutException} is thrown.
 	 */
 	public AConditionalWait(final WebDriver driver, final long timeOutInSeconds) {
-		m_Wait = new WebDriverWait(driver, timeOutInSeconds);
+		this.m_Wait = new WebDriverWait(driver, timeOutInSeconds);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public abstract class AConditionalWait<V> {
 	 * @return The object specified by {@link ExpectedCondition}.
 	 */
 	public V waitUntilCondition() {
-		return m_Wait.until(getCondition());
+		return this.m_Wait.until(getCondition());
 	}
 
 	/**

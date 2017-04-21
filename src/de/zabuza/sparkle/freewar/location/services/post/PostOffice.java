@@ -81,10 +81,10 @@ public final class PostOffice implements ILocationService {
 	 *            The frame manager to use for changing frames
 	 */
 	public PostOffice(final Point point, final IFreewarInstance instance, final WebDriver driver,
-			final IFrameManager frameManager) {
-		m_Point = point;
-		m_Driver = driver;
-		m_Instance = instance;
+			@SuppressWarnings("unused") final IFrameManager frameManager) {
+		this.m_Point = point;
+		this.m_Driver = driver;
+		this.m_Instance = instance;
 	}
 
 	/*
@@ -96,7 +96,7 @@ public final class PostOffice implements ILocationService {
 	 */
 	@Override
 	public Point getPosition() {
-		return m_Point;
+		return this.m_Point;
 	}
 
 	/**
@@ -110,46 +110,46 @@ public final class PostOffice implements ILocationService {
 	 *         the error code
 	 */
 	public Optional<EErrorCode> writeLetter(final String receiver, final String message) {
-		final int gold = m_Instance.getPlayer().getGold();
+		final int gold = this.m_Instance.getPlayer().getGold();
 		if (gold < LETTER_SERVICE_COST) {
 			return Optional.of(EErrorCode.NO_GOLD);
 		}
 
 		// Open the letter form
-		final boolean wasClicked = m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_WRITE_LETTER);
+		final boolean wasClicked = this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_WRITE_LETTER);
 
 		if (!wasClicked) {
 			return Optional.of(EErrorCode.SERVICE_UNAVAILABLE);
 		}
 
 		// Wait for click to get executed
-		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 
 		// Fill in form
-		final WebElement receiverElement = m_Driver.findElement(By.cssSelector(CSS_RECEIVER_SELECTOR));
+		final WebElement receiverElement = this.m_Driver.findElement(By.cssSelector(CSS_RECEIVER_SELECTOR));
 		receiverElement.sendKeys(receiver);
-		final WebElement messageElement = m_Driver.findElement(By.cssSelector(CSS_MESSAGE_SELECTOR));
+		final WebElement messageElement = this.m_Driver.findElement(By.cssSelector(CSS_MESSAGE_SELECTOR));
 		messageElement.sendKeys(message);
 
 		// Submit it
-		final WebElement submitElement = m_Driver.findElement(By.cssSelector(CSS_LETTER_SUBMIT_SELECTOR));
+		final WebElement submitElement = this.m_Driver.findElement(By.cssSelector(CSS_LETTER_SUBMIT_SELECTOR));
 		submitElement.click();
 
 		// Wait for click to get executed
-		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 
 		// Check the state
-		final List<WebElement> elements = m_Driver
+		final List<WebElement> elements = this.m_Driver
 				.findElements(By.partialLinkText(ANCHOR_NEEDLE_RECEIVER_INEXISTENT_ABORT));
 		if (elements != null && !elements.isEmpty()) {
 			// Receiver is inexistent, abort the process
 			elements.iterator().next().click();
-			new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+			new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 			return Optional.of(EErrorCode.RECEIVER_INEXISTENT);
 		}
 
 		// Finish the process and click continue
-		m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_SUCCESSFUL_FINISH);
+		this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_SUCCESSFUL_FINISH);
 
 		return Optional.empty();
 	}

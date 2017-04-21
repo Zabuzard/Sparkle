@@ -437,10 +437,10 @@ public final class MagicSphere implements IItemService {
 	 *            The frame manager to use for changing frames
 	 */
 	public MagicSphere(final String itemName, final IFreewarInstance instance, final WebDriver driver,
-			final IFrameManager frameManager) {
-		m_ItemName = itemName;
-		m_Driver = driver;
-		m_Instance = instance;
+			@SuppressWarnings("unused") final IFrameManager frameManager) {
+		this.m_ItemName = itemName;
+		this.m_Driver = driver;
+		this.m_Instance = instance;
 	}
 
 	/*
@@ -451,7 +451,7 @@ public final class MagicSphere implements IItemService {
 	 */
 	@Override
 	public String getItemName() {
-		return m_ItemName;
+		return this.m_ItemName;
 	}
 
 	/**
@@ -477,23 +477,23 @@ public final class MagicSphere implements IItemService {
 	 *         the error code
 	 */
 	private Optional<EErrorCode> teleportByAccessId(final int accessId) {
-		final IInventory inventory = m_Instance.getInventory();
-		if (!inventory.hasItem(m_ItemName)) {
+		final IInventory inventory = this.m_Instance.getInventory();
+		if (!inventory.hasItem(this.m_ItemName)) {
 			return Optional.of(EErrorCode.NO_ITEM);
 		}
-		if (!inventory.activateItem(m_ItemName)) {
+		if (!inventory.activateItem(this.m_ItemName)) {
 			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
 		}
 
 		try {
-			final WebElement element = new CSSSelectorPresenceWait(m_Driver,
+			final WebElement element = new CSSSelectorPresenceWait(this.m_Driver,
 					CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SELECT).waitUntilCondition();
 
 			// Select the destination
 			final Select selectElement = new Select(element);
 			selectElement.selectByValue(accessId + "");
 
-			final List<WebElement> submitButtons = m_Driver
+			final List<WebElement> submitButtons = this.m_Driver
 					.findElements(By.cssSelector(CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT));
 			if (submitButtons == null || submitButtons.isEmpty()) {
 				return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
@@ -505,8 +505,8 @@ public final class MagicSphere implements IItemService {
 			return Optional.empty();
 		} catch (final TimeoutException e) {
 			// Try to abort the process
-			m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_TELEPORTATION_ABORT);
-			new EventQueueEmptyWait(m_Driver).waitUntilCondition();
+			this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_TELEPORTATION_ABORT);
+			new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
 			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
 		}
 	}

@@ -32,8 +32,8 @@ public final class ToStringEvent implements IDelayableEvent {
 	 *            URl to navigate to
 	 */
 	public ToStringEvent(final Navigation navigation, final String url) {
-		m_Navigation = navigation;
-		m_Url = url;
+		this.m_Navigation = navigation;
+		this.m_Url = url;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class ToStringEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Navigation.to(m_Url);
+		this.m_Navigation.to(this.m_Url);
 	}
 
 }

@@ -32,8 +32,8 @@ public final class GetEvent implements IDelayableEvent {
 	 *            URL to get
 	 */
 	public GetEvent(final WebDriver driver, final String url) {
-		m_Url = url;
-		m_WebDriver = driver;
+		this.m_Url = url;
+		this.m_WebDriver = driver;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class GetEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_WebDriver.get(m_Url);
+		this.m_WebDriver.get(this.m_Url);
 	}
 
 	/**
@@ -52,6 +52,6 @@ public final class GetEvent implements IDelayableEvent {
 	 * @return the url
 	 */
 	public String getUrl() {
-		return m_Url;
+		return this.m_Url;
 	}
 }

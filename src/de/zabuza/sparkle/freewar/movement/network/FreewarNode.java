@@ -31,8 +31,8 @@ public final class FreewarNode extends Node {
 	 */
 	public FreewarNode(final int id, final int xCoordinate, final int yCoordinate) {
 		super(id);
-		mXCoordinate = xCoordinate;
-		mYCoordinate = yCoordinate;
+		this.mXCoordinate = xCoordinate;
+		this.mYCoordinate = yCoordinate;
 	}
 
 	/**
@@ -41,7 +41,7 @@ public final class FreewarNode extends Node {
 	 * @return The coordinate in x-direction of this node
 	 */
 	public int getXCoordinate() {
-		return mXCoordinate;
+		return this.mXCoordinate;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public final class FreewarNode extends Node {
 	 * @return The coordinate in y-direction of this node
 	 */
 	public int getYCoordinate() {
-		return mYCoordinate;
+		return this.mYCoordinate;
 	}
 
 	/*

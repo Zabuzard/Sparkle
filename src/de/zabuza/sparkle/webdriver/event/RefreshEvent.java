@@ -26,7 +26,7 @@ public final class RefreshEvent implements IDelayableEvent {
 	 *            DelayedNavigation}.
 	 */
 	public RefreshEvent(final Navigation navigation) {
-		m_Navigation = navigation;
+		this.m_Navigation = navigation;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class RefreshEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		m_Navigation.refresh();
+		this.m_Navigation.refresh();
 	}
 
 }

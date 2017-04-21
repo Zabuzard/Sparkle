@@ -30,7 +30,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 *            Driver to wrap for staled element handling
 	 */
 	public StaleRefresherWebDriver(final WebDriver driver) {
-		m_WebDriver = driver;
+		this.m_WebDriver = driver;
 	}
 
 	/*
@@ -40,7 +40,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public void close() {
-		m_WebDriver.close();
+		this.m_WebDriver.close();
 	}
 
 	/*
@@ -50,7 +50,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new StaleRefresherWebElement(m_WebDriver.findElement(by), by, m_WebDriver);
+		return new StaleRefresherWebElement(this.m_WebDriver.findElement(by), by, this.m_WebDriver);
 	}
 
 	/*
@@ -60,11 +60,11 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		final List<WebElement> elements = m_WebDriver.findElements(by);
-		final List<WebElement> staleRefresherElements = new LinkedList<WebElement>();
+		final List<WebElement> elements = this.m_WebDriver.findElements(by);
+		final List<WebElement> staleRefresherElements = new LinkedList<>();
 		int i = 0;
 		for (final WebElement element : elements) {
-			staleRefresherElements.add(new StaleRefresherWebElement(element, by, m_WebDriver, i));
+			staleRefresherElements.add(new StaleRefresherWebElement(element, by, this.m_WebDriver, i));
 			i++;
 		}
 
@@ -78,7 +78,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public void get(final String url) {
-		m_WebDriver.get(url);
+		this.m_WebDriver.get(url);
 	}
 
 	/*
@@ -88,7 +88,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public String getCurrentUrl() {
-		return m_WebDriver.getCurrentUrl();
+		return this.m_WebDriver.getCurrentUrl();
 	}
 
 	/*
@@ -98,7 +98,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public String getPageSource() {
-		return m_WebDriver.getPageSource();
+		return this.m_WebDriver.getPageSource();
 	}
 
 	/*
@@ -108,7 +108,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public WebDriver getRawDriver() {
-		return m_WebDriver;
+		return this.m_WebDriver;
 	}
 
 	/*
@@ -118,7 +118,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public String getTitle() {
-		return m_WebDriver.getTitle();
+		return this.m_WebDriver.getTitle();
 	}
 
 	/*
@@ -128,7 +128,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public String getWindowHandle() {
-		return m_WebDriver.getWindowHandle();
+		return this.m_WebDriver.getWindowHandle();
 	}
 
 	/*
@@ -138,7 +138,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public Set<String> getWindowHandles() {
-		return m_WebDriver.getWindowHandles();
+		return this.m_WebDriver.getWindowHandles();
 	}
 
 	/*
@@ -148,7 +148,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public Options manage() {
-		return m_WebDriver.manage();
+		return this.m_WebDriver.manage();
 	}
 
 	/*
@@ -158,7 +158,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public Navigation navigate() {
-		return m_WebDriver.navigate();
+		return this.m_WebDriver.navigate();
 	}
 
 	/*
@@ -168,7 +168,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public void quit() {
-		m_WebDriver.quit();
+		this.m_WebDriver.quit();
 	}
 
 	/*
@@ -178,7 +178,7 @@ public final class StaleRefresherWebDriver implements WebDriver, IWrapsWebDriver
 	 */
 	@Override
 	public TargetLocator switchTo() {
-		return m_WebDriver.switchTo();
+		return this.m_WebDriver.switchTo();
 	}
 
 }

@@ -32,7 +32,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 *            Web element object to wrap for anti trap event execution
 	 */
 	public AntiTrapWebElement(final WebElement element) {
-		m_Element = element;
+		this.m_Element = element;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void clear() {
 		ensureIsNoBotTrap();
-		m_Element.clear();
+		this.m_Element.clear();
 	}
 
 	/*
@@ -54,7 +54,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void click() {
 		ensureIsNoBotTrap();
-		m_Element.click();
+		this.m_Element.click();
 	}
 
 	/*
@@ -65,7 +65,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public WebElement findElement(final By by) {
 		ensureIsNoBotTrap();
-		return new AntiTrapWebElement(m_Element.findElement(by));
+		return new AntiTrapWebElement(this.m_Element.findElement(by));
 	}
 
 	/*
@@ -76,8 +76,8 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public List<WebElement> findElements(final By by) {
 		ensureIsNoBotTrap();
-		final List<WebElement> elements = m_Element.findElements(by);
-		final List<WebElement> antiTrapElements = new LinkedList<WebElement>();
+		final List<WebElement> elements = this.m_Element.findElements(by);
+		final List<WebElement> antiTrapElements = new LinkedList<>();
 		for (final WebElement element : elements) {
 			antiTrapElements.add(new AntiTrapWebElement(element));
 		}
@@ -92,7 +92,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getAttribute(final String name) {
-		return m_Element.getAttribute(name);
+		return this.m_Element.getAttribute(name);
 	}
 
 	/*
@@ -102,7 +102,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getCssValue(final String propertyName) {
-		return m_Element.getCssValue(propertyName);
+		return this.m_Element.getCssValue(propertyName);
 	}
 
 	/*
@@ -112,7 +112,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Point getLocation() {
-		return m_Element.getLocation();
+		return this.m_Element.getLocation();
 	}
 
 	/*
@@ -122,7 +122,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Rectangle getRect() {
-		return m_Element.getRect();
+		return this.m_Element.getRect();
 	}
 
 	/*
@@ -134,7 +134,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public <X> X getScreenshotAs(final OutputType<X> target) throws WebDriverException {
-		return m_Element.getScreenshotAs(target);
+		return this.m_Element.getScreenshotAs(target);
 	}
 
 	/*
@@ -144,7 +144,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Dimension getSize() {
-		return m_Element.getSize();
+		return this.m_Element.getSize();
 	}
 
 	/*
@@ -154,7 +154,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getTagName() {
-		return m_Element.getTagName();
+		return this.m_Element.getTagName();
 	}
 
 	/*
@@ -164,7 +164,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getText() {
-		return m_Element.getText();
+		return this.m_Element.getText();
 	}
 
 	/*
@@ -174,7 +174,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isDisplayed() {
-		return m_Element.isDisplayed();
+		return this.m_Element.isDisplayed();
 	}
 
 	/*
@@ -184,7 +184,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return m_Element.isEnabled();
+		return this.m_Element.isEnabled();
 	}
 
 	/*
@@ -194,7 +194,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isSelected() {
-		return m_Element.isSelected();
+		return this.m_Element.isSelected();
 	}
 
 	/*
@@ -205,7 +205,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void sendKeys(final CharSequence... keysToSend) {
 		ensureIsNoBotTrap();
-		m_Element.sendKeys(keysToSend);
+		this.m_Element.sendKeys(keysToSend);
 	}
 
 	/*
@@ -216,7 +216,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void submit() {
 		ensureIsNoBotTrap();
-		m_Element.submit();
+		this.m_Element.submit();
 	}
 
 	/**
@@ -226,7 +226,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 *             Thrown when the element seems to be a bot trap
 	 */
 	private void ensureIsNoBotTrap() throws TrapElementException {
-		if (!m_Element.isDisplayed() || !m_Element.isEnabled()) {
+		if (!this.m_Element.isDisplayed() || !this.m_Element.isEnabled()) {
 			throw new TrapElementException();
 		}
 	}

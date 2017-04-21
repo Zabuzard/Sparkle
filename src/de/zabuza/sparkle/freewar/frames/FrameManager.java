@@ -28,7 +28,7 @@ public final class FrameManager implements IFrameManager {
 	 *            Web driver to use
 	 */
 	public FrameManager(final WebDriver driver) {
-		m_Driver = driver;
+		this.m_Driver = driver;
 	}
 
 	/*
@@ -79,12 +79,12 @@ public final class FrameManager implements IFrameManager {
 	 */
 	private void switchToFrame(final String frameName, final String frameLoaded) {
 		// Wait for events to be processed before switching frames
-		new EventQueueEmptyWait(m_Driver).waitUntilCondition();
-		m_Driver.switchTo().defaultContent();
-		m_Driver.switchTo().frame(frameName);
+		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+		this.m_Driver.switchTo().defaultContent();
+		this.m_Driver.switchTo().frame(frameName);
 
 		// Wait for frame to be fully present
-		new CSSSelectorPresenceWait(m_Driver, frameLoaded).waitUntilCondition();
+		new CSSSelectorPresenceWait(this.m_Driver, frameLoaded).waitUntilCondition();
 	}
 
 }

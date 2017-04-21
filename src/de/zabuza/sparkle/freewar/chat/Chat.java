@@ -27,6 +27,9 @@ import de.zabuza.sparkle.selectors.Patterns;
  */
 public final class Chat implements IChat {
 
+	/**
+	 * Constant for an empty text.
+	 */
 	private final static String EMPTY_TEXT = "";
 	/**
 	 * The web driver used by this chat.
@@ -53,9 +56,9 @@ public final class Chat implements IChat {
 	 *            The name of the user of this instance
 	 */
 	public Chat(final WebDriver driver, final IFrameManager frameManager, final String user) {
-		m_Driver = driver;
-		m_FrameManager = frameManager;
-		m_User = user;
+		this.m_Driver = driver;
+		this.m_FrameManager = frameManager;
+		this.m_User = user;
 	}
 
 	/*
@@ -68,7 +71,7 @@ public final class Chat implements IChat {
 		switchToChatFormFrame();
 
 		// Get focus by sending an empty text
-		final List<WebElement> inputElements = m_Driver
+		final List<WebElement> inputElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.CHAT_FORM_MESSAGE_INPUT));
 		if (inputElements.isEmpty()) {
 			return false;
@@ -134,7 +137,7 @@ public final class Chat implements IChat {
 		switchToChatFormFrame();
 
 		// Enter the message into the input field
-		final List<WebElement> inputElements = m_Driver
+		final List<WebElement> inputElements = this.m_Driver
 				.findElements(By.cssSelector(CSSSelectors.CHAT_FORM_MESSAGE_INPUT));
 		if (inputElements.isEmpty()) {
 			return false;
@@ -160,7 +163,7 @@ public final class Chat implements IChat {
 			throw new AssertionError();
 		}
 
-		final List<WebElement> submitElements = m_Driver.findElements(By.cssSelector(submitSelector));
+		final List<WebElement> submitElements = this.m_Driver.findElements(By.cssSelector(submitSelector));
 		if (submitElements.isEmpty()) {
 			return false;
 		}
@@ -234,9 +237,8 @@ public final class Chat implements IChat {
 			if (senderGroup != -1) {
 				sender = matcher.group(senderGroup);
 				return new Message(sender, content, chatType);
-			} else {
-				return new Message(content, chatType);
 			}
+			return new Message(content, chatType);
 		}
 
 		// Try the second round if not successful
@@ -262,10 +264,9 @@ public final class Chat implements IChat {
 			content = secondMatcher.group(secondContentGroup);
 			if (receiverGroup != -1) {
 				final String receiver = secondMatcher.group(receiverGroup);
-				return new Message(m_User, receiver, content, chatType);
-			} else {
-				return new Message(content, chatType);
+				return new Message(this.m_User, receiver, content, chatType);
 			}
+			return new Message(content, chatType);
 		}
 
 		// Try the third round if not successful
@@ -306,7 +307,7 @@ public final class Chat implements IChat {
 		// big objects to prevent stale elements
 		final LinkedList<String> elementsClasses = new LinkedList<>();
 		final LinkedList<String> elementsFullTexts = new LinkedList<>();
-		final List<WebElement> elements = m_Driver.findElements(By.cssSelector(cssSelector));
+		final List<WebElement> elements = this.m_Driver.findElements(By.cssSelector(cssSelector));
 		for (final WebElement element : elements) {
 			elementsClasses.add(Classes.getClassAttribute(element));
 			elementsFullTexts.add(element.getText());
@@ -354,7 +355,7 @@ public final class Chat implements IChat {
 	 * switching frames.
 	 */
 	private void switchToChatFormFrame() {
-		m_FrameManager.switchToFrame(EFrame.CHAT_FORM);
+		this.m_FrameManager.switchToFrame(EFrame.CHAT_FORM);
 	}
 
 	/**
@@ -363,6 +364,6 @@ public final class Chat implements IChat {
 	 * switching frames.
 	 */
 	private void switchToChatTextFrame() {
-		m_FrameManager.switchToFrame(EFrame.CHAT_TEXT);
+		this.m_FrameManager.switchToFrame(EFrame.CHAT_TEXT);
 	}
 }

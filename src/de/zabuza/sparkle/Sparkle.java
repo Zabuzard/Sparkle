@@ -64,7 +64,7 @@ public final class Sparkle implements IFreewarAPI {
 	 * Set of all registered instances created with
 	 * {@link #login(String, String, EWorld)}. Instances get added using
 	 * {@link #login(String, String, EWorld)} and removed by using
-	 * {@link #shutdownInstance(IFreewarInstance)}.
+	 * {@link #shutdownInstance(IFreewarInstance, boolean)}.
 	 */
 	private final Set<IFreewarInstance> m_Instances;
 
@@ -100,10 +100,10 @@ public final class Sparkle implements IFreewarAPI {
 	 *            usage of a bot for <tt>Freewar</tt>.
 	 */
 	public Sparkle(final EBrowser browser, final boolean delayEvents) {
-		m_Browser = browser;
-		m_DelayEvents = delayEvents;
-		m_Capabilities = null;
-		m_Instances = new LinkedHashSet<IFreewarInstance>();
+		this.m_Browser = browser;
+		this.m_DelayEvents = delayEvents;
+		this.m_Capabilities = null;
+		this.m_Instances = new LinkedHashSet<>();
 	}
 
 	/*
@@ -230,7 +230,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public EBrowser getBrowser() {
-		return m_Browser;
+		return this.m_Browser;
 	}
 
 	/*
@@ -246,7 +246,7 @@ public final class Sparkle implements IFreewarAPI {
 			return null;
 		}
 
-		WebDriver driver = createWebDriver(m_Browser);
+		WebDriver driver = createWebDriver(this.m_Browser);
 
 		// Connect to login form
 		String fullWorldDomain = Paths.getFullWorldDomain(world);
@@ -292,7 +292,7 @@ public final class Sparkle implements IFreewarAPI {
 		}
 
 		IFreewarInstance instance = new FreewarInstance(driver, username);
-		m_Instances.add(instance);
+		this.m_Instances.add(instance);
 
 		return instance;
 	}
@@ -343,7 +343,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void setBrowser(final EBrowser browser) {
-		m_Browser = browser;
+		this.m_Browser = browser;
 	}
 
 	/*
@@ -354,7 +354,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void setCapabilities(final DesiredCapabilities capabilities) {
-		m_Capabilities = capabilities;
+		this.m_Capabilities = capabilities;
 	}
 
 	/*
@@ -364,17 +364,17 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void shutdown(final boolean doQuitDriver) {
-		for (IFreewarInstance instance : m_Instances) {
+		for (IFreewarInstance instance : this.m_Instances) {
 			shutdownInstance(instance, doQuitDriver);
 		}
 	}
 
 	/**
-	 * Creates a {@link #WebDriver} that uses the given browser. If a capability
-	 * object was set using {@link #setCapabilities(Capabilities)} then it will
-	 * also be passed to the created browser. If {@link #m_DelayEvents} is set
-	 * to <tt>true</tt>, the resulting driver will automatically delay events to
-	 * disguise usage of a bot for <tt>Freewar</tt>.
+	 * Creates a {@link WebDriver} that uses the given browser. If a capability
+	 * object was set using {@link #setCapabilities(DesiredCapabilities)} then
+	 * it will also be passed to the created browser. If {@link #m_DelayEvents}
+	 * is set to <tt>true</tt>, the resulting driver will automatically delay
+	 * events to disguise usage of a bot for <tt>Freewar</tt>.
 	 * 
 	 * @param browser
 	 *            Browser to use for the driver
@@ -383,38 +383,38 @@ public final class Sparkle implements IFreewarAPI {
 	private WebDriver createWebDriver(final EBrowser browser) {
 		WebDriver driver;
 		if (browser == EBrowser.FIREFOX) {
-			if (m_Capabilities != null) {
-				driver = new FirefoxDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new FirefoxDriver(this.m_Capabilities);
 			} else {
 				driver = new FirefoxDriver();
 			}
 		} else if (browser == EBrowser.CHROME) {
-			if (m_Capabilities != null) {
-				driver = new ChromeDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new ChromeDriver(this.m_Capabilities);
 			} else {
 				driver = new ChromeDriver();
 			}
 		} else if (browser == EBrowser.SAFARI) {
-			if (m_Capabilities != null) {
-				driver = new SafariDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new SafariDriver(this.m_Capabilities);
 			} else {
 				driver = new SafariDriver();
 			}
 		} else if (browser == EBrowser.INTERNET_EXPLORER) {
-			if (m_Capabilities != null) {
-				driver = new InternetExplorerDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new InternetExplorerDriver(this.m_Capabilities);
 			} else {
 				driver = new InternetExplorerDriver();
 			}
 		} else if (browser == EBrowser.OPERA) {
-			if (m_Capabilities != null) {
-				driver = new OperaDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new OperaDriver(this.m_Capabilities);
 			} else {
 				driver = new OperaDriver();
 			}
 		} else if (browser == EBrowser.MS_EDGE) {
-			if (m_Capabilities != null) {
-				driver = new EdgeDriver(m_Capabilities);
+			if (this.m_Capabilities != null) {
+				driver = new EdgeDriver(this.m_Capabilities);
 			} else {
 				driver = new EdgeDriver();
 			}
@@ -429,7 +429,7 @@ public final class Sparkle implements IFreewarAPI {
 		driver = new AntiTrapWebDriver(driver);
 
 		// Wrap a delayed web driver around if desired
-		if (m_DelayEvents) {
+		if (this.m_DelayEvents) {
 			driver = new DelayedWebDriver(driver);
 		}
 
@@ -455,7 +455,7 @@ public final class Sparkle implements IFreewarAPI {
 	private void shutdownInstance(final IFreewarInstance instance, final boolean doQuitDriver) {
 		if (instance != null) {
 			instance.shutdown(doQuitDriver);
-			m_Instances.remove(instance);
+			this.m_Instances.remove(instance);
 		}
 	}
 }
