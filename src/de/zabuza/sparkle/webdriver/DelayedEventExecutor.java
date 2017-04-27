@@ -111,13 +111,14 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	public void run() {
 		this.m_StopExecution = false;
 		while (!this.m_StopExecution) {
+			if (!this.m_AllEventsExecuted && this.m_EventQueue.isEmpty()) {
+				this.m_AllEventsExecuted = true;
+			}
+
 			final IDelayableEvent event = this.m_EventQueue.poll();
 			try {
 				if (event != null) {
 					event.execute();
-					if (this.m_EventQueue.isEmpty()) {
-						this.m_AllEventsExecuted = true;
-					}
 					sleep(getRandomDelay());
 				}
 				sleep(STANDARD_DELAY);
