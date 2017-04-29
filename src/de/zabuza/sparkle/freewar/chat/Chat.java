@@ -254,7 +254,7 @@ public final class Chat implements IChat {
 			receiverGroup = -1;
 			secondContentGroup = 1;
 		} else {
-			throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID);
+			throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID + " " + chatType + ": " + fullText);
 		}
 
 		// Execute the second round
@@ -276,7 +276,7 @@ public final class Chat implements IChat {
 			thirdMessagePattern = Patterns.CHAT_MESSAGE_NAME_CONTENT_WHISPER_NEUTRAL;
 			thirdContentGroup = 1;
 		} else {
-			throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID);
+			throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID + " " + chatType + ": " + fullText);
 		}
 
 		// Execute the second round
@@ -287,7 +287,7 @@ public final class Chat implements IChat {
 			return new Message(content, chatType);
 		}
 
-		throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID);
+		throw new IllegalArgumentException(ErrorMessages.CHAT_MESSAGE_INVALID + " " + chatType + ": " + fullText);
 	}
 
 	/**
