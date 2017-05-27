@@ -1,6 +1,6 @@
 package de.zabuza.sparkle.freewar.chat;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 /**
  * Wrapper class that represents chat messages.
