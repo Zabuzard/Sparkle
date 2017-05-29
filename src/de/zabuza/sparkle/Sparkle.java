@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -236,13 +237,53 @@ public final class Sparkle implements IFreewarAPI {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.zabuza.sparkle.IFreewarAPI#hijackSession(java.lang.String,
+	 * java.lang.String, de.zabuza.sparkle.freewar.EWorld)
+	 */
+	@Override
+	public IFreewarInstance hijackSession(final String sessionId, final String username, final EWorld world) {
+		// Validate user credentials
+		if (sessionId == null || sessionId.isEmpty() || username == null || username.isEmpty() || world == null) {
+			return null;
+		}
+
+		final WebDriver driver = createWebDriver(this.m_Browser);
+
+		// Connect to login form as cookies are disabled in most browsers at the
+		// blank starting page
+		final String fullWorldDomain = Paths.getFullWorldDomain(world);
+		final String loginUrl = fullWorldDomain + Paths.LOGIN;
+		driver.get(loginUrl);
+
+		// Wait for the page to load
+		new LoginFormWait(driver).waitUntilCondition();
+
+		// Apply the session cookie
+		final String domain = Paths.getHostDomain(world);
+		final Cookie sessionCookie = new Cookie(Names.COOKIE_SESSION_ID, sessionId, domain, null, null);
+		driver.manage().addCookie(sessionCookie);
+
+		// Connect to the in-game page
+		final String inGameUrl = fullWorldDomain + Paths.IN_GAME;
+		driver.get(inGameUrl);
+
+		// If the session is valid then the instance should be ready now
+		final IFreewarInstance instance = new FreewarInstance(driver, username);
+		this.m_Instances.add(instance);
+
+		return instance;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.zabuza.sparkle.IFreewarAPI#login(java.lang.String,
 	 * java.lang.String, de.zabuza.sparkle.freewar.EWorld)
 	 */
 	@Override
 	public IFreewarInstance login(final String username, final String password, final EWorld world) {
-		// Validate user credentials
-		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+		// Validate arguments
+		if (username == null || username.isEmpty() || password == null || password.isEmpty() || world == null) {
 			return null;
 		}
 

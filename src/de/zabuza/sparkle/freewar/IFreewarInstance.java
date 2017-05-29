@@ -1,5 +1,6 @@
 package de.zabuza.sparkle.freewar;
 
+import de.zabuza.sparkle.IFreewarAPI;
 import de.zabuza.sparkle.freewar.chat.IChat;
 import de.zabuza.sparkle.freewar.frames.EFrame;
 import de.zabuza.sparkle.freewar.frames.IFrameManager;
@@ -79,6 +80,20 @@ public interface IFreewarInstance {
 	 * @return The player object of this instance
 	 */
 	public IPlayer getPlayer();
+
+	/**
+	 * Gets the session id for this instance. It is valid until the user logs
+	 * out or gets automatically logged out by <tt>Freewar</tt>. It can be used
+	 * to hijack the session with
+	 * {@link IFreewarAPI#hijackSession(String, String, EWorld)} or to pass it
+	 * to other external applications that may then hijack the session. The
+	 * session id itself is maintained by <tt>Freewar</tt> and is saved inside a
+	 * cookie.
+	 * 
+	 * @return The session id for this instance or <tt>null</tt> if that was not
+	 *         possible
+	 */
+	public String getSessionId();
 
 	/**
 	 * Returns if the instance cares of not being automatically logged out by

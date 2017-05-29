@@ -3,6 +3,7 @@ package de.zabuza.sparkle.freewar;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -19,6 +20,7 @@ import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.freewar.movement.Movement;
 import de.zabuza.sparkle.freewar.player.IPlayer;
 import de.zabuza.sparkle.freewar.player.Player;
+import de.zabuza.sparkle.selectors.Names;
 import de.zabuza.sparkle.webdriver.IHasWebDriver;
 
 /**
@@ -183,6 +185,21 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	@Override
 	public IPlayer getPlayer() {
 		return this.m_Player;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getSessionId()
+	 */
+	@Override
+	public String getSessionId() {
+		final Cookie sessionId = this.m_Driver.manage().getCookieNamed(Names.COOKIE_SESSION_ID);
+		if (sessionId == null) {
+			return null;
+		}
+
+		return sessionId.getValue();
 	}
 
 	/*

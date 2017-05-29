@@ -30,6 +30,10 @@ public final class Paths {
 	 */
 	public final static String EN_WORLD = "world";
 	/**
+	 * Path to the actual game page that is used when playing the game.
+	 */
+	public final static String IN_GAME = "freewar/internal/friset.php";
+	/**
 	 * Path to the login page.
 	 */
 	public final static String LOGIN = "freewar";
@@ -51,7 +55,8 @@ public final class Paths {
 	public final static String URL_SEPARATOR = "/";
 
 	/**
-	 * Gets the full domain url corresponding to the given world.
+	 * Gets the full domain url corresponding to the given world. For example
+	 * '<tt>http://welt1.freewar.de/<tt>'.
 	 * 
 	 * @param world
 	 *            World to get full domain url for
@@ -59,7 +64,24 @@ public final class Paths {
 	 */
 	public static String getFullWorldDomain(final EWorld world) {
 		final StringBuilder sb = new StringBuilder();
+
 		sb.append(PROTOCOL);
+		sb.append(getHostDomain(world));
+		sb.append(URL_SEPARATOR);
+
+		return sb.toString();
+	}
+
+	/**
+	 * Gets the host domain corresponding to the given world. For example
+	 * '<tt>welt1.freewar.de<tt>'.
+	 * 
+	 * @param world
+	 *            World to get host domain for
+	 * @return The host domain corresponding to the given world
+	 */
+	public static String getHostDomain(final EWorld world) {
+		final StringBuilder sb = new StringBuilder();
 
 		if (world == EWorld.ACTION) {
 			sb.append(ACTION_WORLD);
@@ -108,8 +130,6 @@ public final class Paths {
 		} else {
 			sb.append(EN_DOMAIN);
 		}
-
-		sb.append(URL_SEPARATOR);
 
 		return sb.toString();
 	}

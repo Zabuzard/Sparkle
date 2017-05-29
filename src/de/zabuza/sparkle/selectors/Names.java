@@ -8,6 +8,11 @@ package de.zabuza.sparkle.selectors;
  */
 public final class Names {
 	/**
+	 * The name of the cookie that contains the session id of a <tt>Freewar</tt>
+	 * instance.
+	 */
+	public static final String COOKIE_SESSION_ID = "PHPSESSID";
+	/**
 	 * Name of the chat form frame.
 	 */
 	public static final String FRAME_CHAT_FORM = "chatformFrame";
