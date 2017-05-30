@@ -43,17 +43,17 @@ public interface IFreewarAPI {
 
 	/**
 	 * Hijacks the given session of a logged in account in <tt>Freewar</tt>.
-	 * This allows a login without knowing the password which is especially for
-	 * service applications. The resulting instance is the same as if regularly
-	 * using {@link #login(String, String, EWorld)} provided the session is
-	 * valid. If the session is not valid the method itself will not throw any
-	 * exceptions as the session may become valid in the future by external
-	 * force, however most further methods will likely throw exceptions. The API
-	 * is capable of holding multiple {@link IFreewarInstance}s. If logging in
-	 * different accounts of the same world, make sure to use different
-	 * browsers. Else <tt>Freewar</tt> will automatically logout the first
-	 * account. Set different browsers using {@link #setBrowser(EBrowser)}
-	 * before login.
+	 * This allows a login without knowing the password which is especially
+	 * useful for service applications. The resulting instance is the same as if
+	 * regularly using {@link #login(String, String, EWorld)} provided the
+	 * session is valid. If the session is not valid the method itself will not
+	 * throw any exceptions as the session may become valid in the future by
+	 * external force, however until then most further methods will likely throw
+	 * exceptions. The API is capable of holding multiple
+	 * {@link IFreewarInstance}s. If logging in different accounts of the same
+	 * world, make sure to use different browsers. Else <tt>Freewar</tt> will
+	 * automatically logout the first account. Set different browsers using
+	 * {@link #setBrowser(EBrowser)} before login.
 	 * 
 	 * @param sessionId
 	 *            The id of the session to hijack, can be obtained by using
