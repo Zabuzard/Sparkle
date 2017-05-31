@@ -97,8 +97,8 @@ public final class Sparkle implements IFreewarAPI {
 	 * @param browser
 	 *            Browser to use as default
 	 * @param delayEvents
-	 *            If the API should automatically delays events to disguise
-	 *            usage of a bot for <tt>Freewar</tt>.
+	 *            If the API should automatically delay events to disguise usage
+	 *            of a bot for <tt>Freewar</tt>.
 	 */
 	public Sparkle(final EBrowser browser, final boolean delayEvents) {
 		this.m_Browser = browser;

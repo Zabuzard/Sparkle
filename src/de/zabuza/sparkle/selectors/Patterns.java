@@ -37,7 +37,7 @@ public final class Patterns {
 	 * Regex pattern for extracting the name and the content of an info chat
 	 * message.
 	 */
-	public final static String CHAT_MESSAGE_NAME_CONTENT_INFO = "(.*)";
+	public final static String CHAT_MESSAGE_NAME_CONTENT_INFO = "(?s)(.*)";
 	/**
 	 * Regex pattern for extracting the name and the content of a scream chat
 	 * message.
@@ -62,7 +62,7 @@ public final class Patterns {
 	 * Regex pattern for extracting the name and the content of a world-say chat
 	 * message.
 	 */
-	public final static String CHAT_MESSAGE_NAME_CONTENT_WORLDSAY = "(.*)";
+	public final static String CHAT_MESSAGE_NAME_CONTENT_WORLDSAY = "(?s)(.*)";
 	/**
 	 * Regex pattern for an integer.
 	 */
