@@ -414,15 +414,15 @@ public final class MagicSphere implements IItemService {
 	/**
 	 * The web driver to use for accessing elements.
 	 */
-	private final WebDriver m_Driver;
+	private final WebDriver mDriver;
 	/**
 	 * The instance to use for accessing other data.
 	 */
-	private final IFreewarInstance m_Instance;
+	private final IFreewarInstance mInstance;
 	/**
 	 * The name of the item this service offers actions for.
 	 */
-	private final String m_ItemName;
+	private final String mItemName;
 
 	/**
 	 * Creates a magic sphere service.
@@ -438,9 +438,9 @@ public final class MagicSphere implements IItemService {
 	 */
 	public MagicSphere(final String itemName, final IFreewarInstance instance, final WebDriver driver,
 			@SuppressWarnings("unused") final IFrameManager frameManager) {
-		this.m_ItemName = itemName;
-		this.m_Driver = driver;
-		this.m_Instance = instance;
+		this.mItemName = itemName;
+		this.mDriver = driver;
+		this.mInstance = instance;
 	}
 
 	/*
@@ -451,7 +451,7 @@ public final class MagicSphere implements IItemService {
 	 */
 	@Override
 	public String getItemName() {
-		return this.m_ItemName;
+		return this.mItemName;
 	}
 
 	/**
@@ -477,23 +477,23 @@ public final class MagicSphere implements IItemService {
 	 *         the error code
 	 */
 	private Optional<EErrorCode> teleportByAccessId(final int accessId) {
-		final IInventory inventory = this.m_Instance.getInventory();
-		if (!inventory.hasItem(this.m_ItemName)) {
+		final IInventory inventory = this.mInstance.getInventory();
+		if (!inventory.hasItem(this.mItemName)) {
 			return Optional.of(EErrorCode.NO_ITEM);
 		}
-		if (!inventory.activateItem(this.m_ItemName)) {
+		if (!inventory.activateItem(this.mItemName)) {
 			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
 		}
 
 		try {
-			final WebElement element = new CSSSelectorPresenceWait(this.m_Driver,
+			final WebElement element = new CSSSelectorPresenceWait(this.mDriver,
 					CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SELECT).waitUntilCondition();
 
 			// Select the destination
 			final Select selectElement = new Select(element);
 			selectElement.selectByValue(accessId + "");
 
-			final List<WebElement> submitButtons = this.m_Driver
+			final List<WebElement> submitButtons = this.mDriver
 					.findElements(By.cssSelector(CSSSelectors.ITEM_COMPRESSED_MAGIC_SPHERE_SUBMIT));
 			if (submitButtons == null || submitButtons.isEmpty()) {
 				return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
@@ -505,8 +505,8 @@ public final class MagicSphere implements IItemService {
 			return Optional.empty();
 		} catch (final TimeoutException e) {
 			// Try to abort the process
-			this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_TELEPORTATION_ABORT);
-			new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+			this.mInstance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_TELEPORTATION_ABORT);
+			new EventQueueEmptyWait(this.mDriver).waitUntilCondition();
 			return Optional.of(EErrorCode.COULD_NOT_ACTIVATE);
 		}
 	}

@@ -22,11 +22,11 @@ public final class StayLoggedInService extends Thread {
 	/**
 	 * Instance the service takes care about.
 	 */
-	private final IFreewarInstance m_Instance;
+	private final IFreewarInstance mInstance;
 	/**
 	 * If the service should stop execution.
 	 */
-	private boolean m_StopExecution;
+	private boolean mStopExecution;
 
 	/**
 	 * Creates a new service that takes care of the given instance not being
@@ -39,8 +39,8 @@ public final class StayLoggedInService extends Thread {
 	 *            Instance the service takes care of
 	 */
 	public StayLoggedInService(final IFreewarInstance instance) {
-		this.m_Instance = instance;
-		this.m_StopExecution = false;
+		this.mInstance = instance;
+		this.mStopExecution = false;
 	}
 
 	/*
@@ -50,12 +50,12 @@ public final class StayLoggedInService extends Thread {
 	 */
 	@Override
 	public void run() {
-		while (!this.m_StopExecution) {
+		while (!this.mStopExecution) {
 			try {
 				sleep(TIMEOUT_ALIVE);
-				this.m_Instance.refresh();
+				this.mInstance.refresh();
 			} catch (final InterruptedException e) {
-				if (!this.m_StopExecution) {
+				if (!this.mStopExecution) {
 					// Not interrupted for stopping
 					System.err.println(ErrorMessages.STAY_LOGGED_IN_SERVICE_INTERRUPTED);
 				}
@@ -68,7 +68,7 @@ public final class StayLoggedInService extends Thread {
 	 * invalid and should not be used anymore.
 	 */
 	public void stopExecution() {
-		this.m_StopExecution = true;
+		this.mStopExecution = true;
 
 		// Wake up thread if currently sleeping
 		interrupt();

@@ -21,11 +21,11 @@ public class DelayedNavigation implements Navigation {
 	/**
 	 * Navigation object to wrap for delayed event execution.
 	 */
-	private final Navigation m_Navigation;
+	private final Navigation mNavigation;
 	/**
 	 * Event queue to add events to for delayed execution.
 	 */
-	private final IDelayedEventQueue m_Queue;
+	private final IDelayedEventQueue mQueue;
 
 	/**
 	 * Creates a new instance of this object with a given navigation object and
@@ -37,8 +37,8 @@ public class DelayedNavigation implements Navigation {
 	 *            Event queue to add events to for delayed execution
 	 */
 	public DelayedNavigation(final Navigation navigation, final IDelayedEventQueue queue) {
-		this.m_Navigation = navigation;
-		this.m_Queue = queue;
+		this.mNavigation = navigation;
+		this.mQueue = queue;
 	}
 
 	/*
@@ -48,7 +48,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void back() {
-		this.m_Queue.addEvent(new BackEvent(this.m_Navigation));
+		this.mQueue.addEvent(new BackEvent(this.mNavigation));
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void forward() {
-		this.m_Queue.addEvent(new ForwardEvent(this.m_Navigation));
+		this.mQueue.addEvent(new ForwardEvent(this.mNavigation));
 	}
 
 	/*
@@ -68,7 +68,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void refresh() {
-		this.m_Queue.addEvent(new RefreshEvent(this.m_Navigation));
+		this.mQueue.addEvent(new RefreshEvent(this.mNavigation));
 	}
 
 	/*
@@ -78,7 +78,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void to(final String url) {
-		this.m_Queue.addEvent(new ToStringEvent(this.m_Navigation, url));
+		this.mQueue.addEvent(new ToStringEvent(this.mNavigation, url));
 	}
 
 	/*
@@ -88,7 +88,7 @@ public class DelayedNavigation implements Navigation {
 	 */
 	@Override
 	public void to(final URL url) {
-		this.m_Queue.addEvent(new ToUrlEvent(this.m_Navigation, url));
+		this.mQueue.addEvent(new ToUrlEvent(this.mNavigation, url));
 	}
 
 }

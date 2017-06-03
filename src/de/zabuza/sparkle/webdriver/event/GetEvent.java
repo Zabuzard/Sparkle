@@ -14,12 +14,12 @@ public final class GetEvent implements IDelayableEvent {
 	/**
 	 * URL to get.
 	 */
-	private final String m_Url;
+	private final String mUrl;
 	/**
 	 * Web driver to use for the get request, should not be an instance of
 	 * {@link de.zabuza.sparkle.webdriver.DelayedWebDriver DelayedWebDriver}.
 	 */
-	private final WebDriver m_WebDriver;
+	private final WebDriver mWebDriver;
 
 	/**
 	 * Creates a new instance of this object using a given web driver and URL.
@@ -32,8 +32,8 @@ public final class GetEvent implements IDelayableEvent {
 	 *            URL to get
 	 */
 	public GetEvent(final WebDriver driver, final String url) {
-		this.m_Url = url;
-		this.m_WebDriver = driver;
+		this.mUrl = url;
+		this.mWebDriver = driver;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class GetEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		this.m_WebDriver.get(this.m_Url);
+		this.mWebDriver.get(this.mUrl);
 	}
 
 	/**
@@ -52,6 +52,6 @@ public final class GetEvent implements IDelayableEvent {
 	 * @return the url
 	 */
 	public String getUrl() {
-		return this.m_Url;
+		return this.mUrl;
 	}
 }

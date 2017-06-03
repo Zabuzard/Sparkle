@@ -51,23 +51,23 @@ public final class Sparkle implements IFreewarAPI {
 	/**
 	 * Current set browser to use at login.
 	 */
-	private EBrowser m_Browser;
+	private EBrowser mBrowser;
 	/**
 	 * The capabilities to use for the created browsers.
 	 */
-	private DesiredCapabilities m_Capabilities;
+	private DesiredCapabilities mCapabilities;
 	/**
 	 * If the API should automatically delay events to disguise usage of a bot
 	 * for <tt>Freewar.de</tt>.
 	 */
-	private final boolean m_DelayEvents;
+	private final boolean mDelayEvents;
 	/**
 	 * Set of all registered instances created with
 	 * {@link #login(String, String, EWorld)}. Instances get added using
 	 * {@link #login(String, String, EWorld)} and removed by using
 	 * {@link #shutdownInstance(IFreewarInstance, boolean)}.
 	 */
-	private final Set<IFreewarInstance> m_Instances;
+	private final Set<IFreewarInstance> mInstances;
 
 	/**
 	 * Creates a new API that uses the browser <tt>Firefox</tt> by default. It
@@ -101,10 +101,10 @@ public final class Sparkle implements IFreewarAPI {
 	 *            of a bot for <tt>Freewar</tt>.
 	 */
 	public Sparkle(final EBrowser browser, final boolean delayEvents) {
-		this.m_Browser = browser;
-		this.m_DelayEvents = delayEvents;
-		this.m_Capabilities = null;
-		this.m_Instances = new LinkedHashSet<>();
+		this.mBrowser = browser;
+		this.mDelayEvents = delayEvents;
+		this.mCapabilities = null;
+		this.mInstances = new LinkedHashSet<>();
 	}
 
 	/*
@@ -231,7 +231,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public EBrowser getBrowser() {
-		return this.m_Browser;
+		return this.mBrowser;
 	}
 
 	/*
@@ -247,7 +247,7 @@ public final class Sparkle implements IFreewarAPI {
 			return null;
 		}
 
-		final WebDriver driver = createWebDriver(this.m_Browser);
+		final WebDriver driver = createWebDriver(this.mBrowser);
 
 		// Connect to login form as cookies are disabled in most browsers at the
 		// blank starting page
@@ -269,7 +269,7 @@ public final class Sparkle implements IFreewarAPI {
 
 		// If the session is valid then the instance should be ready now
 		final IFreewarInstance instance = new FreewarInstance(driver, username);
-		this.m_Instances.add(instance);
+		this.mInstances.add(instance);
 
 		return instance;
 	}
@@ -287,7 +287,7 @@ public final class Sparkle implements IFreewarAPI {
 			return null;
 		}
 
-		final WebDriver driver = createWebDriver(this.m_Browser);
+		final WebDriver driver = createWebDriver(this.mBrowser);
 
 		// Connect to login form
 		final String fullWorldDomain = Paths.getFullWorldDomain(world);
@@ -333,7 +333,7 @@ public final class Sparkle implements IFreewarAPI {
 		}
 
 		final IFreewarInstance instance = new FreewarInstance(driver, username);
-		this.m_Instances.add(instance);
+		this.mInstances.add(instance);
 
 		return instance;
 	}
@@ -384,7 +384,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void setBrowser(final EBrowser browser) {
-		this.m_Browser = browser;
+		this.mBrowser = browser;
 	}
 
 	/*
@@ -395,7 +395,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void setCapabilities(final DesiredCapabilities capabilities) {
-		this.m_Capabilities = capabilities;
+		this.mCapabilities = capabilities;
 	}
 
 	/*
@@ -405,7 +405,7 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	@Override
 	public void shutdown(final boolean doQuitDriver) {
-		for (final IFreewarInstance instance : this.m_Instances) {
+		for (final IFreewarInstance instance : this.mInstances) {
 			shutdownInstance(instance, doQuitDriver);
 		}
 	}
@@ -413,7 +413,7 @@ public final class Sparkle implements IFreewarAPI {
 	/**
 	 * Creates a {@link WebDriver} that uses the given browser. If a capability
 	 * object was set using {@link #setCapabilities(DesiredCapabilities)} then
-	 * it will also be passed to the created browser. If {@link #m_DelayEvents}
+	 * it will also be passed to the created browser. If {@link #mDelayEvents}
 	 * is set to <tt>true</tt>, the resulting driver will automatically delay
 	 * events to disguise usage of a bot for <tt>Freewar</tt>.
 	 * 
@@ -424,38 +424,38 @@ public final class Sparkle implements IFreewarAPI {
 	private WebDriver createWebDriver(final EBrowser browser) {
 		WebDriver driver;
 		if (browser == EBrowser.FIREFOX) {
-			if (this.m_Capabilities != null) {
-				driver = new FirefoxDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new FirefoxDriver(this.mCapabilities);
 			} else {
 				driver = new FirefoxDriver();
 			}
 		} else if (browser == EBrowser.CHROME) {
-			if (this.m_Capabilities != null) {
-				driver = new ChromeDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new ChromeDriver(this.mCapabilities);
 			} else {
 				driver = new ChromeDriver();
 			}
 		} else if (browser == EBrowser.SAFARI) {
-			if (this.m_Capabilities != null) {
-				driver = new SafariDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new SafariDriver(this.mCapabilities);
 			} else {
 				driver = new SafariDriver();
 			}
 		} else if (browser == EBrowser.INTERNET_EXPLORER) {
-			if (this.m_Capabilities != null) {
-				driver = new InternetExplorerDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new InternetExplorerDriver(this.mCapabilities);
 			} else {
 				driver = new InternetExplorerDriver();
 			}
 		} else if (browser == EBrowser.OPERA) {
-			if (this.m_Capabilities != null) {
-				driver = new OperaDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new OperaDriver(this.mCapabilities);
 			} else {
 				driver = new OperaDriver();
 			}
 		} else if (browser == EBrowser.MS_EDGE) {
-			if (this.m_Capabilities != null) {
-				driver = new EdgeDriver(this.m_Capabilities);
+			if (this.mCapabilities != null) {
+				driver = new EdgeDriver(this.mCapabilities);
 			} else {
 				driver = new EdgeDriver();
 			}
@@ -470,7 +470,7 @@ public final class Sparkle implements IFreewarAPI {
 		driver = new AntiTrapWebDriver(driver);
 
 		// Wrap a delayed web driver around if desired
-		if (this.m_DelayEvents) {
+		if (this.mDelayEvents) {
 			driver = new DelayedWebDriver(driver);
 		}
 
@@ -496,7 +496,7 @@ public final class Sparkle implements IFreewarAPI {
 	private void shutdownInstance(final IFreewarInstance instance, final boolean doQuitDriver) {
 		if (instance != null) {
 			instance.shutdown(doQuitDriver);
-			this.m_Instances.remove(instance);
+			this.mInstances.remove(instance);
 		}
 	}
 }

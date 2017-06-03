@@ -20,11 +20,11 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	/**
 	 * Object that delayedly executes added events.
 	 */
-	private final DelayedEventExecutor m_DelayedEventExecutor;
+	private final DelayedEventExecutor mDelayedEventExecutor;
 	/**
 	 * Web driver to wrap for delayed event execution.
 	 */
-	private final WebDriver m_WebDriver;
+	private final WebDriver mWebDriver;
 
 	/**
 	 * Creates a new instance of this object with a given web driver.
@@ -33,9 +33,9 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 *            Driver to wrap for delayed event execution
 	 */
 	public DelayedWebDriver(final WebDriver driver) {
-		this.m_WebDriver = driver;
-		this.m_DelayedEventExecutor = new DelayedEventExecutor();
-		this.m_DelayedEventExecutor.start();
+		this.mWebDriver = driver;
+		this.mDelayedEventExecutor = new DelayedEventExecutor();
+		this.mDelayedEventExecutor.start();
 	}
 
 	/*
@@ -45,7 +45,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void close() {
-		this.m_WebDriver.close();
+		this.mWebDriver.close();
 	}
 
 	/*
@@ -55,7 +55,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new DelayedWebElement(this.m_WebDriver.findElement(by), this.m_DelayedEventExecutor);
+		return new DelayedWebElement(this.mWebDriver.findElement(by), this.mDelayedEventExecutor);
 	}
 
 	/*
@@ -65,10 +65,10 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		final List<WebElement> elements = this.m_WebDriver.findElements(by);
+		final List<WebElement> elements = this.mWebDriver.findElements(by);
 		final List<WebElement> delayedElements = new LinkedList<>();
 		for (final WebElement element : elements) {
-			delayedElements.add(new DelayedWebElement(element, this.m_DelayedEventExecutor));
+			delayedElements.add(new DelayedWebElement(element, this.mDelayedEventExecutor));
 		}
 
 		return delayedElements;
@@ -81,7 +81,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void get(final String url) {
-		this.m_DelayedEventExecutor.addEvent(new GetEvent(this.m_WebDriver, url));
+		this.mDelayedEventExecutor.addEvent(new GetEvent(this.mWebDriver, url));
 	}
 
 	/*
@@ -91,7 +91,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getCurrentUrl() {
-		return this.m_WebDriver.getCurrentUrl();
+		return this.mWebDriver.getCurrentUrl();
 	}
 
 	/*
@@ -101,7 +101,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getPageSource() {
-		return this.m_WebDriver.getPageSource();
+		return this.mWebDriver.getPageSource();
 	}
 
 	/*
@@ -111,7 +111,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public WebDriver getRawDriver() {
-		return this.m_WebDriver;
+		return this.mWebDriver;
 	}
 
 	/*
@@ -121,7 +121,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getTitle() {
-		return this.m_WebDriver.getTitle();
+		return this.mWebDriver.getTitle();
 	}
 
 	/*
@@ -131,7 +131,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getWindowHandle() {
-		return this.m_WebDriver.getWindowHandle();
+		return this.mWebDriver.getWindowHandle();
 	}
 
 	/*
@@ -141,7 +141,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Set<String> getWindowHandles() {
-		return this.m_WebDriver.getWindowHandles();
+		return this.mWebDriver.getWindowHandles();
 	}
 
 	/**
@@ -150,7 +150,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 * @return <tt>True</tt> if the event queue is empty, <tt>false</tt> if not.
 	 */
 	public boolean isEventQueueEmpty() {
-		return this.m_DelayedEventExecutor.isEmpty();
+		return this.mDelayedEventExecutor.isEmpty();
 	}
 
 	/*
@@ -160,7 +160,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Options manage() {
-		return this.m_WebDriver.manage();
+		return this.mWebDriver.manage();
 	}
 
 	/*
@@ -170,7 +170,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Navigation navigate() {
-		return new DelayedNavigation(this.m_WebDriver.navigate(), this.m_DelayedEventExecutor);
+		return new DelayedNavigation(this.mWebDriver.navigate(), this.mDelayedEventExecutor);
 	}
 
 	/*
@@ -180,8 +180,8 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void quit() {
-		this.m_DelayedEventExecutor.stopExecution();
-		this.m_WebDriver.quit();
+		this.mDelayedEventExecutor.stopExecution();
+		this.mWebDriver.quit();
 	}
 
 	/*
@@ -191,7 +191,7 @@ public final class DelayedWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public TargetLocator switchTo() {
-		return this.m_WebDriver.switchTo();
+		return this.mWebDriver.switchTo();
 	}
 
 }

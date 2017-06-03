@@ -50,20 +50,20 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	/**
 	 * If all held events are executed.
 	 */
-	private boolean m_AllEventsExecuted;
+	private boolean mAllEventsExecuted;
 	/**
 	 * The event queue used for executing events.
 	 */
-	private final Queue<IDelayableEvent> m_EventQueue;
+	private final Queue<IDelayableEvent> mEventQueue;
 	/**
 	 * The random generator used for generating delays.
 	 */
-	private final Random m_Rnd;
+	private final Random mRnd;
 	/**
 	 * If the thread should stop execution. Once stopped, it should not be used
 	 * again.
 	 */
-	private boolean m_StopExecution;
+	private boolean mStopExecution;
 
 	/**
 	 * Creates a new delayed event executor. It can be started using
@@ -73,10 +73,10 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 * added events.
 	 */
 	public DelayedEventExecutor() {
-		this.m_Rnd = new Random();
-		this.m_EventQueue = new LinkedList<>();
-		this.m_StopExecution = false;
-		this.m_AllEventsExecuted = true;
+		this.mRnd = new Random();
+		this.mEventQueue = new LinkedList<>();
+		this.mStopExecution = false;
+		this.mAllEventsExecuted = true;
 	}
 
 	/*
@@ -88,8 +88,8 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public void addEvent(final IDelayableEvent event) {
-		this.m_AllEventsExecuted = false;
-		this.m_EventQueue.add(event);
+		this.mAllEventsExecuted = false;
+		this.mEventQueue.add(event);
 	}
 
 	/*
@@ -99,7 +99,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public boolean isEmpty() {
-		return this.m_EventQueue.isEmpty() && this.m_AllEventsExecuted;
+		return this.mEventQueue.isEmpty() && this.mAllEventsExecuted;
 	}
 
 	/*
@@ -109,20 +109,20 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 */
 	@Override
 	public void run() {
-		this.m_StopExecution = false;
-		while (!this.m_StopExecution) {
-			final IDelayableEvent event = this.m_EventQueue.poll();
+		this.mStopExecution = false;
+		while (!this.mStopExecution) {
+			final IDelayableEvent event = this.mEventQueue.poll();
 			try {
 				if (event != null) {
 					event.execute();
-					if (!this.m_AllEventsExecuted && this.m_EventQueue.isEmpty()) {
-						this.m_AllEventsExecuted = true;
+					if (!this.mAllEventsExecuted && this.mEventQueue.isEmpty()) {
+						this.mAllEventsExecuted = true;
 					}
 					sleep(getRandomDelay());
 				}
 				sleep(STANDARD_DELAY);
 			} catch (final InterruptedException e) {
-				if (!this.m_StopExecution) {
+				if (!this.mStopExecution) {
 					// Not interrupted for stopping
 					System.err.println(ErrorMessages.DELAYED_EVENT_EXECUTOR_INTERRUPTED);
 				}
@@ -131,8 +131,8 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 				e.printStackTrace();
 			} finally {
 				// Check again in every case
-				if (!this.m_AllEventsExecuted && this.m_EventQueue.isEmpty()) {
-					this.m_AllEventsExecuted = true;
+				if (!this.mAllEventsExecuted && this.mEventQueue.isEmpty()) {
+					this.mAllEventsExecuted = true;
 				}
 			}
 		}
@@ -143,7 +143,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 	 * used anymore.
 	 */
 	public void stopExecution() {
-		this.m_StopExecution = true;
+		this.mStopExecution = true;
 
 		// Wake up thread if currently sleeping
 		interrupt();
@@ -164,7 +164,7 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 		// RND_DELAY_MAX] with RND_DELAY_AVERAGE being the standard deviation
 		// where [RND_DELAY_MIN, RND_DELAY_AVERAGE] has a percentage
 		// of about 75%.
-		final double gaussian = Math.abs(this.m_Rnd.nextGaussian());
+		final double gaussian = Math.abs(this.mRnd.nextGaussian());
 		final double deviation = gaussian * RND_DELAY_AVERAGE + RND_DELAY_MIN;
 		final long delay = (long) Math.floor(Math.min(deviation, RND_DELAY_MAX));
 

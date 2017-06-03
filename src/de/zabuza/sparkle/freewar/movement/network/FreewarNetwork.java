@@ -194,20 +194,20 @@ public final class FreewarNetwork extends PathNetwork {
 	/**
 	 * Structure which allows a fast access to nodes by their coordinates.
 	 */
-	private final NestedMap2<Integer, Integer, FreewarNode> m_CoordinatesToNode;
+	private final NestedMap2<Integer, Integer, FreewarNode> mCoordinatesToNode;
 
 	/**
 	 * Set which holds all temporary edges that are currently in the network.
 	 */
-	private final HashSet<DirectedWeightedEdge> m_TemporaryEdges;
+	private final HashSet<DirectedWeightedEdge> mTemporaryEdges;
 
 	/**
 	 * Creates an empty freewar network.
 	 */
 	public FreewarNetwork() {
 		super();
-		this.m_CoordinatesToNode = new NestedMap2<>();
-		this.m_TemporaryEdges = new HashSet<>();
+		this.mCoordinatesToNode = new NestedMap2<>();
+		this.mTemporaryEdges = new HashSet<>();
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class FreewarNetwork extends PathNetwork {
 	public boolean addFreewarNode(final FreewarNode node) {
 		final boolean wasAdded = super.addNode(node);
 		if (wasAdded) {
-			this.m_CoordinatesToNode.put(Integer.valueOf(node.getXCoordinate()), Integer.valueOf(node.getYCoordinate()),
+			this.mCoordinatesToNode.put(Integer.valueOf(node.getXCoordinate()), Integer.valueOf(node.getYCoordinate()),
 					node);
 		}
 		return wasAdded;
@@ -276,134 +276,134 @@ public final class FreewarNetwork extends PathNetwork {
 	public void addTemporaryEdges(final FreewarNode node, final Set<EMoveType> options) {
 		if (options.contains(EMoveType.BLUE_SPHERE)) {
 			final Point anatubia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.ANATUBIA);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(anatubia.x, anatubia.y).get(), EMoveType.BLUE_SPHERE));
 			final Point buran = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.BURAN);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(buran.x, buran.y).get(), EMoveType.BLUE_SPHERE));
 			final Point casinoOfFerdolia = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.CASINO_OF_FERDOLIA);
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(casinoOfFerdolia.x, casinoOfFerdolia.y).get(),
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(casinoOfFerdolia.x, casinoOfFerdolia.y).get(),
 					EMoveType.BLUE_SPHERE));
 			final Point hewn = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.HEWN);
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(hewn.x, hewn.y).get(), EMoveType.BLUE_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(hewn.x, hewn.y).get(), EMoveType.BLUE_SPHERE));
 			final Point kanobia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KANOBIA);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(kanobia.x, kanobia.y).get(), EMoveType.BLUE_SPHERE));
 			final Point konlir = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.KONLIR);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(konlir.x, konlir.y).get(), EMoveType.BLUE_SPHERE));
 			final Point lodradon = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LODRADON);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(lodradon.x, lodradon.y).get(), EMoveType.BLUE_SPHERE));
 			final Point lostValley = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.LOST_VALLEY);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(lostValley.x, lostValley.y).get(), EMoveType.BLUE_SPHERE));
 			final Point mentoran = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.MENTORAN);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(mentoran.x, mentoran.y).get(), EMoveType.BLUE_SPHERE));
 			final Point narubia = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NARUBIA);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(narubia.x, narubia.y).get(), EMoveType.BLUE_SPHERE));
 			final Point nawor = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.NAWOR);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(nawor.x, nawor.y).get(), EMoveType.BLUE_SPHERE));
 			final Point orewu = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.OREWU);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(orewu.x, orewu.y).get(), EMoveType.BLUE_SPHERE));
 			final Point reikan = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.REIKAN);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(reikan.x, reikan.y).get(), EMoveType.BLUE_SPHERE));
 			final Point sutrania = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.SUTRANIA);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(sutrania.x, sutrania.y).get(), EMoveType.BLUE_SPHERE));
 			final Point terasi = MagicSphere.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.TERASI);
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(terasi.x, terasi.y).get(), EMoveType.BLUE_SPHERE));
 			final Point universalBank = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.UNIVERSAL_BANK);
-			this.m_TemporaryEdges.add(
+			this.mTemporaryEdges.add(
 					addEdge(node, getNodeByCoordinates(universalBank.x, universalBank.y).get(), EMoveType.BLUE_SPHERE));
 			final Point valleyOfRuins = MagicSphere
 					.getBlueSphereCoordinatesByDestination(EBlueSphereDestination.VALLEY_OF_RUINS);
-			this.m_TemporaryEdges.add(
+			this.mTemporaryEdges.add(
 					addEdge(node, getNodeByCoordinates(valleyOfRuins.x, valleyOfRuins.y).get(), EMoveType.BLUE_SPHERE));
 		}
 
 		if (options.contains(EMoveType.YELLOW_SPHERE)) {
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-798, -798).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-785, -786).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-803, -808).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-347, -693).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-599, -489).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-823, -778).get(), EMoveType.YELLOW_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-507, -377).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-798, -798).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-785, -786).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-803, -808).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-347, -693).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-599, -489).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-823, -778).get(), EMoveType.YELLOW_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-507, -377).get(), EMoveType.YELLOW_SPHERE));
 		}
 
 		if (options.contains(EMoveType.BLACK_SPHERE)) {
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-288, -721).get(), EMoveType.BLACK_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-922, -179).get(), EMoveType.BLACK_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-529, -169).get(), EMoveType.BLACK_SPHERE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-804, -279).get(), EMoveType.BLACK_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-288, -721).get(), EMoveType.BLACK_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-922, -179).get(), EMoveType.BLACK_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-529, -169).get(), EMoveType.BLACK_SPHERE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-804, -279).get(), EMoveType.BLACK_SPHERE));
 		}
 
 		if (options.contains(EMoveType.ICY_TELEPORTER)) {
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(1005, 1005).get(), EMoveType.ICY_TELEPORTER));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(1005, 1005).get(), EMoveType.ICY_TELEPORTER));
 		}
 
 		if (options.contains(EMoveType.PORTAL)) {
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(90, 115).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(64, 80).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 100).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(72, 116).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(144, 126).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(121, 91).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 116).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(62, 83).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(59, 106).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(129, 90).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(115, 100).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(111, 83).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(135, 115).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(58, 98).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(106, 93).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(110, 107).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(118, 124).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 78).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-605, -206).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-100, -95).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-286, -479).get(), EMoveType.PORTAL));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(-827, -919).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(90, 115).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(64, 80).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 100).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(72, 116).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(144, 126).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(121, 91).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(122, 116).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(62, 83).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(59, 106).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(129, 90).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(115, 100).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(111, 83).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(135, 115).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(58, 98).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(106, 93).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(110, 107).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(118, 124).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 78).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-605, -206).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-100, -95).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-286, -479).get(), EMoveType.PORTAL));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(-827, -919).get(), EMoveType.PORTAL));
 		}
 
 		if (options.contains(EMoveType.RING_OF_THE_SANDWINDS)) {
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(98, 120).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(98, 81).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(121, 112).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(72, 85).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(123, 92).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(123, 92).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(65, 96).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(100, 135).get(), EMoveType.RING_OF_THE_SANDWINDS));
-			this.m_TemporaryEdges
+			this.mTemporaryEdges
 					.add(addEdge(node, getNodeByCoordinates(45, 98).get(), EMoveType.RING_OF_THE_SANDWINDS));
 		}
 
 		if (options.contains(EMoveType.STAFF_OF_TRADE)) {
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 90).get(), EMoveType.STAFF_OF_TRADE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(88, 89).get(), EMoveType.STAFF_OF_TRADE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 101).get(), EMoveType.STAFF_OF_TRADE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(117, 113).get(), EMoveType.STAFF_OF_TRADE));
-			this.m_TemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 87).get(), EMoveType.STAFF_OF_TRADE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 90).get(), EMoveType.STAFF_OF_TRADE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(88, 89).get(), EMoveType.STAFF_OF_TRADE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(96, 101).get(), EMoveType.STAFF_OF_TRADE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(117, 113).get(), EMoveType.STAFF_OF_TRADE));
+			this.mTemporaryEdges.add(addEdge(node, getNodeByCoordinates(87, 87).get(), EMoveType.STAFF_OF_TRADE));
 		}
 
 		// TODO Implement home spell edges
@@ -421,7 +421,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 *         is such a node in the network
 	 */
 	public Optional<FreewarNode> getNodeByCoordinates(final int xCoordinate, final int yCoordinate) {
-		final FreewarNode node = this.m_CoordinatesToNode.get(Integer.valueOf(xCoordinate),
+		final FreewarNode node = this.mCoordinatesToNode.get(Integer.valueOf(xCoordinate),
 				Integer.valueOf(yCoordinate));
 		if (node != null) {
 			return Optional.of(node);
@@ -434,10 +434,10 @@ public final class FreewarNetwork extends PathNetwork {
 	 * {@link #addTemporaryEdges(FreewarNode, Set)}.
 	 */
 	public void removeTemporaryEdges() {
-		for (final DirectedWeightedEdge edge : this.m_TemporaryEdges) {
+		for (final DirectedWeightedEdge edge : this.mTemporaryEdges) {
 			removeEdge(edge);
 		}
-		this.m_TemporaryEdges.clear();
+		this.mTemporaryEdges.clear();
 	}
 
 }

@@ -34,16 +34,16 @@ public final class Chat implements IChat {
 	/**
 	 * The web driver used by this chat.
 	 */
-	private final WebDriver m_Driver;
+	private final WebDriver mDriver;
 	/**
 	 * Manager to use for switching frames.
 	 */
-	private final IFrameManager m_FrameManager;
+	private final IFrameManager mFrameManager;
 
 	/**
 	 * The name of the user of this instance
 	 */
-	private final String m_User;
+	private final String mUser;
 
 	/**
 	 * Creates a new chat object that uses a given web driver.
@@ -56,9 +56,9 @@ public final class Chat implements IChat {
 	 *            The name of the user of this instance
 	 */
 	public Chat(final WebDriver driver, final IFrameManager frameManager, final String user) {
-		this.m_Driver = driver;
-		this.m_FrameManager = frameManager;
-		this.m_User = user;
+		this.mDriver = driver;
+		this.mFrameManager = frameManager;
+		this.mUser = user;
 	}
 
 	/*
@@ -71,7 +71,7 @@ public final class Chat implements IChat {
 		switchToChatFormFrame();
 
 		// Get focus by sending an empty text
-		final List<WebElement> inputElements = this.m_Driver
+		final List<WebElement> inputElements = this.mDriver
 				.findElements(By.cssSelector(CSSSelectors.CHAT_FORM_MESSAGE_INPUT));
 		if (inputElements.isEmpty()) {
 			return false;
@@ -137,7 +137,7 @@ public final class Chat implements IChat {
 		switchToChatFormFrame();
 
 		// Enter the message into the input field
-		final List<WebElement> inputElements = this.m_Driver
+		final List<WebElement> inputElements = this.mDriver
 				.findElements(By.cssSelector(CSSSelectors.CHAT_FORM_MESSAGE_INPUT));
 		if (inputElements.isEmpty()) {
 			return false;
@@ -163,7 +163,7 @@ public final class Chat implements IChat {
 			throw new AssertionError();
 		}
 
-		final List<WebElement> submitElements = this.m_Driver.findElements(By.cssSelector(submitSelector));
+		final List<WebElement> submitElements = this.mDriver.findElements(By.cssSelector(submitSelector));
 		if (submitElements.isEmpty()) {
 			return false;
 		}
@@ -264,7 +264,7 @@ public final class Chat implements IChat {
 			content = secondMatcher.group(secondContentGroup);
 			if (receiverGroup != -1) {
 				final String receiver = secondMatcher.group(receiverGroup);
-				return new Message(this.m_User, receiver, content, chatType);
+				return new Message(this.mUser, receiver, content, chatType);
 			}
 			return new Message(content, chatType);
 		}
@@ -307,7 +307,7 @@ public final class Chat implements IChat {
 		// big objects to prevent stale elements
 		final LinkedList<String> elementsClasses = new LinkedList<>();
 		final LinkedList<String> elementsFullTexts = new LinkedList<>();
-		final List<WebElement> elements = this.m_Driver.findElements(By.cssSelector(cssSelector));
+		final List<WebElement> elements = this.mDriver.findElements(By.cssSelector(cssSelector));
 		for (final WebElement element : elements) {
 			elementsClasses.add(Classes.getClassAttribute(element));
 			elementsFullTexts.add(element.getText());
@@ -355,7 +355,7 @@ public final class Chat implements IChat {
 	 * switching frames.
 	 */
 	private void switchToChatFormFrame() {
-		this.m_FrameManager.switchToFrame(EFrame.CHAT_FORM);
+		this.mFrameManager.switchToFrame(EFrame.CHAT_FORM);
 	}
 
 	/**
@@ -364,6 +364,6 @@ public final class Chat implements IChat {
 	 * switching frames.
 	 */
 	private void switchToChatTextFrame() {
-		this.m_FrameManager.switchToFrame(EFrame.CHAT_TEXT);
+		this.mFrameManager.switchToFrame(EFrame.CHAT_TEXT);
 	}
 }

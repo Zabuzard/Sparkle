@@ -37,19 +37,19 @@ public final class Location implements ILocation {
 	/**
 	 * Web driver used by this location.
 	 */
-	private final WebDriver m_Driver;
+	private final WebDriver mDriver;
 	/**
 	 * Manager to use for switching frames.
 	 */
-	private final IFrameManager m_FrameManager;
+	private final IFrameManager mFrameManager;
 	/**
 	 * The instance to use for accessing other elements.
 	 */
-	private final IFreewarInstance m_Instance;
+	private final IFreewarInstance mInstance;
 	/**
 	 * Structure which holds all registered services.
 	 */
-	private final HashMap<Point, Class<? extends ILocationService>> m_RegisteredServices;
+	private final HashMap<Point, Class<? extends ILocationService>> mRegisteredServices;
 
 	/**
 	 * Creates a new location using the given driver.
@@ -62,10 +62,10 @@ public final class Location implements ILocation {
 	 *            Manager to use for switching frames
 	 */
 	public Location(final IFreewarInstance instance, final WebDriver driver, final IFrameManager frameManager) {
-		this.m_Instance = instance;
-		this.m_Driver = driver;
-		this.m_FrameManager = frameManager;
-		this.m_RegisteredServices = new HashMap<>();
+		this.mInstance = instance;
+		this.mDriver = driver;
+		this.mFrameManager = frameManager;
+		this.mRegisteredServices = new HashMap<>();
 		registerBuiltInServices();
 	}
 
@@ -103,7 +103,7 @@ public final class Location implements ILocation {
 
 		final List<String> npcs = new ArrayList<>();
 
-		final List<WebElement> npcElements = this.m_Driver
+		final List<WebElement> npcElements = this.mDriver
 				.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
 		for (final WebElement npcElement : npcElements) {
 			npcs.add(npcElement.getText());
@@ -124,7 +124,7 @@ public final class Location implements ILocation {
 
 		// Get position text, has the format:
 		// Position X: 508 Y: -57
-		final String positionText = this.m_Driver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
+		final String positionText = this.mDriver.findElement(By.cssSelector(CSSSelectors.MAP_POSITION_TEXT)).getText();
 
 		// Extract x and y coordinates from text
 		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(positionText);
@@ -146,16 +146,16 @@ public final class Location implements ILocation {
 	@Override
 	public Optional<ILocationService> getService() throws IllegalStateException {
 		final Point location = getPosition();
-		if (!this.m_RegisteredServices.containsKey(location)) {
+		if (!this.mRegisteredServices.containsKey(location)) {
 			return Optional.empty();
 		}
 
-		final Class<? extends ILocationService> clazz = this.m_RegisteredServices.get(location);
+		final Class<? extends ILocationService> clazz = this.mRegisteredServices.get(location);
 		try {
 			final Constructor<? extends ILocationService> constructor = clazz.getConstructor(Point.class,
 					IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			final ILocationService instance = constructor.newInstance(location, this.m_Instance, this.m_Driver,
-					this.m_FrameManager);
+			final ILocationService instance = constructor.newInstance(location, this.mInstance, this.mDriver,
+					this.mFrameManager);
 			return Optional.of(instance);
 		} catch (final NoSuchMethodException | InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -173,7 +173,7 @@ public final class Location implements ILocation {
 	public boolean hasNPC(final String npcName) {
 		switchToMainFrame();
 
-		final List<WebElement> npcElements = this.m_Driver
+		final List<WebElement> npcElements = this.mDriver
 				.findElements(By.cssSelector(CSSSelectors.MAIN_LOCATION_NPC_NAME));
 		for (final WebElement npcElement : npcElements) {
 			if (npcElement.getText().equals(npcName)) {
@@ -192,7 +192,7 @@ public final class Location implements ILocation {
 	@Override
 	public boolean hasService() {
 		final Point location = getPosition();
-		return this.m_RegisteredServices.containsKey(location);
+		return this.mRegisteredServices.containsKey(location);
 	}
 
 	/*
@@ -207,7 +207,7 @@ public final class Location implements ILocation {
 			throws IllegalArgumentException {
 		try {
 			service.getConstructor(Point.class, IFreewarInstance.class, WebDriver.class, IFrameManager.class);
-			this.m_RegisteredServices.put(location, service);
+			this.mRegisteredServices.put(location, service);
 		} catch (final NoSuchMethodException e) {
 			throw new IllegalArgumentException();
 		}
@@ -226,7 +226,7 @@ public final class Location implements ILocation {
 			return false;
 		}
 
-		final WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
+		final WebElement actionElement = new CSSSelectorPresenceWait(this.mDriver,
 				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_REGULAR_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
@@ -246,7 +246,7 @@ public final class Location implements ILocation {
 			return false;
 		}
 
-		final WebElement actionElement = new CSSSelectorPresenceWait(this.m_Driver,
+		final WebElement actionElement = new CSSSelectorPresenceWait(this.mDriver,
 				CSSSelectors.MAIN_LOCATION_NPC_ATTACK_SINGLE_ANCHOR).waitUntilCondition();
 		actionElement.click();
 
@@ -288,7 +288,7 @@ public final class Location implements ILocation {
 		xpath += xPathNPCAction;
 
 		// If the NPC has the action link then click it
-		final List<WebElement> npcElements = this.m_Driver.findElements(By.xpath(xpath));
+		final List<WebElement> npcElements = this.mDriver.findElements(By.xpath(xpath));
 		if (!npcElements.isEmpty()) {
 			final WebElement npcElement = npcElements.iterator().next();
 			npcElement.click();
@@ -318,7 +318,7 @@ public final class Location implements ILocation {
 	 * switching frames.
 	 */
 	private void switchToMainFrame() {
-		this.m_FrameManager.switchToFrame(EFrame.MAIN);
+		this.mFrameManager.switchToFrame(EFrame.MAIN);
 	}
 
 	/**
@@ -327,6 +327,6 @@ public final class Location implements ILocation {
 	 * switching frames.
 	 */
 	private void switchToMapFrame() {
-		this.m_FrameManager.switchToFrame(EFrame.MAP);
+		this.mFrameManager.switchToFrame(EFrame.MAP);
 	}
 }

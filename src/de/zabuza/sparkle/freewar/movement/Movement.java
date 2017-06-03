@@ -43,31 +43,31 @@ public final class Movement implements IMovement {
 	/**
 	 * The shortest path computation object to use for routing.
 	 */
-	private final IShortestPathComputation m_Computation;
+	private final IShortestPathComputation mComputation;
 	/**
 	 * The web driver used by this movement.
 	 */
-	private final WebDriver m_Driver;
+	private final WebDriver mDriver;
 	/**
 	 * Manager to use for switching frames.
 	 */
-	private final IFrameManager m_FrameManager;
+	private final IFrameManager mFrameManager;
 	/**
 	 * The inventory object used by this movement.
 	 */
-	private final IInventory m_Inventory;
+	private final IInventory mInventory;
 	/**
 	 * The location object used by this movement.
 	 */
-	private final ILocation m_Location;
+	private final ILocation mLocation;
 	/**
 	 * The current movement task to use.
 	 */
-	private MovementTask m_MovementTask;
+	private MovementTask mMovementTask;
 	/**
 	 * The network to use for routing.
 	 */
-	private final FreewarNetwork m_Network;
+	private final FreewarNetwork mNetwork;
 
 	/**
 	 * Creates a new movement object that uses the given driver.
@@ -83,17 +83,17 @@ public final class Movement implements IMovement {
 	 */
 	public Movement(final WebDriver driver, final ILocation location, final IInventory inventory,
 			final IFrameManager frameManager) {
-		this.m_Driver = driver;
-		this.m_Location = location;
-		this.m_Inventory = inventory;
-		this.m_FrameManager = frameManager;
+		this.mDriver = driver;
+		this.mLocation = location;
+		this.mInventory = inventory;
+		this.mFrameManager = frameManager;
 		try {
-			this.m_Network = FreewarNetwork.createFromWiki();
+			this.mNetwork = FreewarNetwork.createFromWiki();
 		} catch (final IOException e) {
 			throw new IllegalStateException("An error while creating the network occurred.");
 		}
-		this.m_Computation = new DijkstraShortestPathComputation(this.m_Network);
-		this.m_MovementTask = null;
+		this.mComputation = new DijkstraShortestPathComputation(this.mNetwork);
+		this.mMovementTask = null;
 	}
 
 	/*
@@ -104,7 +104,7 @@ public final class Movement implements IMovement {
 	@Override
 	public void cancelMovementTask() {
 		if (hasMovementTask()) {
-			this.m_MovementTask.cancelTask();
+			this.mMovementTask.cancelTask();
 		}
 	}
 
@@ -118,7 +118,7 @@ public final class Movement implements IMovement {
 		switchToMapFrame();
 
 		final String css = CSSSelectors.MAP_TRAVEL_ON_TIME;
-		final List<WebElement> travelOnElements = this.m_Driver.findElements(By.cssSelector(css));
+		final List<WebElement> travelOnElements = this.mDriver.findElements(By.cssSelector(css));
 		if (!travelOnElements.isEmpty()) {
 			final WebElement travelOnElement = travelOnElements.iterator().next();
 			return travelOnElement.getText().isEmpty();
@@ -133,7 +133,7 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public boolean hasMovementTask() {
-		return this.m_MovementTask != null && !this.m_MovementTask.hasTerminated();
+		return this.mMovementTask != null && !this.mMovementTask.hasTerminated();
 	}
 
 	/*
@@ -144,7 +144,7 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public boolean move(final EDirection direction) {
-		final Point positionBefore = this.m_Location.getPosition();
+		final Point positionBefore = this.mLocation.getPosition();
 
 		switchToMapFrame();
 		String selector;
@@ -167,7 +167,7 @@ public final class Movement implements IMovement {
 		}
 
 		// Get move anchor and click it
-		final WebElement moveAnchor = this.m_Driver.findElement(By.cssSelector(selector));
+		final WebElement moveAnchor = this.mDriver.findElement(By.cssSelector(selector));
 
 		// Desired position is not reachable
 		if (Classes.hasClass(moveAnchor, Classes.MAP_FIELD_NOCANGO)) {
@@ -178,9 +178,9 @@ public final class Movement implements IMovement {
 		moveAnchor.click();
 
 		// Wait for movement to be executed if delayed executor is being used
-		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.mDriver).waitUntilCondition();
 
-		final Point positionAfter = this.m_Location.getPosition();
+		final Point positionAfter = this.mLocation.getPosition();
 
 		// Player moved when positions alter
 		return !positionBefore.equals(positionAfter);
@@ -206,33 +206,33 @@ public final class Movement implements IMovement {
 	public void moveTo(final int xCoordinate, final int yCoordinate, final Set<EMoveType> options) {
 		// Cancel previous movement
 		if (hasMovementTask()) {
-			this.m_MovementTask.cancelTask();
+			this.mMovementTask.cancelTask();
 		}
-		final Point sourcePos = this.m_Location.getPosition();
-		final Optional<FreewarNode> source = this.m_Network.getNodeByCoordinates((int) sourcePos.getX(),
+		final Point sourcePos = this.mLocation.getPosition();
+		final Optional<FreewarNode> source = this.mNetwork.getNodeByCoordinates((int) sourcePos.getX(),
 				(int) sourcePos.getY());
 		if (!source.isPresent()) {
 			throw new AssertionError();
 		}
-		final Optional<FreewarNode> destination = this.m_Network.getNodeByCoordinates(xCoordinate, yCoordinate);
+		final Optional<FreewarNode> destination = this.mNetwork.getNodeByCoordinates(xCoordinate, yCoordinate);
 		if (!destination.isPresent()) {
-			this.m_MovementTask = MovementTask.createCanceledTask();
+			this.mMovementTask = MovementTask.createCanceledTask();
 			return;
 		}
 
 		// Prepare network for computation by adding temporary edges
-		this.m_Network.addTemporaryEdges(source.get(), options);
-		final Optional<Path> path = this.m_Computation.computeShortestPath(source.get(), destination.get());
+		this.mNetwork.addTemporaryEdges(source.get(), options);
+		final Optional<Path> path = this.mComputation.computeShortestPath(source.get(), destination.get());
 		// Remove temporary edges
-		this.m_Network.removeTemporaryEdges();
+		this.mNetwork.removeTemporaryEdges();
 
 		if (!path.isPresent()) {
-			this.m_MovementTask = MovementTask.createCanceledTask();
+			this.mMovementTask = MovementTask.createCanceledTask();
 			return;
 		}
 
-		this.m_MovementTask = new MovementTask(path.get(), this.m_Location, this, this.m_Inventory);
-		this.m_MovementTask.start();
+		this.mMovementTask = new MovementTask(path.get(), this.mLocation, this, this.mInventory);
+		this.mMovementTask.start();
 	}
 
 	/*
@@ -262,7 +262,7 @@ public final class Movement implements IMovement {
 	 */
 	@Override
 	public boolean wasTaskSuccessful() {
-		return this.m_MovementTask != null && this.m_MovementTask.hasTerminated() && !this.m_MovementTask.wasCanceled();
+		return this.mMovementTask != null && this.mMovementTask.hasTerminated() && !this.mMovementTask.wasCanceled();
 	}
 
 	/**
@@ -271,6 +271,6 @@ public final class Movement implements IMovement {
 	 * switching frames.
 	 */
 	private void switchToMapFrame() {
-		this.m_FrameManager.switchToFrame(EFrame.MAP);
+		this.mFrameManager.switchToFrame(EFrame.MAP);
 	}
 }

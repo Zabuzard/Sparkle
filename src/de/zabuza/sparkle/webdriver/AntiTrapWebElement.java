@@ -23,7 +23,7 @@ public final class AntiTrapWebElement implements WebElement {
 	/**
 	 * Web element to wrap for anti trap event execution.
 	 */
-	private final WebElement m_Element;
+	private final WebElement mElement;
 
 	/**
 	 * Creates a new instance of this object with a given web element object.
@@ -32,7 +32,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 *            Web element object to wrap for anti trap event execution
 	 */
 	public AntiTrapWebElement(final WebElement element) {
-		this.m_Element = element;
+		this.mElement = element;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void clear() {
 		ensureIsNoBotTrap();
-		this.m_Element.clear();
+		this.mElement.clear();
 	}
 
 	/*
@@ -54,7 +54,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void click() {
 		ensureIsNoBotTrap();
-		this.m_Element.click();
+		this.mElement.click();
 	}
 
 	/*
@@ -65,7 +65,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public WebElement findElement(final By by) {
 		ensureIsNoBotTrap();
-		return new AntiTrapWebElement(this.m_Element.findElement(by));
+		return new AntiTrapWebElement(this.mElement.findElement(by));
 	}
 
 	/*
@@ -76,7 +76,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public List<WebElement> findElements(final By by) {
 		ensureIsNoBotTrap();
-		final List<WebElement> elements = this.m_Element.findElements(by);
+		final List<WebElement> elements = this.mElement.findElements(by);
 		final List<WebElement> antiTrapElements = new LinkedList<>();
 		for (final WebElement element : elements) {
 			antiTrapElements.add(new AntiTrapWebElement(element));
@@ -92,7 +92,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getAttribute(final String name) {
-		return this.m_Element.getAttribute(name);
+		return this.mElement.getAttribute(name);
 	}
 
 	/*
@@ -102,7 +102,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getCssValue(final String propertyName) {
-		return this.m_Element.getCssValue(propertyName);
+		return this.mElement.getCssValue(propertyName);
 	}
 
 	/*
@@ -112,7 +112,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Point getLocation() {
-		return this.m_Element.getLocation();
+		return this.mElement.getLocation();
 	}
 
 	/*
@@ -122,7 +122,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Rectangle getRect() {
-		return this.m_Element.getRect();
+		return this.mElement.getRect();
 	}
 
 	/*
@@ -134,7 +134,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public <X> X getScreenshotAs(final OutputType<X> target) throws WebDriverException {
-		return this.m_Element.getScreenshotAs(target);
+		return this.mElement.getScreenshotAs(target);
 	}
 
 	/*
@@ -144,7 +144,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public Dimension getSize() {
-		return this.m_Element.getSize();
+		return this.mElement.getSize();
 	}
 
 	/*
@@ -154,7 +154,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getTagName() {
-		return this.m_Element.getTagName();
+		return this.mElement.getTagName();
 	}
 
 	/*
@@ -164,7 +164,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public String getText() {
-		return this.m_Element.getText();
+		return this.mElement.getText();
 	}
 
 	/*
@@ -174,7 +174,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isDisplayed() {
-		return this.m_Element.isDisplayed();
+		return this.mElement.isDisplayed();
 	}
 
 	/*
@@ -184,7 +184,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return this.m_Element.isEnabled();
+		return this.mElement.isEnabled();
 	}
 
 	/*
@@ -194,7 +194,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 */
 	@Override
 	public boolean isSelected() {
-		return this.m_Element.isSelected();
+		return this.mElement.isSelected();
 	}
 
 	/*
@@ -205,7 +205,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void sendKeys(final CharSequence... keysToSend) {
 		ensureIsNoBotTrap();
-		this.m_Element.sendKeys(keysToSend);
+		this.mElement.sendKeys(keysToSend);
 	}
 
 	/*
@@ -216,7 +216,7 @@ public final class AntiTrapWebElement implements WebElement {
 	@Override
 	public void submit() {
 		ensureIsNoBotTrap();
-		this.m_Element.submit();
+		this.mElement.submit();
 	}
 
 	/**
@@ -226,7 +226,7 @@ public final class AntiTrapWebElement implements WebElement {
 	 *             Thrown when the element seems to be a bot trap
 	 */
 	private void ensureIsNoBotTrap() throws TrapElementException {
-		if (!this.m_Element.isDisplayed() || !this.m_Element.isEnabled()) {
+		if (!this.mElement.isDisplayed() || !this.mElement.isEnabled()) {
 			throw new TrapElementException();
 		}
 	}

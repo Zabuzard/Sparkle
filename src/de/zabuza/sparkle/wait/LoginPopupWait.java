@@ -16,7 +16,7 @@ public final class LoginPopupWait extends AConditionalWait<Boolean> {
 	/**
 	 * Condition to wait for.
 	 */
-	private final ExpectedCondition<Boolean> m_Condition;
+	private final ExpectedCondition<Boolean> mCondition;
 
 	/**
 	 * Creates a new instance of this object using a given web driver.
@@ -26,7 +26,7 @@ public final class LoginPopupWait extends AConditionalWait<Boolean> {
 	 */
 	public LoginPopupWait(final WebDriver driver) {
 		super(driver);
-		this.m_Condition = new LoginPopupCondition();
+		this.mCondition = new LoginPopupCondition();
 	}
 
 	/*
@@ -36,6 +36,6 @@ public final class LoginPopupWait extends AConditionalWait<Boolean> {
 	 */
 	@Override
 	protected ExpectedCondition<Boolean> getCondition() {
-		return this.m_Condition;
+		return this.mCondition;
 	}
 }

@@ -15,7 +15,7 @@ public final class ForwardEvent implements IDelayableEvent {
 	 * Object to use for navigation, should not be an instance of
 	 * {@link de.zabuza.sparkle.webdriver.DelayedNavigation DelayedNavigation}.
 	 */
-	private final Navigation m_Navigation;
+	private final Navigation mNavigation;
 
 	/**
 	 * Creates a new instance of this object using a given navigation object.
@@ -26,7 +26,7 @@ public final class ForwardEvent implements IDelayableEvent {
 	 *            DelayedNavigation}.
 	 */
 	public ForwardEvent(final Navigation navigation) {
-		this.m_Navigation = navigation;
+		this.mNavigation = navigation;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class ForwardEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		this.m_Navigation.forward();
+		this.mNavigation.forward();
 	}
 
 }

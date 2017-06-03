@@ -58,15 +58,15 @@ public final class PostOffice implements ILocationService {
 	/**
 	 * The web driver to use for accessing elements.
 	 */
-	private final WebDriver m_Driver;
+	private final WebDriver mDriver;
 	/**
 	 * The instance to use for accessing other data.
 	 */
-	private final IFreewarInstance m_Instance;
+	private final IFreewarInstance mInstance;
 	/**
 	 * The point of the location this service offers actions for.
 	 */
-	private final Point m_Point;
+	private final Point mPoint;
 
 	/**
 	 * Creates a post office service.
@@ -82,9 +82,9 @@ public final class PostOffice implements ILocationService {
 	 */
 	public PostOffice(final Point point, final IFreewarInstance instance, final WebDriver driver,
 			@SuppressWarnings("unused") final IFrameManager frameManager) {
-		this.m_Point = point;
-		this.m_Driver = driver;
-		this.m_Instance = instance;
+		this.mPoint = point;
+		this.mDriver = driver;
+		this.mInstance = instance;
 	}
 
 	/*
@@ -96,7 +96,7 @@ public final class PostOffice implements ILocationService {
 	 */
 	@Override
 	public Point getPosition() {
-		return this.m_Point;
+		return this.mPoint;
 	}
 
 	/**
@@ -110,46 +110,46 @@ public final class PostOffice implements ILocationService {
 	 *         the error code
 	 */
 	public Optional<EErrorCode> writeLetter(final String receiver, final String message) {
-		final int gold = this.m_Instance.getPlayer().getGold();
+		final int gold = this.mInstance.getPlayer().getGold();
 		if (gold < LETTER_SERVICE_COST) {
 			return Optional.of(EErrorCode.NO_GOLD);
 		}
 
 		// Open the letter form
-		final boolean wasClicked = this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_WRITE_LETTER);
+		final boolean wasClicked = this.mInstance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_WRITE_LETTER);
 
 		if (!wasClicked) {
 			return Optional.of(EErrorCode.SERVICE_UNAVAILABLE);
 		}
 
 		// Wait for click to get executed
-		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.mDriver).waitUntilCondition();
 
 		// Fill in form
-		final WebElement receiverElement = this.m_Driver.findElement(By.cssSelector(CSS_RECEIVER_SELECTOR));
+		final WebElement receiverElement = this.mDriver.findElement(By.cssSelector(CSS_RECEIVER_SELECTOR));
 		receiverElement.sendKeys(receiver);
-		final WebElement messageElement = this.m_Driver.findElement(By.cssSelector(CSS_MESSAGE_SELECTOR));
+		final WebElement messageElement = this.mDriver.findElement(By.cssSelector(CSS_MESSAGE_SELECTOR));
 		messageElement.sendKeys(message);
 
 		// Submit it
-		final WebElement submitElement = this.m_Driver.findElement(By.cssSelector(CSS_LETTER_SUBMIT_SELECTOR));
+		final WebElement submitElement = this.mDriver.findElement(By.cssSelector(CSS_LETTER_SUBMIT_SELECTOR));
 		submitElement.click();
 
 		// Wait for click to get executed
-		new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+		new EventQueueEmptyWait(this.mDriver).waitUntilCondition();
 
 		// Check the state
-		final List<WebElement> elements = this.m_Driver
+		final List<WebElement> elements = this.mDriver
 				.findElements(By.partialLinkText(ANCHOR_NEEDLE_RECEIVER_INEXISTENT_ABORT));
 		if (elements != null && !elements.isEmpty()) {
 			// Receiver is inexistent, abort the process
 			elements.iterator().next().click();
-			new EventQueueEmptyWait(this.m_Driver).waitUntilCondition();
+			new EventQueueEmptyWait(this.mDriver).waitUntilCondition();
 			return Optional.of(EErrorCode.RECEIVER_INEXISTENT);
 		}
 
 		// Finish the process and click continue
-		this.m_Instance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_SUCCESSFUL_FINISH);
+		this.mInstance.clickAnchorByContent(EFrame.MAIN, ANCHOR_NEEDLE_SUCCESSFUL_FINISH);
 
 		return Optional.empty();
 	}

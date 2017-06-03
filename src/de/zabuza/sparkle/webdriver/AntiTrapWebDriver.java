@@ -20,7 +20,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	/**
 	 * Web driver to wrap for anti trap event execution.
 	 */
-	private final WebDriver m_WebDriver;
+	private final WebDriver mWebDriver;
 
 	/**
 	 * Creates a new instance of this object with a given web driver.
@@ -29,7 +29,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 *            Driver to wrap for anti trap event execution
 	 */
 	public AntiTrapWebDriver(final WebDriver driver) {
-		this.m_WebDriver = driver;
+		this.mWebDriver = driver;
 	}
 
 	/*
@@ -39,7 +39,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void close() {
-		this.m_WebDriver.close();
+		this.mWebDriver.close();
 	}
 
 	/*
@@ -49,7 +49,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public WebElement findElement(final By by) {
-		return new AntiTrapWebElement(this.m_WebDriver.findElement(by));
+		return new AntiTrapWebElement(this.mWebDriver.findElement(by));
 	}
 
 	/*
@@ -59,7 +59,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public List<WebElement> findElements(final By by) {
-		final List<WebElement> elements = this.m_WebDriver.findElements(by);
+		final List<WebElement> elements = this.mWebDriver.findElements(by);
 		final List<WebElement> antiTrapElements = new LinkedList<>();
 		for (final WebElement element : elements) {
 			antiTrapElements.add(new AntiTrapWebElement(element));
@@ -75,7 +75,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void get(final String url) {
-		this.m_WebDriver.get(url);
+		this.mWebDriver.get(url);
 	}
 
 	/*
@@ -85,7 +85,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getCurrentUrl() {
-		return this.m_WebDriver.getCurrentUrl();
+		return this.mWebDriver.getCurrentUrl();
 	}
 
 	/*
@@ -95,7 +95,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getPageSource() {
-		return this.m_WebDriver.getPageSource();
+		return this.mWebDriver.getPageSource();
 	}
 
 	/*
@@ -105,7 +105,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public WebDriver getRawDriver() {
-		return this.m_WebDriver;
+		return this.mWebDriver;
 	}
 
 	/*
@@ -115,7 +115,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getTitle() {
-		return this.m_WebDriver.getTitle();
+		return this.mWebDriver.getTitle();
 	}
 
 	/*
@@ -125,7 +125,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public String getWindowHandle() {
-		return this.m_WebDriver.getWindowHandle();
+		return this.mWebDriver.getWindowHandle();
 	}
 
 	/*
@@ -135,7 +135,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Set<String> getWindowHandles() {
-		return this.m_WebDriver.getWindowHandles();
+		return this.mWebDriver.getWindowHandles();
 	}
 
 	/*
@@ -145,7 +145,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Options manage() {
-		return this.m_WebDriver.manage();
+		return this.mWebDriver.manage();
 	}
 
 	/*
@@ -155,7 +155,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public Navigation navigate() {
-		return this.m_WebDriver.navigate();
+		return this.mWebDriver.navigate();
 	}
 
 	/*
@@ -165,7 +165,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public void quit() {
-		this.m_WebDriver.quit();
+		this.mWebDriver.quit();
 	}
 
 	/*
@@ -175,7 +175,7 @@ public final class AntiTrapWebDriver implements WebDriver, IWrapsWebDriver {
 	 */
 	@Override
 	public TargetLocator switchTo() {
-		return this.m_WebDriver.switchTo();
+		return this.mWebDriver.switchTo();
 	}
 
 }

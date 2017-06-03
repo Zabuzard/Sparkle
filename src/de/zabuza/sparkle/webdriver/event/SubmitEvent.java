@@ -15,7 +15,7 @@ public final class SubmitEvent implements IDelayableEvent {
 	 * Web element to submit, should not be an instance of
 	 * {@link de.zabuza.sparkle.webdriver.DelayedWebElement DelayedWebElement}.
 	 */
-	private final WebElement m_Element;
+	private final WebElement mElement;
 
 	/**
 	 * Creates a new instance of this object with a given web element.
@@ -26,7 +26,7 @@ public final class SubmitEvent implements IDelayableEvent {
 	 *            DelayedWebElement}.
 	 */
 	public SubmitEvent(final WebElement element) {
-		this.m_Element = element;
+		this.mElement = element;
 	}
 
 	/*
@@ -36,7 +36,7 @@ public final class SubmitEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		this.m_Element.submit();
+		this.mElement.submit();
 	}
 
 }

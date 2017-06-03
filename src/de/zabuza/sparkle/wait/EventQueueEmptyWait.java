@@ -22,7 +22,7 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	/**
 	 * Condition to wait for.
 	 */
-	private final ExpectedCondition<Boolean> m_Condition;
+	private final ExpectedCondition<Boolean> mCondition;
 
 	/**
 	 * Creates a new instance of this object using a given web driver.
@@ -32,7 +32,7 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	 */
 	public EventQueueEmptyWait(final WebDriver driver) {
 		super(driver, EVENT_QUEUE_EMPTY_TIMEOUT);
-		this.m_Condition = new EventQueueEmptyCondition();
+		this.mCondition = new EventQueueEmptyCondition();
 	}
 
 	/*
@@ -42,6 +42,6 @@ public final class EventQueueEmptyWait extends AConditionalWait<Boolean> {
 	 */
 	@Override
 	protected ExpectedCondition<Boolean> getCondition() {
-		return this.m_Condition;
+		return this.mCondition;
 	}
 }

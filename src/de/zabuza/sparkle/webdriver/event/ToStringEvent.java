@@ -15,11 +15,11 @@ public final class ToStringEvent implements IDelayableEvent {
 	 * Object to use for navigation, should not be an instance of
 	 * {@link de.zabuza.sparkle.webdriver.DelayedNavigation DelayedNavigation}.
 	 */
-	private final Navigation m_Navigation;
+	private final Navigation mNavigation;
 	/**
 	 * URL to navigate to.
 	 */
-	private final String m_Url;
+	private final String mUrl;
 
 	/**
 	 * Creates a new instance of this object using a given navigation object.
@@ -32,8 +32,8 @@ public final class ToStringEvent implements IDelayableEvent {
 	 *            URl to navigate to
 	 */
 	public ToStringEvent(final Navigation navigation, final String url) {
-		this.m_Navigation = navigation;
-		this.m_Url = url;
+		this.mNavigation = navigation;
+		this.mUrl = url;
 	}
 
 	/*
@@ -43,7 +43,7 @@ public final class ToStringEvent implements IDelayableEvent {
 	 */
 	@Override
 	public void execute() {
-		this.m_Navigation.to(this.m_Url);
+		this.mNavigation.to(this.mUrl);
 	}
 
 }

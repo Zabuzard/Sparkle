@@ -12,19 +12,19 @@ public final class Message {
 	/**
 	 * The chat type of the message.
 	 */
-	private final EChatType m_ChatType;
+	private final EChatType mChatType;
 	/**
 	 * The content of the message.
 	 */
-	private final String m_Content;
+	private final String mContent;
 	/**
 	 * The receiver of the message.
 	 */
-	private final String m_Receiver;
+	private final String mReceiver;
 	/**
 	 * The sender of the message.
 	 */
-	private final String m_Sender;
+	private final String mSender;
 
 	/**
 	 * Creates a new message with a given content.
@@ -65,10 +65,10 @@ public final class Message {
 	 *            The chat type of the message
 	 */
 	public Message(final String sender, final String receiver, final String content, final EChatType chatType) {
-		this.m_Sender = sender;
-		this.m_Receiver = receiver;
-		this.m_Content = content;
-		this.m_ChatType = chatType;
+		this.mSender = sender;
+		this.mReceiver = receiver;
+		this.mContent = content;
+		this.mChatType = chatType;
 	}
 
 	/*
@@ -88,28 +88,28 @@ public final class Message {
 			return false;
 		}
 		final Message other = (Message) obj;
-		if (this.m_ChatType != other.m_ChatType) {
+		if (this.mChatType != other.mChatType) {
 			return false;
 		}
-		if (this.m_Content == null) {
-			if (other.m_Content != null) {
+		if (this.mContent == null) {
+			if (other.mContent != null) {
 				return false;
 			}
-		} else if (!this.m_Content.equals(other.m_Content)) {
+		} else if (!this.mContent.equals(other.mContent)) {
 			return false;
 		}
-		if (this.m_Receiver == null) {
-			if (other.m_Receiver != null) {
+		if (this.mReceiver == null) {
+			if (other.mReceiver != null) {
 				return false;
 			}
-		} else if (!this.m_Receiver.equals(other.m_Receiver)) {
+		} else if (!this.mReceiver.equals(other.mReceiver)) {
 			return false;
 		}
-		if (this.m_Sender == null) {
-			if (other.m_Sender != null) {
+		if (this.mSender == null) {
+			if (other.mSender != null) {
 				return false;
 			}
-		} else if (!this.m_Sender.equals(other.m_Sender)) {
+		} else if (!this.mSender.equals(other.mSender)) {
 			return false;
 		}
 		return true;
@@ -121,7 +121,7 @@ public final class Message {
 	 * @return The chat type of the message to get
 	 */
 	public EChatType getChatType() {
-		return this.m_ChatType;
+		return this.mChatType;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public final class Message {
 	 * @return The content of the message to get
 	 */
 	public String getContent() {
-		return this.m_Content;
+		return this.mContent;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public final class Message {
 	 * @return If present the receiver of the message
 	 */
 	public Optional<String> getReceiver() {
-		return Optional.of(this.m_Receiver);
+		return Optional.of(this.mReceiver);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class Message {
 	 * @return The sender of the message to get
 	 */
 	public Optional<String> getSender() {
-		return Optional.of(this.m_Sender);
+		return Optional.of(this.mSender);
 	}
 
 	/*
@@ -160,10 +160,10 @@ public final class Message {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.m_ChatType == null) ? 0 : this.m_ChatType.hashCode());
-		result = prime * result + ((this.m_Content == null) ? 0 : this.m_Content.hashCode());
-		result = prime * result + ((this.m_Receiver == null) ? 0 : this.m_Receiver.hashCode());
-		result = prime * result + ((this.m_Sender == null) ? 0 : this.m_Sender.hashCode());
+		result = prime * result + ((this.mChatType == null) ? 0 : this.mChatType.hashCode());
+		result = prime * result + ((this.mContent == null) ? 0 : this.mContent.hashCode());
+		result = prime * result + ((this.mReceiver == null) ? 0 : this.mReceiver.hashCode());
+		result = prime * result + ((this.mSender == null) ? 0 : this.mSender.hashCode());
 		return result;
 	}
 
@@ -174,7 +174,7 @@ public final class Message {
 	 *         not
 	 */
 	public boolean hasReceiver() {
-		return this.m_Receiver != null;
+		return this.mReceiver != null;
 	}
 
 	/**
@@ -183,7 +183,7 @@ public final class Message {
 	 * @return <tt>True</tt> if the message has a sender, <tt>false</tt> if not
 	 */
 	public boolean hasSender() {
-		return this.m_Sender != null;
+		return this.mSender != null;
 	}
 
 	/*
@@ -195,24 +195,24 @@ public final class Message {
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("Message [");
-		if (this.m_ChatType != null) {
+		if (this.mChatType != null) {
 			builder.append("chatType=");
-			builder.append(this.m_ChatType);
+			builder.append(this.mChatType);
 			builder.append(", ");
 		}
-		if (this.m_Sender != null) {
+		if (this.mSender != null) {
 			builder.append("sender=");
-			builder.append(this.m_Sender);
+			builder.append(this.mSender);
 			builder.append(", ");
 		}
-		if (this.m_Receiver != null) {
+		if (this.mReceiver != null) {
 			builder.append("receiver=");
-			builder.append(this.m_Receiver);
+			builder.append(this.mReceiver);
 			builder.append(", ");
 		}
-		if (this.m_Content != null) {
+		if (this.mContent != null) {
 			builder.append("content=");
-			builder.append(this.m_Content);
+			builder.append(this.mContent);
 		}
 		builder.append("]");
 		return builder.toString();
