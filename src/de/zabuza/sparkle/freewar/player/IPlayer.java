@@ -18,15 +18,6 @@ public interface IPlayer {
 	public final static String NO_WEAPON = "keine";
 
 	/**
-	 * Tries to activate the special skill of the player. The method only
-	 * supports special skills of races that do not need any further arguments.
-	 * 
-	 * @return <tt>True</tt> if the special skill was activated, <tt>false</tt>
-	 *         if it could not be activated.
-	 */
-	public boolean activateSpecialSkill();
-
-	/**
 	 * Gets the amount of attack points the player has.
 	 * 
 	 * @return The amount of attack points the player has or {@link #NO_VALUE}

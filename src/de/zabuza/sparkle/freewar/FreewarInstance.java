@@ -20,6 +20,8 @@ import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.freewar.movement.Movement;
 import de.zabuza.sparkle.freewar.player.IPlayer;
 import de.zabuza.sparkle.freewar.player.Player;
+import de.zabuza.sparkle.freewar.skills.ISkillManager;
+import de.zabuza.sparkle.freewar.skills.SkillManager;
 import de.zabuza.sparkle.selectors.Names;
 import de.zabuza.sparkle.webdriver.IHasWebDriver;
 
@@ -59,6 +61,10 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 * The player object of this instance.
 	 */
 	private final IPlayer mPlayer;
+	/**
+	 * The object that manages the skills of this instance.
+	 */
+	private final ISkillManager mSkillManager;
 	/**
 	 * If the instance should care of not being automatically logged out by
 	 * <tt>Freewar</tt> due to absence.
@@ -102,7 +108,9 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		this.mDriver = driver;
 		setStayLoggedIn(stayLoggedIn);
 		this.mFrameManager = new FrameManager(this.mDriver);
+
 		this.mPlayer = new Player(this.mDriver, this.mFrameManager);
+		this.mSkillManager = new SkillManager(this.mDriver, this.mFrameManager);
 		this.mInventory = new Inventory(this, this.mDriver, this.mFrameManager);
 		this.mLocation = new Location(this, this.mDriver, this.mFrameManager);
 		this.mMovement = new Movement(this.mDriver, this.mLocation, this.mInventory, this.mFrameManager);
@@ -200,6 +208,16 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 		}
 
 		return sessionId.getValue();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.zabuza.sparkle.freewar.IFreewarInstance#getSkillManager()
+	 */
+	@Override
+	public ISkillManager getSkillManager() {
+		return this.mSkillManager;
 	}
 
 	/*

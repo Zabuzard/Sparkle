@@ -66,7 +66,7 @@ public final class CSSSelectors {
 	/**
 	 * Selector that indicates, when present, if the item frame has loaded.
 	 */
-	public static final String ITEM_FRAME_PRESENT = "div#toplpheader";
+	public static final String ITEM_FRAME_PRESENT = "body.frameitembg";
 	/**
 	 * Selector that corresponds to an anchor which closes the inventory.
 	 */
@@ -94,7 +94,6 @@ public final class CSSSelectors {
 	 * equipped attack weapon.
 	 */
 	public static final String ITEM_PLAYER_ATTACK_WEAPON = "p#listrow_attackw";
-
 	/**
 	 * Selector that corresponds to an element that holds the defense points of
 	 * the player.
@@ -105,6 +104,7 @@ public final class CSSSelectors {
 	 * equipped defense weapon.
 	 */
 	public static final String ITEM_PLAYER_DEFENSE_WEAPON = "p#listrow_defensew";
+
 	/**
 	 * Selector that corresponds to an element that holds the amount of gold the
 	 * player has.
@@ -115,7 +115,6 @@ public final class CSSSelectors {
 	 * player has.
 	 */
 	public static final String ITEM_PLAYER_INTELLIGENCE = "p#listrow_int";
-
 	/**
 	 * Selector that corresponds to an element that holds the amount of life
 	 * points the player has.
@@ -126,17 +125,12 @@ public final class CSSSelectors {
 	 * life points the player can have.
 	 */
 	public static final String ITEM_PLAYER_MAX_LIFE_POINTS = "p#listrow_lifep";
+
 	/**
 	 * Selector that corresponds to an element that holds the name and amount of
 	 * experience points the player has.
 	 */
 	public static final String ITEM_PLAYER_NAME_EXPERIENCE = "div#toplpheader + p.listcaption";
-	/**
-	 * Selector that corresponds to an anchor which activates the special skill
-	 * of the player.
-	 */
-	public static final String ITEM_PLAYER_SPECIAL_SKILL_ANCHOR = "p#listrow_special a[href$=special]";
-
 	/**
 	 * Selector that corresponds to an element that holds the amount of speed
 	 * the player has.
@@ -147,6 +141,60 @@ public final class CSSSelectors {
 	 * player has.
 	 */
 	public static final String ITEM_PLAYER_STATUS = "p#listrow_status";
+	/**
+	 * Selector that corresponds to an anchor which aborts the training for the
+	 * currently trained skill.
+	 */
+	public static final String ITEM_SKILL_CUR_TRAINED_SKILL_ABORT_ANCHOR = "a[href$=action\\=abort_training]";
+	/**
+	 * Selector that corresponds to an anchor which closes the abort dialog of
+	 * the training for the currently trained skill.
+	 */
+	public static final String ITEM_SKILL_CUR_TRAINED_SKILL_ABORT_CLOSE_ANCHOR = "a[href=ability\\.php]";
+	/**
+	 * Selector that corresponds to an anchor which confirms the abort of the
+	 * training for the currently trained skill.
+	 */
+	public static final String ITEM_SKILL_CUR_TRAINED_SKILL_ABORT_CONFIRM_ANCHOR = "a[href*=action\\=abort_training2]";
+	/**
+	 * Selector that corresponds to an element containing information about a
+	 * maximized skill.
+	 */
+	public static final String ITEM_SKILL_MAXIMIZED_SKILL = "tr";
+	/**
+	 * Selector that corresponds to an element containing specific data about a
+	 * maximized skill.
+	 */
+	public static final String ITEM_SKILL_MAXIMIZED_SKILL_DATA = "td";
+	/**
+	 * Selector that corresponds to an anchor which closes the skill menu.
+	 */
+	public static final String ITEM_SKILL_MENU_CLOSE_ANCHOR = "a[href=item\\.php]";
+	/**
+	 * Selector that corresponds to an anchor which opens the skill menu.
+	 */
+	public static final String ITEM_SKILL_MENU_OPEN_ANCHOR = "p#listrow_char_mission a[href^=ability]";
+	/**
+	 * Selector that corresponds to an anchor which activates the special skill
+	 * of the player.
+	 */
+	public static final String ITEM_SKILL_SPECIAL_SKILL_ANCHOR = "p#listrow_special a[href$=special]";
+	/**
+	 * Selector that corresponds to an anchor which confirms the start of the
+	 * training for the current selected skill.
+	 */
+	public static final String ITEM_SKILL_START_TRAINING_CONFIRM_ANCHOR = "a[href*=action\\=train]";
+
+	/**
+	 * Selector that corresponds to an element containing information about a
+	 * trainable skill.
+	 */
+	public static final String ITEM_SKILL_TRAINABLE_SKILL = "tr";
+	/**
+	 * Selector that corresponds to an element containing specific data about a
+	 * trainable skill.
+	 */
+	public static final String ITEM_SKILL_TRAINABLE_SKILL_DATA = "td";
 	/**
 	 * Selector that corresponds to the name input field of the login form.
 	 */

@@ -68,13 +68,18 @@ public final class Patterns {
 	 */
 	public final static String INTEGER = "-?\\d+";
 	/**
-	 * Regex pattern for extracting the maximal amount of life points.
+	 * Regex pattern for extracting the name, level and end date of the
+	 * currently trained skill.
 	 */
-	public final static String PLAYER_MAX_LIFE_POINTS = "\\(\\d+/(\\d+)\\)";
+	public final static String ITEM_SKILL_CUR_TRAINED_SKILL = "Du trainierst gerade (.+) auf Stufe (\\d+)\\. Das Training ist in (?:(\\d+) Tagen )?(?:(\\d+) Stunden )?(?:(\\d+) Minuten )?fertig\\. Training abbrechen";
 	/**
 	 * Pattern for the activation anchor in the special skill dialog.
 	 */
-	public final static String PLAYER_SPECIAL_SKILL_DIALOG_ACTIVATION = "Anwenden";
+	public final static String ITEM_SKILL_SPECIAL_SKILL_DIALOG_ACTIVATION = "Anwenden";
+	/**
+	 * Regex pattern for extracting the maximal amount of life points.
+	 */
+	public final static String PLAYER_MAX_LIFE_POINTS = "\\(\\d+/(\\d+)\\)";
 	/**
 	 * Coordinate pattern for the wiki content. The first group holds the x
 	 * coordinate, the second group holds the y coordinate.

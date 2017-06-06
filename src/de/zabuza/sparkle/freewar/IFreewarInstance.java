@@ -8,6 +8,7 @@ import de.zabuza.sparkle.freewar.inventory.IInventory;
 import de.zabuza.sparkle.freewar.location.ILocation;
 import de.zabuza.sparkle.freewar.movement.IMovement;
 import de.zabuza.sparkle.freewar.player.IPlayer;
+import de.zabuza.sparkle.freewar.skills.ISkillManager;
 
 /**
  * Interface for instances of an logged in account from the MMORPG
@@ -94,6 +95,15 @@ public interface IFreewarInstance {
 	 *         possible
 	 */
 	public String getSessionId();
+
+	/**
+	 * Gets the object that manages the skills of the player belonging to this
+	 * instance.
+	 * 
+	 * @return The object that manages the skills of the player belonging to
+	 *         this instance
+	 */
+	public ISkillManager getSkillManager();
 
 	/**
 	 * Returns if the instance cares of not being automatically logged out by
