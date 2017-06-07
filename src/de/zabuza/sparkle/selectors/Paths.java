@@ -56,7 +56,7 @@ public final class Paths {
 
 	/**
 	 * Gets the full domain url corresponding to the given world. For example
-	 * '<tt>http://welt1.freewar.de/<tt>'.
+	 * '<tt>http://welt1.freewar.de/</tt>'.
 	 * 
 	 * @param world
 	 *            World to get full domain url for
@@ -74,7 +74,7 @@ public final class Paths {
 
 	/**
 	 * Gets the host domain corresponding to the given world. For example
-	 * '<tt>welt1.freewar.de<tt>'.
+	 * '<tt>welt1.freewar.de</tt>'.
 	 * 
 	 * @param world
 	 *            World to get host domain for
