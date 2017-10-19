@@ -69,8 +69,7 @@ public final class Inventory implements IInventory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.inventory.IInventory#activateItem(java.lang
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#activateItem(java.lang
 	 * .String)
 	 */
 	@Override
@@ -136,7 +135,9 @@ public final class Inventory implements IInventory {
 		switchToItemFrame();
 		final WebElement element = this.mDriver.findElement(By.xpath(XPaths.ITEM_INVENTORY_SIZE));
 		final String inventorySizeText = element.getText();
-		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(inventorySizeText);
+		// Remove thousand dots
+		final String inventorySizeTextAdjusted = inventorySizeText.replaceAll("\\.", "");
+		final Matcher matcher = Pattern.compile(Patterns.INTEGER).matcher(inventorySizeTextAdjusted);
 		int inventorySize = NO_VALUE;
 		if (matcher.find()) {
 			inventorySize = Integer.parseInt(matcher.group());
@@ -202,8 +203,7 @@ public final class Inventory implements IInventory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.inventory.IInventory#hasItem(java.lang.String)
+	 * @see de.zabuza.sparkle.freewar.inventory.IInventory#hasItem(java.lang.String)
 	 */
 	@Override
 	public boolean hasItem(final String item) {
@@ -292,9 +292,8 @@ public final class Inventory implements IInventory {
 	}
 
 	/**
-	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToItemFrame() {
 		this.mFrameManager.switchToFrame(EFrame.ITEM);
