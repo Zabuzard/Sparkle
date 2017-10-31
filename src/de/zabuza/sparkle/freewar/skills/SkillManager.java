@@ -53,8 +53,7 @@ public final class SkillManager implements ISkillManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.skills.ISkillManager#abortTrainingOfSkill()
+	 * @see de.zabuza.sparkle.freewar.skills.ISkillManager#abortTrainingOfSkill()
 	 */
 	@Override
 	public boolean abortTrainingOfSkill() {
@@ -89,8 +88,7 @@ public final class SkillManager implements ISkillManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.skills.ISkillManager#activateSpecialSkill()
+	 * @see de.zabuza.sparkle.freewar.skills.ISkillManager#activateSpecialSkill()
 	 */
 	@Override
 	public boolean activateSpecialSkill() {
@@ -377,9 +375,8 @@ public final class SkillManager implements ISkillManager {
 	}
 
 	/**
-	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToItemFrame() {
 		this.mFrameManager.switchToFrame(EFrame.ITEM);

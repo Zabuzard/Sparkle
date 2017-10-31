@@ -20,8 +20,8 @@ public interface IPlayer {
 	/**
 	 * Gets the amount of attack points the player has.
 	 * 
-	 * @return The amount of attack points the player has or {@link #NO_VALUE}
-	 *         if unknown.
+	 * @return The amount of attack points the player has or {@link #NO_VALUE} if
+	 *         unknown.
 	 */
 	public int getAttackPoints();
 
@@ -36,8 +36,8 @@ public interface IPlayer {
 	/**
 	 * Gets the amount of defense points the player has.
 	 * 
-	 * @return The amount of defense points the player has or {@link #NO_VALUE}
-	 *         if unknown.
+	 * @return The amount of defense points the player has or {@link #NO_VALUE} if
+	 *         unknown.
 	 */
 	public int getDefensePoints();
 
@@ -52,24 +52,22 @@ public interface IPlayer {
 	/**
 	 * Gets the amount of experience points the player has.
 	 * 
-	 * @return The amount of experience points the player has or
-	 *         {@link #NO_VALUE} if unknown.
+	 * @return The amount of experience points the player has or {@link #NO_VALUE}
+	 *         if unknown.
 	 */
 	public int getExperiencePoints();
 
 	/**
 	 * Gets the amount of gold the player has.
 	 * 
-	 * @return The amount of gold the player has or {@link #NO_VALUE} if
-	 *         unknown.
+	 * @return The amount of gold the player has or {@link #NO_VALUE} if unknown.
 	 */
 	public int getGold();
 
 	/**
 	 * Gets the amount of gold the player has.
 	 * 
-	 * @return The amount of gold the player has or {@link #NO_VALUE} if
-	 *         unknown.
+	 * @return The amount of gold the player has or {@link #NO_VALUE} if unknown.
 	 */
 	public int getIntelligence();
 
@@ -85,8 +83,8 @@ public interface IPlayer {
 	 * Gets the maximal amount of life points the player has, that are the life
 	 * points if the player is fully healed.
 	 * 
-	 * @return The maximal amount of life points the player has or
-	 *         {@link #NO_VALUE} if unknown.
+	 * @return The maximal amount of life points the player has or {@link #NO_VALUE}
+	 *         if unknown.
 	 */
 	public int getMaxLifePoints();
 
@@ -100,16 +98,15 @@ public interface IPlayer {
 	/**
 	 * Gets the amount of speed the player has.
 	 * 
-	 * @return The amount of speed the player has or {@link #NO_VALUE} if
-	 *         unknown.
+	 * @return The amount of speed the player has or {@link #NO_VALUE} if unknown.
 	 */
 	public int getSpeed();
 
 	/**
 	 * Gets all statuses the player currently has.
 	 * 
-	 * @return All statuses the player currently has or an empty string if he
-	 *         has no status.
+	 * @return All statuses the player currently has or an empty string if he has no
+	 *         status.
 	 */
 	public String getStatus();
 }

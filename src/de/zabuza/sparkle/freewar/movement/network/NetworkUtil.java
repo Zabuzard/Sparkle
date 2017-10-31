@@ -61,8 +61,8 @@ public final class NetworkUtil {
 	private final static float COST_OF_MOVE_TYPE_YELLOW_SPHERE = 1.003f;
 
 	/**
-	 * Tries to execute the movement corresponding to the given type and
-	 * situation. This method does not wait until movement is possible.
+	 * Tries to execute the movement corresponding to the given type and situation.
+	 * This method does not wait until movement is possible.
 	 * 
 	 * @param type
 	 *            Type of the movement to execute
@@ -74,8 +74,8 @@ public final class NetworkUtil {
 	 *            Object to use for movement
 	 * @param inventory
 	 *            Object to use for accessing the inventory
-	 * @return <tt>True</tt> if the player was moved according to the given type
-	 *         and situation, <tt>false</tt> if that was not possible
+	 * @return <tt>True</tt> if the player was moved according to the given type and
+	 *         situation, <tt>false</tt> if that was not possible
 	 * @throws IllegalArgumentException
 	 *             If the given move type or situation is not supported by this
 	 *             method

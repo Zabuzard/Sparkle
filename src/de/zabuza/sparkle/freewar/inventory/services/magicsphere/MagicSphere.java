@@ -62,13 +62,13 @@ public final class MagicSphere implements IItemService {
 	 */
 	private static final int BLUE_SPHERE_CASINO_OF_FERDOLIA_ID = 1079;
 	/**
-	 * X coordinate of the blue sphere teleportation destination to the casino
-	 * of Ferdolia.
+	 * X coordinate of the blue sphere teleportation destination to the casino of
+	 * Ferdolia.
 	 */
 	private static final int BLUE_SPHERE_CASINO_OF_FERDOLIA_X = 100;
 	/**
-	 * Y coordinate of the blue sphere teleportation destination to the casino
-	 * of Ferdolia.
+	 * Y coordinate of the blue sphere teleportation destination to the casino of
+	 * Ferdolia.
 	 */
 	private static final int BLUE_SPHERE_CASINO_OF_FERDOLIA_Y = 94;
 	/**
@@ -121,18 +121,15 @@ public final class MagicSphere implements IItemService {
 	 */
 	private static final int BLUE_SPHERE_LODRADON_Y = 76;
 	/**
-	 * Access id of the blue sphere teleportation destination in the lost
-	 * valley.
+	 * Access id of the blue sphere teleportation destination in the lost valley.
 	 */
 	private static final int BLUE_SPHERE_LOST_VALLEY_ID = 169;
 	/**
-	 * X coordinate of the blue sphere teleportation destination to the lost
-	 * valley.
+	 * X coordinate of the blue sphere teleportation destination to the lost valley.
 	 */
 	private static final int BLUE_SPHERE_LOST_VALLEY_X = 81;
 	/**
-	 * Y coordinate of the blue sphere teleportation destination to the lost
-	 * valley.
+	 * Y coordinate of the blue sphere teleportation destination to the lost valley.
 	 */
 	private static final int BLUE_SPHERE_LOST_VALLEY_Y = 94;
 	/**
@@ -220,18 +217,17 @@ public final class MagicSphere implements IItemService {
 	 */
 	private static final int BLUE_SPHERE_TERASI_Y = 111;
 	/**
-	 * Access id of the blue sphere teleportation destination to the universal
-	 * bank.
+	 * Access id of the blue sphere teleportation destination to the universal bank.
 	 */
 	private static final int BLUE_SPHERE_UNIVERSAL_BANK_ID = 73;
 	/**
-	 * X coordinate of the blue sphere teleportation destination to the
-	 * universal bank.
+	 * X coordinate of the blue sphere teleportation destination to the universal
+	 * bank.
 	 */
 	private static final int BLUE_SPHERE_UNIVERSAL_BANK_X = 92;
 	/**
-	 * Y coordinate of the blue sphere teleportation destination to the
-	 * universal bank.
+	 * Y coordinate of the blue sphere teleportation destination to the universal
+	 * bank.
 	 */
 	private static final int BLUE_SPHERE_UNIVERSAL_BANK_Y = 105;
 	/**
@@ -240,14 +236,14 @@ public final class MagicSphere implements IItemService {
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_ID = 110;
 	/**
-	 * X coordinate of the blue sphere teleportation destination to the valley
-	 * of ruins.
+	 * X coordinate of the blue sphere teleportation destination to the valley of
+	 * ruins.
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_X = 93;
 
 	/**
-	 * Y coordinate of the blue sphere teleportation destination to the valley
-	 * of ruins.
+	 * Y coordinate of the blue sphere teleportation destination to the valley of
+	 * ruins.
 	 */
 	private static final int BLUE_SPHERE_VALLEY_OF_RUINS_Y = 96;
 
@@ -310,8 +306,8 @@ public final class MagicSphere implements IItemService {
 	 * 
 	 * @param coordinates
 	 *            The x and y coordinates of the destination
-	 * @return The blue sphere teleportation destination corresponding to the
-	 *         given coordinates
+	 * @return The blue sphere teleportation destination corresponding to the given
+	 *         coordinates
 	 * @throws IllegalArgumentException
 	 *             If the given coordinates do not correspond to a blue sphere
 	 *             teleportation destination
@@ -364,8 +360,8 @@ public final class MagicSphere implements IItemService {
 	 * 
 	 * @param destination
 	 *            The destination to get the access id of
-	 * @return The access id that corresponds to the given blue sphere
-	 *         teleportation destination
+	 * @return The access id that corresponds to the given blue sphere teleportation
+	 *         destination
 	 * @throws IllegalArgumentException
 	 *             If the given blue sphere teleportation destination is not
 	 *             supported by this method
@@ -446,8 +442,7 @@ public final class MagicSphere implements IItemService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.inventory.services.IItemService#getItemName()
+	 * @see de.zabuza.sparkle.freewar.inventory.services.IItemService#getItemName()
 	 */
 	@Override
 	public String getItemName() {
@@ -460,21 +455,21 @@ public final class MagicSphere implements IItemService {
 	 * 
 	 * @param destination
 	 *            Blue sphere destination to teleport to
-	 * @return If not present the action was successful, if present it contains
-	 *         the error code
+	 * @return If not present the action was successful, if present it contains the
+	 *         error code
 	 */
 	public Optional<EErrorCode> teleportWithMagicSphere(final EBlueSphereDestination destination) {
 		return teleportByAccessId(getBlueSphereAccessIdByDestination(destination));
 	}
 
 	/**
-	 * Teleports to the destination given by its access id in the dialog by
-	 * using the item registered for.
+	 * Teleports to the destination given by its access id in the dialog by using
+	 * the item registered for.
 	 * 
 	 * @param accessId
 	 *            The access id in the dialog of the destination to teleport to
-	 * @return If not present the action was successful, if present it contains
-	 *         the error code
+	 * @return If not present the action was successful, if present it contains the
+	 *         error code
 	 */
 	private Optional<EErrorCode> teleportByAccessId(final int accessId) {
 		final IInventory inventory = this.mInstance.getInventory();

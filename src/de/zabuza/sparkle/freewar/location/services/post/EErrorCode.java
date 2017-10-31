@@ -16,8 +16,8 @@ public enum EErrorCode {
 	 */
 	RECEIVER_INEXISTENT,
 	/**
-	 * The letter service is unavailable. For example if the player is at the
-	 * wrong position or the location was disabled by spells.
+	 * The letter service is unavailable. For example if the player is at the wrong
+	 * position or the location was disabled by spells.
 	 */
 	SERVICE_UNAVAILABLE
 }

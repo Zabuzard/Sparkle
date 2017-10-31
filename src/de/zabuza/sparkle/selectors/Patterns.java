@@ -8,8 +8,7 @@ package de.zabuza.sparkle.selectors;
  */
 public final class Patterns {
 	/**
-	 * Regex pattern for extracting the name and the content of a clan chat
-	 * message.
+	 * Regex pattern for extracting the name and the content of a clan chat message.
 	 */
 	public final static String CHAT_MESSAGE_NAME_CONTENT_CLAN = "(.+) \\(Clantelepathie\\):\\s?(.*)";
 	/**
@@ -44,8 +43,8 @@ public final class Patterns {
 	 */
 	public final static String CHAT_MESSAGE_NAME_CONTENT_SCREAM = "(.+) schreit:\\s?(.*)";
 	/**
-	 * Regex pattern for extracting the name and the content of a neutral
-	 * whisper chat message.
+	 * Regex pattern for extracting the name and the content of a neutral whisper
+	 * chat message.
 	 */
 	public final static String CHAT_MESSAGE_NAME_CONTENT_WHISPER_NEUTRAL = "(.*)";
 	/**
@@ -68,8 +67,8 @@ public final class Patterns {
 	 */
 	public final static String INTEGER = "-?\\d+";
 	/**
-	 * Regex pattern for extracting the name, level and end date of the
-	 * currently trained skill.
+	 * Regex pattern for extracting the name, level and end date of the currently
+	 * trained skill.
 	 */
 	public final static String ITEM_SKILL_CUR_TRAINED_SKILL = "Du trainierst gerade (.+) auf Stufe (\\d+)\\. Das Training ist in (?:(\\d+) Tagen )?(?:(\\d+) Stunden )?(?:(\\d+) Minuten )?fertig\\. Training abbrechen";
 	/**

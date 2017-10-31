@@ -25,9 +25,8 @@ public class TimedCondition implements ExpectedCondition<Boolean> {
 	private final long mTimeToWait;
 
 	/**
-	 * Creates a new instance of this object with a given time to wait. The
-	 * timer automatically starts by the first time {@link #apply(WebDriver)} is
-	 * called.
+	 * Creates a new instance of this object with a given time to wait. The timer
+	 * automatically starts by the first time {@link #apply(WebDriver)} is called.
 	 * 
 	 * @param timeToWait
 	 *            Time period to wait for to pass, in milliseconds

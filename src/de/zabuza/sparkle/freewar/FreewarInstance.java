@@ -91,9 +91,9 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	}
 
 	/**
-	 * Creates a new FreewarInstance that uses a given driver. It can be set if
-	 * the instance should take care of not being logged out by <tt>Freewar</tt>
-	 * due to absence.
+	 * Creates a new FreewarInstance that uses a given driver. It can be set if the
+	 * instance should take care of not being logged out by <tt>Freewar</tt> due to
+	 * absence.
 	 * 
 	 * @param driver
 	 *            The driver this instance should use
@@ -101,8 +101,8 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	 *            The name of the user of this instance
 	 * @param stayLoggedIn
 	 *            If <tt>true</tt> the instance cares of not being automatically
-	 *            logged out. If <tt>false</tt> the instance can be logged out
-	 *            by <tt>Freewar</tt> due to absence.
+	 *            logged out. If <tt>false</tt> the instance can be logged out by
+	 *            <tt>Freewar</tt> due to absence.
 	 */
 	public FreewarInstance(final WebDriver driver, final String user, final boolean stayLoggedIn) {
 		this.mDriver = driver;
@@ -279,10 +279,10 @@ public final class FreewarInstance implements IFreewarInstance, IHasWebDriver {
 	}
 
 	/**
-	 * Manages the stay logged in service. If the instance should care of
-	 * staying logged in, it will create a corresponding service to ensure such,
-	 * if not already done so. If the instance should not take care of this, it
-	 * will stop an eventual previous created service.
+	 * Manages the stay logged in service. If the instance should care of staying
+	 * logged in, it will create a corresponding service to ensure such, if not
+	 * already done so. If the instance should not take care of this, it will stop
+	 * an eventual previous created service.
 	 * 
 	 * @param stayLoggedIn
 	 *            If the instance should care of staying logged in

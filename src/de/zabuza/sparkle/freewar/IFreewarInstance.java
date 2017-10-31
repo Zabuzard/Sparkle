@@ -19,23 +19,21 @@ import de.zabuza.sparkle.freewar.skills.ISkillManager;
  */
 public interface IFreewarInstance {
 	/**
-	 * Tries to click an anchor in the given frame whose content contains the
-	 * given needle.
+	 * Tries to click an anchor in the given frame whose content contains the given
+	 * needle.
 	 * 
 	 * @param frame
 	 *            The frame which contains the anchor
 	 * @param needle
-	 *            The needle that is contained by the content of the anchor to
-	 *            click
+	 *            The needle that is contained by the content of the anchor to click
 	 * @return <tt>True</tt> if the anchor was found and could be clicked,
-	 *         <tt>false</tt> if that was not possible or the anchor was not
-	 *         found.
+	 *         <tt>false</tt> if that was not possible or the anchor was not found.
 	 */
 	public boolean clickAnchorByContent(final EFrame frame, final String needle);
 
 	/**
-	 * Gets the chat object of this instance. It can be used to interact with
-	 * the chat.
+	 * Gets the chat object of this instance. It can be used to interact with the
+	 * chat.
 	 * 
 	 * @return The chat object of this instance
 	 */
@@ -59,16 +57,16 @@ public interface IFreewarInstance {
 
 	/**
 	 * Gets the location object of this instance. It can be used to get various
-	 * information about the current location. Location also provides access to
-	 * NPCs at this location.
+	 * information about the current location. Location also provides access to NPCs
+	 * at this location.
 	 * 
 	 * @return The location object of this instance
 	 */
 	public ILocation getLocation();
 
 	/**
-	 * Gets the movement object of this instance. It can be used to move the
-	 * player through the world.
+	 * Gets the movement object of this instance. It can be used to move the player
+	 * through the world.
 	 * 
 	 * @return The movement object of this instance
 	 */
@@ -83,12 +81,11 @@ public interface IFreewarInstance {
 	public IPlayer getPlayer();
 
 	/**
-	 * Gets the session id for this instance. It is valid until the user logs
-	 * out or gets automatically logged out by <tt>Freewar</tt>. It can be used
-	 * to hijack the session with
-	 * {@link IFreewarAPI#hijackSession(String, String, EWorld)} or to pass it
-	 * to other external applications that may then hijack the session. The
-	 * session id itself is maintained by <tt>Freewar</tt> and is saved inside a
+	 * Gets the session id for this instance. It is valid until the user logs out or
+	 * gets automatically logged out by <tt>Freewar</tt>. It can be used to hijack
+	 * the session with {@link IFreewarAPI#hijackSession(String, String, EWorld)} or
+	 * to pass it to other external applications that may then hijack the session.
+	 * The session id itself is maintained by <tt>Freewar</tt> and is saved inside a
 	 * cookie.
 	 * 
 	 * @return The session id for this instance or <tt>null</tt> if that was not
@@ -100,8 +97,8 @@ public interface IFreewarInstance {
 	 * Gets the object that manages the skills of the player belonging to this
 	 * instance.
 	 * 
-	 * @return The object that manages the skills of the player belonging to
-	 *         this instance
+	 * @return The object that manages the skills of the player belonging to this
+	 *         instance
 	 */
 	public ISkillManager getSkillManager();
 
@@ -124,21 +121,19 @@ public interface IFreewarInstance {
 	 * <tt>Freewar</tt> due to absence.
 	 * 
 	 * @param stayLoggedIn
-	 *            If true the instance cares of not being automatically logged
-	 *            out. If false it can be logged out by the game due to absence.
+	 *            If true the instance cares of not being automatically logged out.
+	 *            If false it can be logged out by the game due to absence.
 	 */
 	public void setStayLoggedIn(final boolean stayLoggedIn);
 
 	/**
-	 * Shutdowns the instance. This does not necessarily logout from the
-	 * account. After shutdown an instance is invalid and should not be used
-	 * anymore.
+	 * Shutdowns the instance. This does not necessarily logout from the account.
+	 * After shutdown an instance is invalid and should not be used anymore.
 	 * 
 	 * @param doQuitDriver
 	 *            <tt>True</tt> if the browser driver of this instance should be
-	 *            quit at shutdown, <tt>false</tt> if not. If not quit the
-	 *            browser can still be accessed by the user even after API
-	 *            shutdown.
+	 *            quit at shutdown, <tt>false</tt> if not. If not quit the browser
+	 *            can still be accessed by the user even after API shutdown.
 	 */
 	public void shutdown(final boolean doQuitDriver);
 }

@@ -34,8 +34,7 @@ public final class FreewarNetwork extends PathNetwork {
 	 */
 	private final static String MASK_CONTENT_END = "id=\"wpSummaryLabel\"";
 	/**
-	 * Mask which indicates the start of the content in the wiki coordinate
-	 * site.
+	 * Mask which indicates the start of the content in the wiki coordinate site.
 	 */
 	private final static String MASK_CONTENT_START = "id=\"mw-content-text\"";
 	/**
@@ -138,8 +137,8 @@ public final class FreewarNetwork extends PathNetwork {
 	}
 
 	/**
-	 * Creates a walking edge from the given source to the destination, given by
-	 * its direction, if it is existent.
+	 * Creates a walking edge from the given source to the destination, given by its
+	 * direction, if it is existent.
 	 * 
 	 * @param source
 	 *            The Source node
@@ -211,8 +210,8 @@ public final class FreewarNetwork extends PathNetwork {
 	}
 
 	/**
-	 * Adds an edge between the given nodes. The cost of this edge is dependent
-	 * on the given type.
+	 * Adds an edge between the given nodes. The cost of this edge is dependent on
+	 * the given type.
 	 * 
 	 * @param source
 	 *            The source node of the edge
@@ -242,8 +241,8 @@ public final class FreewarNetwork extends PathNetwork {
 	 * 
 	 * @param node
 	 *            The node to add
-	 * @return <tt>True</tt> if the node was added, i.e. was not contained
-	 *         before, <tt>false</tt> otherwise
+	 * @return <tt>True</tt> if the node was added, i.e. was not contained before,
+	 *         <tt>false</tt> otherwise
 	 */
 	public boolean addFreewarNode(final FreewarNode node) {
 		final boolean wasAdded = super.addNode(node);
@@ -410,15 +409,15 @@ public final class FreewarNetwork extends PathNetwork {
 	}
 
 	/**
-	 * Gets the freewar node represented by the given coordinates, if there is
-	 * such a node in the network.
+	 * Gets the freewar node represented by the given coordinates, if there is such
+	 * a node in the network.
 	 * 
 	 * @param xCoordinate
 	 *            The x-coordinate of the nodes position
 	 * @param yCoordinate
 	 *            The y-coordinate of the nodes position
-	 * @return The freewar node represented by the given coordinates, if there
-	 *         is such a node in the network
+	 * @return The freewar node represented by the given coordinates, if there is
+	 *         such a node in the network
 	 */
 	public Optional<FreewarNode> getNodeByCoordinates(final int xCoordinate, final int yCoordinate) {
 		final FreewarNode node = this.mCoordinatesToNode.get(Integer.valueOf(xCoordinate),

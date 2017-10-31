@@ -8,8 +8,8 @@ package de.zabuza.sparkle.freewar.skills;
  */
 public final class Skill {
 	/**
-	 * Constant for a training end time that indicates that the given skill is
-	 * not actively trained.
+	 * Constant for a training end time that indicates that the given skill is not
+	 * actively trained.
 	 */
 	private static final long NO_TRAINING_END_TIME = -1L;
 	/**
@@ -25,8 +25,8 @@ public final class Skill {
 	 */
 	private final String mName;
 	/**
-	 * The timestamp of when the training of this skill ends or a negative value
-	 * if it is not actively trained.
+	 * The timestamp of when the training of this skill ends or a negative value if
+	 * it is not actively trained.
 	 */
 	private final long mTrainingEndTime;
 
@@ -45,8 +45,8 @@ public final class Skill {
 	}
 
 	/**
-	 * Creates a new skill that is actively trained with given name, current
-	 * level and training end timestamp.
+	 * Creates a new skill that is actively trained with given name, current level
+	 * and training end timestamp.
 	 * 
 	 * @param name
 	 *            The name of the skill
@@ -96,8 +96,8 @@ public final class Skill {
 	 * Gets the timestamp of when the training of this skill ends or a negative
 	 * value if it is not actively trained.
 	 * 
-	 * @return The timestamp of when the training of this skill ends or a
-	 *         negative value if it is not actively trained
+	 * @return The timestamp of when the training of this skill ends or a negative
+	 *         value if it is not actively trained
 	 */
 	public long getTrainingEndTime() {
 		return this.mTrainingEndTime;
@@ -116,8 +116,8 @@ public final class Skill {
 	/**
 	 * Whether the level of the skill is maximized or not.
 	 * 
-	 * @return <tt>True</tt> if the level of the skill is maximized,
-	 *         <tt>false</tt> otherwise
+	 * @return <tt>True</tt> if the level of the skill is maximized, <tt>false</tt>
+	 *         otherwise
 	 */
 	public boolean isLevelMaximized() {
 		return this.mLevel >= this.mMaximalLevel;

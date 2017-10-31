@@ -32,8 +32,8 @@ public final class DelayedWebElement implements WebElement {
 	private final IDelayedEventQueue mQueue;
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * an event queue.
+	 * Creates a new instance of this object with a given web element object and an
+	 * event queue.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for delayed event execution
@@ -134,8 +134,7 @@ public final class DelayedWebElement implements WebElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
+	 * @see org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
 	 * OutputType)
 	 */
 	@Override

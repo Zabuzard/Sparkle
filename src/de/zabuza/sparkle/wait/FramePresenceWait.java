@@ -11,8 +11,8 @@ import org.openqa.selenium.WebDriver;
  */
 public final class FramePresenceWait extends NamePresenceWait {
 	/**
-	 * Creates a new instance of this object using a given web driver and a
-	 * frame name.
+	 * Creates a new instance of this object using a given web driver and a frame
+	 * name.
 	 * 
 	 * @param driver
 	 *            Driver to use for waiting

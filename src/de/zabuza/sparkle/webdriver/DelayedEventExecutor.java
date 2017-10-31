@@ -30,8 +30,8 @@ import de.zabuza.sparkle.webdriver.event.IDelayableEvent;
 public final class DelayedEventExecutor extends Thread implements IDelayedEventQueue {
 
 	/**
-	 * The standard deviation of the normal distribution function. Thus about
-	 * 75% of all delays are between {@link #RND_DELAY_MIN} and this value.
+	 * The standard deviation of the normal distribution function. Thus about 75% of
+	 * all delays are between {@link #RND_DELAY_MIN} and this value.
 	 */
 	private final static long RND_DELAY_AVERAGE = 1_500;
 	/**
@@ -67,10 +67,10 @@ public final class DelayedEventExecutor extends Thread implements IDelayedEventQ
 
 	/**
 	 * Creates a new delayed event executor. It can be started using
-	 * {@link #start()} and stopped using {@link #stopExecution()}. Once
-	 * stopped, it should not be used again. Events can be added using
-	 * {@link #addEvent(IDelayableEvent)}, the executor will delayedly execute
-	 * added events.
+	 * {@link #start()} and stopped using {@link #stopExecution()}. Once stopped, it
+	 * should not be used again. Events can be added using
+	 * {@link #addEvent(IDelayableEvent)}, the executor will delayedly execute added
+	 * events.
 	 */
 	public DelayedEventExecutor() {
 		this.mRnd = new Random();

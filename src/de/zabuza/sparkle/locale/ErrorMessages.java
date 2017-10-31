@@ -22,8 +22,8 @@ public final class ErrorMessages {
 	 */
 	public static final String BLUE_SPHERE_COORDINATES_ILLEGAL = "The given coordinates do not correspond to a blue sphere teleportation destination.";
 	/**
-	 * Thrown when an illegal blue sphere teleportation destination was given
-	 * that is not supported by the given method in {@link MagicSphere}.
+	 * Thrown when an illegal blue sphere teleportation destination was given that
+	 * is not supported by the given method in {@link MagicSphere}.
 	 */
 	public static final String BLUE_SPHERE_DESTINATION_ILLEGAL = "The given blue sphere teleportation destination is not supported by this method.";
 	/**
@@ -36,8 +36,7 @@ public final class ErrorMessages {
 	 */
 	public final static String COST_MOVE_TYPE_ILLEGAL = "The given cost is not supported by this method.";
 	/**
-	 * Thrown when a {@link DelayedEventExecutor} gets interrupted while
-	 * sleeping.
+	 * Thrown when a {@link DelayedEventExecutor} gets interrupted while sleeping.
 	 */
 	public static final String DELAYED_EVENT_EXECUTOR_INTERRUPTED = "The delayed event executor was interrupted while sleeping.";
 	/**
@@ -46,8 +45,8 @@ public final class ErrorMessages {
 	 */
 	public final static String MOVE_TYPE_COST_ILLEGAL = "The given move type is not supported by this method.";
 	/**
-	 * Thrown when trying to execute the movement for a given unsupported move
-	 * type in {@link NetworkUtil}.
+	 * Thrown when trying to execute the movement for a given unsupported move type
+	 * in {@link NetworkUtil}.
 	 */
 	public final static String MOVE_TYPE_EXECUTION_ILLEGAL = "The given move type or situation is not supported by this method.";
 	/**
@@ -56,8 +55,7 @@ public final class ErrorMessages {
 	 */
 	public static final String STALE_REFRESHER_STALED_STATE_NOT_SOLVED = "Element is in a staled state. Could not resolve the issue.";
 	/**
-	 * Thrown when a {@link StayLoggedInService} gets interrupted while
-	 * sleeping.
+	 * Thrown when a {@link StayLoggedInService} gets interrupted while sleeping.
 	 */
 	public static final String STAY_LOGGED_IN_SERVICE_INTERRUPTED = "The stay logged in service was interrupted while sleeping.";
 

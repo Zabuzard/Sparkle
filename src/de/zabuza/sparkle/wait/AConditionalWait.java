@@ -18,8 +18,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public abstract class AConditionalWait<V> {
 	/**
-	 * Default time out the object waits for a condition to resolve to
-	 * <tt>true</tt> until a {@link TimeoutException} is thrown.
+	 * Default time out the object waits for a condition to resolve to <tt>true</tt>
+	 * until a {@link TimeoutException} is thrown.
 	 */
 	protected static final int STANDARD_TIMEOUT = 6;
 
@@ -29,8 +29,8 @@ public abstract class AConditionalWait<V> {
 	private final WebDriverWait mWait;
 
 	/**
-	 * Creates a new conditional wait object that uses a given web driver and
-	 * the default timeout of {@link #STANDARD_TIMEOUT}.
+	 * Creates a new conditional wait object that uses a given web driver and the
+	 * default timeout of {@link #STANDARD_TIMEOUT}.
 	 * 
 	 * @param driver
 	 *            Web driver to use for waiting
@@ -54,8 +54,8 @@ public abstract class AConditionalWait<V> {
 	}
 
 	/**
-	 * Waits for the condition given by {@link #getCondition()} and returns as
-	 * soon as it resolves to <tt>true</tt>.
+	 * Waits for the condition given by {@link #getCondition()} and returns as soon
+	 * as it resolves to <tt>true</tt>.
 	 * 
 	 * @return The object specified by {@link ExpectedCondition}.
 	 */

@@ -14,31 +14,31 @@ public interface ISkillManager {
 	/**
 	 * Aborts the training of the skill that is currently active.
 	 * 
-	 * @return <tt>True</tt> if the training was aborted or <tt>false</tt> if
-	 *         not, for example if there was no training active
+	 * @return <tt>True</tt> if the training was aborted or <tt>false</tt> if not,
+	 *         for example if there was no training active
 	 */
 	public boolean abortTrainingOfSkill();
 
 	/**
-	 * Tries to activate the special skill of the player. The method only
-	 * supports special skills of races that do not need any further arguments.
+	 * Tries to activate the special skill of the player. The method only supports
+	 * special skills of races that do not need any further arguments.
 	 * 
-	 * @return <tt>True</tt> if the special skill was activated, <tt>false</tt>
-	 *         if it could not be activated.
+	 * @return <tt>True</tt> if the special skill was activated, <tt>false</tt> if
+	 *         it could not be activated.
 	 */
 	public boolean activateSpecialSkill();
 
 	/**
-	 * Closes the skill menu if not already closed. It ensures that previous
-	 * queued events are processed before closing the menu.
+	 * Closes the skill menu if not already closed. It ensures that previous queued
+	 * events are processed before closing the menu.
 	 */
 	public void closeSkillMenu();
 
 	/**
 	 * Gets the skill that is currently trained by the player.
 	 * 
-	 * @return The skill that is currently trained by the player or
-	 *         <tt>null</tt> if there is no.
+	 * @return The skill that is currently trained by the player or <tt>null</tt> if
+	 *         there is no.
 	 */
 	public Skill getCurrentlyTrainedSkill();
 
@@ -52,15 +52,13 @@ public interface ISkillManager {
 	/**
 	 * Whether the skill menu is opened or not.
 	 * 
-	 * @return <tt>True</tt> if the skill menu is opened, <tt>false</tt>
-	 *         otherwise
+	 * @return <tt>True</tt> if the skill menu is opened, <tt>false</tt> otherwise
 	 */
 	public boolean isSkillMenuOpened();
 
 	/**
-	 * Opens the skill menu and waits until it is loaded if not already opened.
-	 * It ensures that previous queued events are processed before opening the
-	 * menu.
+	 * Opens the skill menu and waits until it is loaded if not already opened. It
+	 * ensures that previous queued events are processed before opening the menu.
 	 */
 	public void openSkillMenu();
 
@@ -69,9 +67,9 @@ public interface ISkillManager {
 	 * 
 	 * @param skillName
 	 *            The name of the skill to train
-	 * @return <tt>True</tt> if the training was started or <tt>false</tt> if
-	 *         not, for example if the player does not know a skill with the
-	 *         given name or if there is already a training active
+	 * @return <tt>True</tt> if the training was started or <tt>false</tt> if not,
+	 *         for example if the player does not know a skill with the given name
+	 *         or if there is already a training active
 	 */
 	public boolean startTrainingOfSkill(final String skillName);
 }

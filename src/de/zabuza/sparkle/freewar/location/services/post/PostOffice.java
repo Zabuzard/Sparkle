@@ -24,18 +24,18 @@ import de.zabuza.sparkle.wait.EventQueueEmptyWait;
 public final class PostOffice implements ILocationService {
 
 	/**
-	 * Needle that matches the anchor that aborts the letter writing process if
-	 * the receiver is inexistent.
+	 * Needle that matches the anchor that aborts the letter writing process if the
+	 * receiver is inexistent.
 	 */
 	private final static String ANCHOR_NEEDLE_RECEIVER_INEXISTENT_ABORT = "Zur";
 	/**
-	 * Needle that matches the anchor that finishes the letter writing process
-	 * if it was successful.
+	 * Needle that matches the anchor that finishes the letter writing process if it
+	 * was successful.
 	 */
 	private final static String ANCHOR_NEEDLE_SUCCESSFUL_FINISH = "Weiter";
 	/**
-	 * Needle that matches the text of the anchor which starts the letter
-	 * writing process.
+	 * Needle that matches the text of the anchor which starts the letter writing
+	 * process.
 	 */
 	private final static String ANCHOR_NEEDLE_WRITE_LETTER = "Einen Brief schreiben";
 	/**
@@ -91,8 +91,7 @@ public final class PostOffice implements ILocationService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * de.zabuza.sparkle.freewar.location.services.ILocationService#getPosition(
-	 * )
+	 * de.zabuza.sparkle.freewar.location.services.ILocationService#getPosition( )
 	 */
 	@Override
 	public Point getPosition() {
@@ -106,8 +105,8 @@ public final class PostOffice implements ILocationService {
 	 *            The receiving player of the letter
 	 * @param message
 	 *            The message to send with the letter
-	 * @return If not present the action was successful, if present it contains
-	 *         the error code
+	 * @return If not present the action was successful, if present it contains the
+	 *         error code
 	 */
 	public Optional<EErrorCode> writeLetter(final String receiver, final String message) {
 		final int gold = this.mInstance.getPlayer().getGold();

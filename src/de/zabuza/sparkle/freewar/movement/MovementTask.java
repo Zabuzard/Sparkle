@@ -32,11 +32,10 @@ public final class MovementTask extends Thread {
 	private static final long MOVE_WAITING_TIMEOUT = 500;
 
 	/**
-	 * Creates and returns an instance of a task which is cancelled and has
-	 * already terminated.
+	 * Creates and returns an instance of a task which is cancelled and has already
+	 * terminated.
 	 * 
-	 * @return An instance of a task which is cancelled and has already
-	 *         terminated
+	 * @return An instance of a task which is cancelled and has already terminated
 	 */
 	public static MovementTask createCanceledTask() {
 		if (canceledTaskInstance == null) {
@@ -68,8 +67,8 @@ public final class MovementTask extends Thread {
 	 */
 	private final Path mPath;
 	/**
-	 * Whether the task was canceled, if not and the task has terminated then it
-	 * was successful.
+	 * Whether the task was canceled, if not and the task has terminated then it was
+	 * successful.
 	 */
 	private boolean mWasCanceled;
 
@@ -106,8 +105,7 @@ public final class MovementTask extends Thread {
 	/**
 	 * Returns whether the task has terminated.
 	 * 
-	 * @return <tt>True</tt> if the task has terminated, <tt>false</tt>
-	 *         otherwise
+	 * @return <tt>True</tt> if the task has terminated, <tt>false</tt> otherwise
 	 */
 	public boolean hasTerminated() {
 		return this.mHasTerminated;
@@ -164,8 +162,8 @@ public final class MovementTask extends Thread {
 	}
 
 	/**
-	 * Returns whether the task was canceled. If it was not canceled but
-	 * terminated, then the task was successful.
+	 * Returns whether the task was canceled. If it was not canceled but terminated,
+	 * then the task was successful.
 	 * 
 	 * @return <tt>True</tt> if the task was canceled, <tt>false</tt> otherwise
 	 */

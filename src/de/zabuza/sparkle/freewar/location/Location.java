@@ -72,8 +72,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#chaseNPC(java.lang.String)
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#chaseNPC(java.lang.String)
 	 */
 	@Override
 	public boolean chaseNPC(final String npcName) {
@@ -83,8 +82,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#fastAttackNPC(java.lang.
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#fastAttackNPC(java.lang.
 	 * String)
 	 */
 	@Override
@@ -166,8 +164,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#hasNPC(java.lang.String)
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#hasNPC(java.lang.String)
 	 */
 	@Override
 	public boolean hasNPC(final String npcName) {
@@ -198,8 +195,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#registerService(java.awt.
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#registerService(java.awt.
 	 * Point, java.lang.Class)
 	 */
 	@Override
@@ -216,8 +212,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#regularAttackNPC(java.lang
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#regularAttackNPC(java.lang
 	 * .String)
 	 */
 	@Override
@@ -236,8 +231,7 @@ public final class Location implements ILocation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.location.ILocation#singleAttackNPC(java.lang
+	 * @see de.zabuza.sparkle.freewar.location.ILocation#singleAttackNPC(java.lang
 	 * .String)
 	 */
 	@Override
@@ -260,8 +254,8 @@ public final class Location implements ILocation {
 	 * @param npcName
 	 *            The name of the NPC
 	 * @return <tt>True</tt> if the attack window for the NPC could be opened,
-	 *         <tt>false</tt> if not. Later can occur if for example the NPC is
-	 *         not present on this location.
+	 *         <tt>false</tt> if not. Later can occur if for example the NPC is not
+	 *         present on this location.
 	 */
 	private boolean attackNPC(final String npcName) {
 		return doNPCAction(npcName, XPaths.MAIN_LOCATION_NPC_ACTION_ATTACK);
@@ -274,9 +268,9 @@ public final class Location implements ILocation {
 	 *            The name of the NPC
 	 * @param xPathNPCAction
 	 *            Selector of the action to perform as xPath
-	 * @return <tt>True</tt> if the action was performed, <tt>false</tt> if it
-	 *         could not be performed. Later can occur if for example the NPC
-	 *         was not present on this location.
+	 * @return <tt>True</tt> if the action was performed, <tt>false</tt> if it could
+	 *         not be performed. Later can occur if for example the NPC was not
+	 *         present on this location.
 	 */
 	private boolean doNPCAction(final String npcName, final String xPathNPCAction) {
 		if (!hasNPC(npcName)) {
@@ -313,18 +307,16 @@ public final class Location implements ILocation {
 	}
 
 	/**
-	 * Switches to the main frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the main frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToMainFrame() {
 		this.mFrameManager.switchToFrame(EFrame.MAIN);
 	}
 
 	/**
-	 * Switches to the map frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the map frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToMapFrame() {
 		this.mFrameManager.switchToFrame(EFrame.MAP);

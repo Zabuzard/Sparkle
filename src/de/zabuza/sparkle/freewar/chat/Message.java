@@ -170,8 +170,7 @@ public final class Message {
 	/**
 	 * Whether the message has a receiver or not.
 	 * 
-	 * @return <tt>True</tt> if the message has a receiver, <tt>false</tt> if
-	 *         not
+	 * @return <tt>True</tt> if the message has a receiver, <tt>false</tt> if not
 	 */
 	public boolean hasReceiver() {
 		return this.mReceiver != null;

@@ -57,8 +57,8 @@ public final class Sparkle implements IFreewarAPI {
 	 */
 	private DesiredCapabilities mCapabilities;
 	/**
-	 * If the API should automatically delay events to disguise usage of a bot
-	 * for <tt>Freewar.de</tt>.
+	 * If the API should automatically delay events to disguise usage of a bot for
+	 * <tt>Freewar.de</tt>.
 	 */
 	private final boolean mDelayEvents;
 	/**
@@ -71,8 +71,7 @@ public final class Sparkle implements IFreewarAPI {
 
 	/**
 	 * Creates a new API that uses the browser <tt>Firefox</tt> by default. It
-	 * automatically delays events to disguise usage of a bot for
-	 * <tt>Freewar</tt>.
+	 * automatically delays events to disguise usage of a bot for <tt>Freewar</tt>.
 	 */
 	public Sparkle() {
 		this(EBrowser.FIREFOX, true);
@@ -90,15 +89,15 @@ public final class Sparkle implements IFreewarAPI {
 	}
 
 	/**
-	 * Creates a new API that uses a given browser by default. It can be set if
-	 * the API should automatically delays events to disguise usage of a bot for
+	 * Creates a new API that uses a given browser by default. It can be set if the
+	 * API should automatically delays events to disguise usage of a bot for
 	 * <tt>Freewar</tt>.
 	 * 
 	 * @param browser
 	 *            Browser to use as default
 	 * @param delayEvents
-	 *            If the API should automatically delay events to disguise usage
-	 *            of a bot for <tt>Freewar</tt>.
+	 *            If the API should automatically delay events to disguise usage of
+	 *            a bot for <tt>Freewar</tt>.
 	 */
 	public Sparkle(final EBrowser browser, final boolean delayEvents) {
 		this.mBrowser = browser;
@@ -277,8 +276,8 @@ public final class Sparkle implements IFreewarAPI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.zabuza.sparkle.IFreewarAPI#login(java.lang.String,
-	 * java.lang.String, de.zabuza.sparkle.freewar.EWorld)
+	 * @see de.zabuza.sparkle.IFreewarAPI#login(java.lang.String, java.lang.String,
+	 * de.zabuza.sparkle.freewar.EWorld)
 	 */
 	@Override
 	public IFreewarInstance login(final String username, final String password, final EWorld world) {
@@ -378,8 +377,7 @@ public final class Sparkle implements IFreewarAPI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.IFreewarAPI#setBrowser(de.zabuza.sparkle.webdriver.
+	 * @see de.zabuza.sparkle.IFreewarAPI#setBrowser(de.zabuza.sparkle.webdriver.
 	 * EBrowser)
 	 */
 	@Override
@@ -412,10 +410,10 @@ public final class Sparkle implements IFreewarAPI {
 
 	/**
 	 * Creates a {@link WebDriver} that uses the given browser. If a capability
-	 * object was set using {@link #setCapabilities(DesiredCapabilities)} then
-	 * it will also be passed to the created browser. If {@link #mDelayEvents}
-	 * is set to <tt>true</tt>, the resulting driver will automatically delay
-	 * events to disguise usage of a bot for <tt>Freewar</tt>.
+	 * object was set using {@link #setCapabilities(DesiredCapabilities)} then it
+	 * will also be passed to the created browser. If {@link #mDelayEvents} is set
+	 * to <tt>true</tt>, the resulting driver will automatically delay events to
+	 * disguise usage of a bot for <tt>Freewar</tt>.
 	 * 
 	 * @param browser
 	 *            Browser to use for the driver
@@ -479,18 +477,17 @@ public final class Sparkle implements IFreewarAPI {
 	}
 
 	/**
-	 * Shutdowns a given instance and remove it from the internal list of
-	 * instances. By shutting down an instance, it does not get logged out
-	 * automatically. If wished, call it before shutting down. After shutdown,
-	 * an instance is invalid and should not be used anymore.
+	 * Shutdowns a given instance and remove it from the internal list of instances.
+	 * By shutting down an instance, it does not get logged out automatically. If
+	 * wished, call it before shutting down. After shutdown, an instance is invalid
+	 * and should not be used anymore.
 	 * 
 	 * @param instance
 	 *            Instance to shutdown
 	 * @param doQuitDriver
 	 *            <tt>True</tt> if the browser driver of this instance should be
-	 *            quit at shutdown, <tt>false</tt> if not. If not quit the
-	 *            browser can still be accessed by the user even after API
-	 *            shutdown.
+	 *            quit at shutdown, <tt>false</tt> if not. If not quit the browser
+	 *            can still be accessed by the user even after API shutdown.
 	 * 
 	 */
 	private void shutdownInstance(final IFreewarInstance instance, final boolean doQuitDriver) {

@@ -27,17 +27,17 @@ public interface IInventory {
 	 * 
 	 * @param item
 	 *            The name of the item to activate
-	 * @return <tt>True</tt> if the item was activated, <tt>false</tt> if it
-	 *         could not be activated.
+	 * @return <tt>True</tt> if the item was activated, <tt>false</tt> if it could
+	 *         not be activated.
 	 */
 	public boolean activateItem(final String item);
 
 	/**
-	 * Tries to close the inventory, if not already closed. The inventory can
-	 * not be closed if the player only has few items.
+	 * Tries to close the inventory, if not already closed. The inventory can not be
+	 * closed if the player only has few items.
 	 * 
-	 * @return <tt>True</tt> If the inventory is closed after calling the
-	 *         method, <tt>false</tt> if the inventory remains opened.
+	 * @return <tt>True</tt> If the inventory is closed after calling the method,
+	 *         <tt>false</tt> if the inventory remains opened.
 	 */
 	public boolean closeInventory();
 
@@ -60,16 +60,16 @@ public interface IInventory {
 	public String[] getItems();
 
 	/**
-	 * Gets the {@link IItemService} that is registered for the given item.
-	 * Services can be registered using {@link #registerService(String, Class)}.
+	 * Gets the {@link IItemService} that is registered for the given item. Services
+	 * can be registered using {@link #registerService(String, Class)}.
 	 * 
 	 * @param itemName
 	 *            The name of the item to get the registered service for
-	 * @return If present, the {@link IItemService} that is registered for the
-	 *         given item. If not, there is no service registered.
+	 * @return If present, the {@link IItemService} that is registered for the given
+	 *         item. If not, there is no service registered.
 	 * @throws IllegalStateException
-	 *             If the registered service is non valid and does not declare
-	 *             an appropriate constructor as defined in
+	 *             If the registered service is non valid and does not declare an
+	 *             appropriate constructor as defined in
 	 *             {@link #registerService(String, Class)}.
 	 */
 	public Optional<IItemService> getService(final String itemName) throws IllegalStateException;
@@ -85,8 +85,8 @@ public interface IInventory {
 	public boolean hasItem(final String item);
 
 	/**
-	 * If there is a {@link IItemService} registered for the given item.
-	 * Services can be registered using {@link #registerService(String, Class)}.
+	 * If there is a {@link IItemService} registered for the given item. Services
+	 * can be registered using {@link #registerService(String, Class)}.
 	 * 
 	 * @param itemName
 	 *            The name of the item in question
@@ -98,8 +98,8 @@ public interface IInventory {
 	/**
 	 * Returns whether the inventory currently is opened.
 	 * 
-	 * @return <tt>True</tt> if the inventory currently is opened,
-	 *         <tt>false</tt> if closed.
+	 * @return <tt>True</tt> if the inventory currently is opened, <tt>false</tt> if
+	 *         closed.
 	 */
 	public boolean isInventoryOpened();
 
@@ -110,21 +110,20 @@ public interface IInventory {
 
 	/**
 	 * Registers the given service for the given item. It can be accessed by
-	 * {@link #getService(String)}. The framework will automatically build
-	 * instances of services on demand. For this each implementing class must
-	 * have a public constructor with arguments {@link String},
-	 * {@link IFreewarInstance}, {@link WebDriver} and {@link IFrameManager}.
-	 * The framework will use this constructor and provide all those parameters
-	 * to the class. If there was already a service registered to the given item
-	 * it will be overridden.
+	 * {@link #getService(String)}. The framework will automatically build instances
+	 * of services on demand. For this each implementing class must have a public
+	 * constructor with arguments {@link String}, {@link IFreewarInstance},
+	 * {@link WebDriver} and {@link IFrameManager}. The framework will use this
+	 * constructor and provide all those parameters to the class. If there was
+	 * already a service registered to the given item it will be overridden.
 	 * 
 	 * @param itemName
 	 *            The name of the item to register the service for
 	 * @param service
 	 *            The class of the service to register for the given item
 	 * @throws IllegalArgumentException
-	 *             If the service to register is non valid and does not declare
-	 *             an appropriate constructor
+	 *             If the service to register is non valid and does not declare an
+	 *             appropriate constructor
 	 */
 	public void registerService(final String itemName, final Class<? extends IItemService> service)
 			throws IllegalArgumentException;

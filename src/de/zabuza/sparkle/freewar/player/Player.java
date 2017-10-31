@@ -250,9 +250,8 @@ public final class Player implements IPlayer {
 	}
 
 	/**
-	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the item frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToItemFrame() {
 		this.mFrameManager.switchToFrame(EFrame.ITEM);

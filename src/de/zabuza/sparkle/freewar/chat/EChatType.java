@@ -9,8 +9,8 @@ package de.zabuza.sparkle.freewar.chat;
  */
 public enum EChatType {
 	/**
-	 * The clan chat channel which is used for messages only visible to players
-	 * of the same clan.
+	 * The clan chat channel which is used for messages only visible to players of
+	 * the same clan.
 	 */
 	CLAN,
 	/**
@@ -19,33 +19,33 @@ public enum EChatType {
 	 */
 	DIRECT,
 	/**
-	 * The global chat channel which is used for messages visible to players
-	 * across all worlds.
+	 * The global chat channel which is used for messages visible to players across
+	 * all worlds.
 	 */
 	GLOBAL,
 	/**
-	 * The group chat channel which is used for messages only visible to players
-	 * of the same group.
+	 * The group chat channel which is used for messages only visible to players of
+	 * the same group.
 	 */
 	GROUP,
 	/**
-	 * The info-say chat channel which is used for messages visible to players
-	 * on the whole world, usually used for commercial messages.
+	 * The info-say chat channel which is used for messages visible to players on
+	 * the whole world, usually used for commercial messages.
 	 */
 	INFO,
 	/**
-	 * The scream chat channel which is used for messages visible to players on
-	 * the whole world.
+	 * The scream chat channel which is used for messages visible to players on the
+	 * whole world.
 	 */
 	SCREAM,
 	/**
-	 * The whisper chat channel which is used for messages visible to the
-	 * receiving player.
+	 * The whisper chat channel which is used for messages visible to the receiving
+	 * player.
 	 */
 	WHISPER,
 	/**
-	 * The world-say chat channel which is used for messages visible to players
-	 * on the whole world, usually used for moderator messages.
+	 * The world-say chat channel which is used for messages visible to players on
+	 * the whole world, usually used for moderator messages.
 	 */
 	WORLDSAY
 }

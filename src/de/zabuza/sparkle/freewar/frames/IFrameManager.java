@@ -9,9 +9,8 @@ package de.zabuza.sparkle.freewar.frames;
  */
 public interface IFrameManager {
 	/**
-	 * Switches to the given frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the given frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 * 
 	 * @param frame
 	 *            The type of the frame to switch to

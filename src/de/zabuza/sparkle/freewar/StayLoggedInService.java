@@ -30,10 +30,9 @@ public final class StayLoggedInService extends Thread {
 
 	/**
 	 * Creates a new service that takes care of the given instance not being
-	 * automatically logged out by <tt>Freewar</tt> due to absence. The service
-	 * can be started using {@link #start()} and stopped using
-	 * {@link #stopExecution()}. After stopping, the service is invalid and
-	 * should not be used anymore.
+	 * automatically logged out by <tt>Freewar</tt> due to absence. The service can
+	 * be started using {@link #start()} and stopped using {@link #stopExecution()}.
+	 * After stopping, the service is invalid and should not be used anymore.
 	 * 
 	 * @param instance
 	 *            Instance the service takes care of

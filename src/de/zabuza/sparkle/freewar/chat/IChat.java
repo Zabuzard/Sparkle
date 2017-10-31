@@ -14,8 +14,7 @@ public interface IChat {
 	/**
 	 * Focuses the chat input element.
 	 * 
-	 * @return <tt>True</tt> if the action was successful, <tt>false</tt> if
-	 *         not.
+	 * @return <tt>True</tt> if the action was successful, <tt>false</tt> if not.
 	 */
 	public boolean focusChatInput();
 
@@ -29,14 +28,13 @@ public interface IChat {
 	public ArrayList<Message> getMessages();
 
 	/**
-	 * Gets all messages of the chat given by its type in time ascending order.
-	 * That is the latest message first. The collection type is an
-	 * {@link ArrayList} which allows a fast get access if needed.
+	 * Gets all messages of the chat given by its type in time ascending order. That
+	 * is the latest message first. The collection type is an {@link ArrayList}
+	 * which allows a fast get access if needed.
 	 * 
 	 * @param chatType
 	 *            The type of the chat to get messages of
-	 * @return All messages of the chat given by its type in time ascending
-	 *         order
+	 * @return All messages of the chat given by its type in time ascending order
 	 */
 	public ArrayList<Message> getMessages(final EChatType chatType);
 

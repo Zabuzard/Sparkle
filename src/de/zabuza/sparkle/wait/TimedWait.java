@@ -18,8 +18,8 @@ public class TimedWait extends AConditionalWait<Boolean> {
 	 */
 	private static final int SECONDS_TO_MILLIS = 1000;
 	/**
-	 * Offset to the given time period, for which the condition should wait to
-	 * pass, when a {@TimeoutException} should be thrown.
+	 * Offset to the given time period, for which the condition should wait to pass,
+	 * when a {@TimeoutException} should be thrown.
 	 */
 	private static final int TIMEOUT_OFFSET = 2;
 

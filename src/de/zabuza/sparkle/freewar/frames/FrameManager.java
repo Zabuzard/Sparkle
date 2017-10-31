@@ -34,8 +34,7 @@ public final class FrameManager implements IFrameManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.frames.IFrameManager#switchToFrame(de.zabuza
+	 * @see de.zabuza.sparkle.freewar.frames.IFrameManager#switchToFrame(de.zabuza
 	 * .sparkle.freewar.frames.EFrame)
 	 */
 	@Override
@@ -67,9 +66,8 @@ public final class FrameManager implements IFrameManager {
 	}
 
 	/**
-	 * Switches to the given frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the given frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 * 
 	 * @param frameName
 	 *            The name of the frame to switch to

@@ -28,8 +28,8 @@ public class DelayedNavigation implements Navigation {
 	private final IDelayedEventQueue mQueue;
 
 	/**
-	 * Creates a new instance of this object with a given navigation object and
-	 * an event queue.
+	 * Creates a new instance of this object with a given navigation object and an
+	 * event queue.
 	 * 
 	 * @param navigation
 	 *            Navigation object to wrap for delayed event execution

@@ -94,8 +94,7 @@ public final class Chat implements IChat {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.zabuza.sparkle.freewar.chat.IChat#getChat(de.zabuza.sparkle.freewar.
+	 * @see de.zabuza.sparkle.freewar.chat.IChat#getChat(de.zabuza.sparkle.freewar.
 	 * chat.EChatType)
 	 */
 	@Override
@@ -292,8 +291,8 @@ public final class Chat implements IChat {
 
 	/**
 	 * Gets all messages of the chat that matches the given selector in time
-	 * ascending order. That is the latest message first. The collection type is
-	 * an {@link ArrayList} which allows a fast get access if needed.
+	 * ascending order. That is the latest message first. The collection type is an
+	 * {@link ArrayList} which allows a fast get access if needed.
 	 * 
 	 * @param cssSelector
 	 *            The CSS selector to match the messages to get
@@ -351,8 +350,8 @@ public final class Chat implements IChat {
 
 	/**
 	 * Switches to the chat form frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * loaded. It ensures that previous queued events are processed before switching
+	 * frames.
 	 */
 	private void switchToChatFormFrame() {
 		this.mFrameManager.switchToFrame(EFrame.CHAT_FORM);
@@ -360,8 +359,8 @@ public final class Chat implements IChat {
 
 	/**
 	 * Switches to the chat text frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * loaded. It ensures that previous queued events are processed before switching
+	 * frames.
 	 */
 	private void switchToChatTextFrame() {
 		this.mFrameManager.switchToFrame(EFrame.CHAT_TEXT);

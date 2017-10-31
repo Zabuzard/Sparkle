@@ -26,8 +26,8 @@ public class LinkTextPresenceWait extends AConditionalWait<WebElement> {
 	 * @param driver
 	 *            Driver to use for waiting
 	 * @param partialLinkText
-	 *            Partial link text that corresponds to the element to wait for
-	 *            its presence
+	 *            Partial link text that corresponds to the element to wait for its
+	 *            presence
 	 */
 	public LinkTextPresenceWait(final WebDriver driver, final String partialLinkText) {
 		super(driver);

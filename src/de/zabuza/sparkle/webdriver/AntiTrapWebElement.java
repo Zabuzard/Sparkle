@@ -128,8 +128,7 @@ public final class AntiTrapWebElement implements WebElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
+	 * @see org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
 	 * OutputType)
 	 */
 	@Override

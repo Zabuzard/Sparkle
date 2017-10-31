@@ -25,8 +25,8 @@ public final class GetEvent implements IDelayableEvent {
 	 * Creates a new instance of this object using a given web driver and URL.
 	 * 
 	 * @param driver
-	 *            Driver to use for the get request, should not be an instance
-	 *            of {@link de.zabuza.sparkle.webdriver.DelayedWebDriver
+	 *            Driver to use for the get request, should not be an instance of
+	 *            {@link de.zabuza.sparkle.webdriver.DelayedWebDriver
 	 *            DelayedWebDriver}.
 	 * @param url
 	 *            URL to get

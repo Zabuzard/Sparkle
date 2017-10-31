@@ -35,8 +35,8 @@ import de.zabuza.sparkle.wait.EventQueueEmptyWait;
  */
 public final class Movement implements IMovement {
 	/**
-	 * Timeout in milliseconds to wait for the move waiting method cycle to
-	 * check its condition.
+	 * Timeout in milliseconds to wait for the move waiting method cycle to check
+	 * its condition.
 	 */
 	private static final long MOVE_WAITING_TIMEOUT = 500;
 
@@ -266,9 +266,8 @@ public final class Movement implements IMovement {
 	}
 
 	/**
-	 * Switches to the map frame of <tt>Freewar</tt> and waits until it is
-	 * loaded. It ensures that previous queued events are processed before
-	 * switching frames.
+	 * Switches to the map frame of <tt>Freewar</tt> and waits until it is loaded.
+	 * It ensures that previous queued events are processed before switching frames.
 	 */
 	private void switchToMapFrame() {
 		this.mFrameManager.switchToFrame(EFrame.MAP);

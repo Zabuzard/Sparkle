@@ -45,8 +45,8 @@ public final class StaleRefresherWebElement implements WebElement {
 	 */
 	private final String mElementTag;
 	/**
-	 * The position of this element if it occurs in a list of elements, a
-	 * negative value else.
+	 * The position of this element if it occurs in a list of elements, a negative
+	 * value else.
 	 */
 	private final int mIndex;
 	/**
@@ -56,41 +56,41 @@ public final class StaleRefresherWebElement implements WebElement {
 	private final WebDriver mParentAsDriver;
 
 	/**
-	 * The parent element of this element as element if used in its context,
-	 * null else.
+	 * The parent element of this element as element if used in its context, null
+	 * else.
 	 */
 	private final WebElement mParentAsElement;
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * its {@link By}-context.
+	 * Creates a new instance of this object with a given web element object and its
+	 * {@link By}-context.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for staled state handling
 	 * @param context
 	 *            Context of the element to find itself again if staled
 	 * @param parent
-	 *            The parent element of this element if used in its context,
-	 *            null else.
+	 *            The parent element of this element if used in its context, null
+	 *            else.
 	 */
 	public StaleRefresherWebElement(final WebElement element, final By context, final WebDriver parent) {
 		this(element, context, parent, null, -1);
 	}
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * its {@link By}-context.
+	 * Creates a new instance of this object with a given web element object and its
+	 * {@link By}-context.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for staled state handling
 	 * @param context
 	 *            Context of the element to find itself again if staled
 	 * @param parent
-	 *            The parent element of this element if used in its context,
-	 *            null else.
+	 *            The parent element of this element if used in its context, null
+	 *            else.
 	 * @param index
-	 *            The position of this element if it occurs in a list of
-	 *            elements, a negative value else.
+	 *            The position of this element if it occurs in a list of elements, a
+	 *            negative value else.
 	 */
 	public StaleRefresherWebElement(final WebElement element, final By context, final WebDriver parent,
 			final int index) {
@@ -98,35 +98,35 @@ public final class StaleRefresherWebElement implements WebElement {
 	}
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * its {@link By}-context.
+	 * Creates a new instance of this object with a given web element object and its
+	 * {@link By}-context.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for staled state handling
 	 * @param context
 	 *            Context of the element to find itself again if staled
 	 * @param parent
-	 *            The parent element of this element if used in its context,
-	 *            null else.
+	 *            The parent element of this element if used in its context, null
+	 *            else.
 	 */
 	public StaleRefresherWebElement(final WebElement element, final By context, final WebElement parent) {
 		this(element, context, null, parent, -1);
 	}
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * its {@link By}-context.
+	 * Creates a new instance of this object with a given web element object and its
+	 * {@link By}-context.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for staled state handling
 	 * @param context
 	 *            Context of the element to find itself again if staled
 	 * @param parent
-	 *            The parent element of this element if used in its context,
-	 *            null else.
+	 *            The parent element of this element if used in its context, null
+	 *            else.
 	 * @param index
-	 *            The position of this element if it occurs in a list of
-	 *            elements, a negative value else.
+	 *            The position of this element if it occurs in a list of elements, a
+	 *            negative value else.
 	 */
 	public StaleRefresherWebElement(final WebElement element, final By context, final WebElement parent,
 			final int index) {
@@ -134,8 +134,8 @@ public final class StaleRefresherWebElement implements WebElement {
 	}
 
 	/**
-	 * Creates a new instance of this object with a given web element object and
-	 * its {@link By}-context.
+	 * Creates a new instance of this object with a given web element object and its
+	 * {@link By}-context.
 	 * 
 	 * @param element
 	 *            Web element object to wrap for staled state handling
@@ -148,8 +148,8 @@ public final class StaleRefresherWebElement implements WebElement {
 	 *            The parent element of this element as element if used in its
 	 *            context, null else.
 	 * @param index
-	 *            The position of this element if it occurs in a list of
-	 *            elements, a negative value else.
+	 *            The position of this element if it occurs in a list of elements, a
+	 *            negative value else.
 	 */
 	private StaleRefresherWebElement(final WebElement element, final By context, final WebDriver parentAsDriver,
 			final WebElement parentAsElement, final int index) {
@@ -260,8 +260,7 @@ public final class StaleRefresherWebElement implements WebElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
+	 * @see org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.
 	 * OutputType)
 	 */
 	@Override
@@ -398,8 +397,8 @@ public final class StaleRefresherWebElement implements WebElement {
 
 	/**
 	 * Exchanges a staled reference to the underlying web element by finding it
-	 * again with its context. If the element could not be find again it will
-	 * not exchange the reference.
+	 * again with its context. If the element could not be find again it will not
+	 * exchange the reference.
 	 */
 	private void exchangeStaledReference() {
 		final WebElement element;
